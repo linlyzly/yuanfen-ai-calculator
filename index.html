@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>2026 情侣正缘姻缘缘分测算 | 抖音超火</title>
-    <meta name="description" content="2026抖音最火情侣正缘姻缘缘分测算，AI智能解析八字五行、星座合盘、前世今生，生成专属缘分海报！">
+    <meta name="description" content="2026抖音最火情侣正缘姻缘缘分测算，AI智能解析八字五行、星座合盘、前世今生、塔罗牌预测，生成专属缘分海报！">
+    <meta name="keywords" content="姻缘测算,缘分测试,情侣配对,八字合婚,星座匹配,塔罗牌占卜,正缘测算,2026姻缘,前世今生,灵魂伴侣,感情运势,婚姻预测,恋爱配对,姓名配对,五行八卦,依恋人格测试,心理学测试,恋爱依恋类型,安全型依恋,焦虑型依恋,回避型依恋,情感解忧室,AI情感咨询,恋爱困惑,情侣吵架,异地恋,复合挽回">
+    <meta name="author" content="缘定今生">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://your-domain.com">
     <style>
         /* ========== 全局样式 ========== */
         * {
@@ -28,6 +32,157 @@
             --text-light: #FFFFFF;
             --success: #4CAF50;
             --error: #FF5252;
+            --warning: #FFA726;
+            --info: #42A5F5;
+        }
+
+        /* ========== Toast 通知系统 ========== */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            pointer-events: none;
+            max-width: 90vw;
+            width: 360px;
+        }
+
+        .toast {
+            background: linear-gradient(135deg, rgba(30, 20, 50, 0.95), rgba(50, 30, 80, 0.95));
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 
+                        0 0 0 1px rgba(255, 255, 255, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            pointer-events: auto;
+            transform: translateY(-20px) scale(0.9);
+            opacity: 0;
+            animation: toastIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toast::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .toast.toast-success::before { background: linear-gradient(180deg, #4CAF50, #81C784); }
+        .toast.toast-error::before { background: linear-gradient(180deg, #FF5252, #FF8A80); }
+        .toast.toast-warning::before { background: linear-gradient(180deg, #FFA726, #FFCC80); }
+        .toast.toast-info::before { background: linear-gradient(180deg, #42A5F5, #90CAF9); }
+
+        .toast.toast-out {
+            animation: toastOut 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
+        }
+
+        @keyframes toastIn {
+            0% {
+                transform: translateY(-30px) scale(0.8);
+                opacity: 0;
+            }
+            60% {
+                transform: translateY(5px) scale(1.02);
+            }
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes toastOut {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20px) scale(0.9);
+                opacity: 0;
+            }
+        }
+
+        .toast-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+            animation: iconPop 0.5s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        @keyframes iconPop {
+            0% { transform: scale(0); }
+            60% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .toast-success .toast-icon { background: rgba(76, 175, 80, 0.2); }
+        .toast-error .toast-icon { background: rgba(255, 82, 82, 0.2); }
+        .toast-warning .toast-icon { background: rgba(255, 167, 38, 0.2); }
+        .toast-info .toast-icon { background: rgba(66, 165, 245, 0.2); }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .toast-message {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.4;
+        }
+
+        .toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+            animation: toastProgress 3s linear forwards;
+        }
+
+        @keyframes toastProgress {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            padding: 4px;
+            font-size: 18px;
+            line-height: 1;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .toast-close:hover {
+            color: #fff;
+            transform: scale(1.2);
         }
 
         body {
@@ -872,6 +1027,196 @@
             font-family: 'KaiTi', 'STKaiti', serif;
         }
 
+        /* ========== 塔罗牌系统 ========== */
+        .tarot-section {
+            margin-top: 25px;
+        }
+
+        .tarot-instruction {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+
+        .tarot-deck {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 25px;
+            perspective: 1000px;
+        }
+
+        .tarot-card {
+            width: 70px;
+            height: 105px;
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        .tarot-card::before {
+            content: '✧';
+            font-size: 1.5em;
+            color: rgba(212, 175, 55, 0.5);
+        }
+
+        .tarot-card:hover {
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.3);
+            border-color: rgba(212, 175, 55, 0.8);
+        }
+
+        .tarot-card.selected {
+            transform: translateY(-25px) scale(1.1);
+            box-shadow: 0 20px 45px rgba(212, 175, 55, 0.5);
+            border-color: #FFD700;
+            animation: cardGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes cardGlow {
+            0%, 100% { box-shadow: 0 20px 45px rgba(212, 175, 55, 0.5); }
+            50% { box-shadow: 0 20px 50px rgba(212, 175, 55, 0.8), 0 0 30px rgba(212, 175, 55, 0.4); }
+        }
+
+        .tarot-spread {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+        }
+
+        .tarot-position {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tarot-position-label {
+            font-size: 0.8em;
+            color: var(--gold);
+            text-align: center;
+        }
+
+        .tarot-revealed {
+            width: 80px;
+            height: 120px;
+            background: linear-gradient(145deg, #2d2d44 0%, #1a1a2e 100%);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            padding: 8px;
+        }
+
+        .tarot-revealed:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 215, 0, 0.6);
+        }
+
+        .tarot-revealed.revealed {
+            background: linear-gradient(145deg, #16213e 0%, #1a1a2e 100%);
+            border-color: #FFD700;
+        }
+
+        .tarot-revealed .card-back {
+            font-size: 2em;
+            color: rgba(212, 175, 55, 0.6);
+        }
+
+        .tarot-revealed .card-name {
+            font-size: 0.75em;
+            color: #FFD700;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .tarot-revealed .card-meaning {
+            font-size: 0.65em;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            margin-top: 3px;
+            line-height: 1.3;
+        }
+
+        .tarot-interpretation {
+            background: linear-gradient(135deg, rgba(26, 10, 46, 0.95), rgba(45, 27, 77, 0.95));
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .tarot-interpretation h4 {
+            color: var(--gold);
+            margin-bottom: 12px;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tarot-interpretation p {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-size: 0.95em;
+        }
+
+        .tarot-advice {
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 10px;
+            border-left: 3px solid var(--gold);
+        }
+
+        .tarot-advice p {
+            color: var(--gold-light);
+        }
+
+        /* 塔罗牌抽选动画 */
+        @keyframes cardDraw {
+            0% { transform: translateY(0) rotate(0); opacity: 1; }
+            50% { transform: translateY(-100px) rotate(10deg); opacity: 0.8; }
+            100% { transform: translateY(-200px) rotate(20deg); opacity: 0; }
+        }
+
+        .tarot-card.drawing {
+            animation: cardDraw 0.6s ease-out forwards;
+        }
+
+        /* 塔罗牌翻转动画 */
+        @keyframes cardFlip {
+            0% { transform: rotateY(180deg); }
+            100% { transform: rotateY(0deg); }
+        }
+
+        .tarot-revealed.flipping {
+            animation: cardFlip 0.8s ease-out;
+        }
+
         /* ========== 页脚 ========== */
         .footer {
             text-align: center;
@@ -1264,9 +1609,475 @@
             font-size: 0.95em;
             color: rgba(255, 255, 255, 0.9);
         }
+        
+        /* ========== 功能入口卡片 ========== */
+        .feature-entry-grid {
+            display: grid;
+            gap: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .feature-entry-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            border-radius: 22px;
+            padding: 20px 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-entry-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            transition: left 0.5s;
+        }
+        
+        .feature-entry-card:hover::before {
+            left: 100%;
+        }
+        
+        .feature-entry-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 105, 180, 0.4);
+            box-shadow: 0 10px 35px rgba(255, 105, 180, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+        
+        .feature-entry-card:nth-child(1):hover {
+            border-color: rgba(255, 105, 180, 0.5);
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.15), rgba(155, 89, 182, 0.15));
+        }
+        
+        .feature-entry-card:nth-child(2):hover {
+            border-color: rgba(216, 180, 255, 0.5);
+            background: linear-gradient(135deg, rgba(216, 180, 255, 0.15), rgba(155, 89, 182, 0.15));
+        }
+        
+        .feature-entry-card:nth-child(3):hover {
+            border-color: rgba(255, 215, 0, 0.5);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 165, 0, 0.15));
+        }
+        
+        .feature-entry-icon {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .feature-entry-card:nth-child(2) .feature-entry-icon {
+            animation-delay: -1s;
+        }
+        
+        .feature-entry-card:nth-child(3) .feature-entry-icon {
+            animation-delay: -2s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        
+        .feature-entry-title {
+            font-size: 1.15em;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 6px;
+        }
+        
+        .feature-entry-desc {
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* ========== 依恋人格测试页面 ========== */
+        .test-progress {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 25px;
+        }
+        
+        .test-progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .test-progress-dot.active {
+            background: var(--pink-deep);
+            width: 24px;
+            border-radius: 4px;
+        }
+        
+        .test-progress-dot.completed {
+            background: var(--success);
+        }
+        
+        .question-number {
+            text-align: center;
+            font-size: 0.9em;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+        
+        .question-text {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .answer-option {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+        
+        .answer-option:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 105, 180, 0.4);
+            transform: translateX(5px);
+        }
+        
+        .answer-option.selected {
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.35), rgba(155, 89, 182, 0.35));
+            border-color: var(--pink-deep);
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+        }
+        
+        .answer-option .option-letter {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .answer-option.selected .option-letter {
+            background: var(--pink-deep);
+        }
+        
+        .answer-option .option-text {
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.9);
+            flex: 1;
+        }
+        
+        .attachment-type-badge {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .attachment-badge-secure { background: linear-gradient(135deg, #4CAF50, #81C784); color: white; }
+        .attachment-badge-anxious { background: linear-gradient(135deg, #FF9800, #FFB74D); color: white; }
+        .attachment-badge-avoidant { background: linear-gradient(135deg, #9C27B0, #BA68C8); color: white; }
+        .attachment-badge-fearful { background: linear-gradient(135deg, #f44336, #e57373); color: white; }
+        
+        .analysis-item {
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 18px 16px;
+            margin-bottom: 14px;
+            border-left: 4px solid var(--pink-deep);
+        }
+        
+        .analysis-item-title {
+            font-size: 1em;
+            color: var(--gold);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+        
+        .analysis-item-content {
+            font-size: 0.92em;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        /* ========== 情感解忧室聊天页面 ========== */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 140px);
+            max-height: 700px;
+        }
+        
+        .chat-header {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px 20px 0 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .chat-header-icon {
+            font-size: 2.5em;
+            margin-bottom: 8px;
+        }
+        
+        .chat-header-title {
+            font-size: 1.1em;
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .chat-header-desc {
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 4px;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            scroll-behavior: smooth;
+        }
+        
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+        
+        .chat-message {
+            max-width: 85%;
+            padding: 14px 18px;
+            border-radius: 20px;
+            font-size: 0.92em;
+            line-height: 1.6;
+            animation: messageIn 0.3s ease;
+        }
+        
+        @keyframes messageIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .chat-message.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, var(--pink-deep), var(--purple-deep));
+            color: white;
+            border-bottom-right-radius: 6px;
+        }
+        
+        .chat-message.ai {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.95);
+            border-bottom-left-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .chat-message.ai::before {
+            content: '💕';
+            margin-right: 8px;
+        }
+        
+        .chat-typing {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 16px 20px;
+            border-radius: 20px;
+            border-bottom-left-radius: 6px;
+        }
+        
+        .typing-dots {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: typingBounce 1.4s ease-in-out infinite;
+        }
+        
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-6px); }
+        }
+        
+        .chat-input-area {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0 0 20px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .chat-input-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 14px 18px;
+            font-size: 1em;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            outline: none;
+            resize: none;
+            max-height: 120px;
+            min-height: 48px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .chat-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .chat-input:focus {
+            border-color: var(--pink-deep);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .chat-send-btn {
+            width: 48px;
+            height: 48px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--pink-deep), var(--purple-deep));
+            color: white;
+            font-size: 1.3em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .chat-send-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 4px 20px rgba(255, 105, 180, 0.4);
+        }
+        
+        .chat-send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .quick-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .quick-topic {
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.75);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-topic:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 105, 180, 0.4);
+            color: white;
+        }
+        
+        /* ========== 页面转场动画 ========== */
+        .page-transition-enter {
+            animation: pageIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        @keyframes pageIn {
+            from { 
+                opacity: 0; 
+                transform: translateX(30px) scale(0.98);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0) scale(1);
+            }
+        }
+        
+        .page-transition-exit {
+            animation: pageOut 0.3s cubic-bezier(0.4, 0, 1, 1);
+        }
+        
+        @keyframes pageOut {
+            from { 
+                opacity: 1; 
+                transform: translateX(0) scale(1);
+            }
+            to { 
+                opacity: 0; 
+                transform: translateX(-30px) scale(0.98);
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Toast 通知容器 -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <!-- 全屏动态背景 -->
     <canvas id="bg-canvas"></canvas>
 
@@ -1307,12 +2118,28 @@
                 </div>
                 <div style="text-align: center; font-size: 4.5em; margin: 25px 0;" class="heartbeat">💘</div>
                 <p style="text-align: center; color: rgba(255,255,255,0.9); margin-bottom: 28px; font-size: 1.05em; line-height: 1.8;">
-                    你的正缘在哪里？<br>
-                    输入信息，AI 为你揭秘专属缘分！
+                    探索你的情感世界<br>
+                    选择你想要的测试类型
                 </p>
-                <button class="btn btn-primary" onclick="showPage('page-form')">
-                    🔮 开始测算正缘
-                </button>
+                
+                <!-- 三大功能入口 -->
+                <div class="feature-entry-grid">
+                    <div class="feature-entry-card" onclick="showPage('page-form')">
+                        <div class="feature-entry-icon">💕</div>
+                        <div class="feature-entry-title">姻缘缘分测算</div>
+                        <div class="feature-entry-desc">八字五行 · 星座合盘 · 前世今生</div>
+                    </div>
+                    <div class="feature-entry-card" onclick="showPage('page-attachment-test')">
+                        <div class="feature-entry-icon">🧠</div>
+                        <div class="feature-entry-title">依恋人格测试</div>
+                        <div class="feature-entry-desc">心理学量表 · 深度解析 · 自我认知</div>
+                    </div>
+                    <div class="feature-entry-card" onclick="showPage('page-chat')">
+                        <div class="feature-entry-icon">💬</div>
+                        <div class="feature-entry-title">情感解忧室</div>
+                        <div class="feature-entry-desc">AI陪伴 · 倾诉烦恼 · 温暖治愈</div>
+                    </div>
+                </div>
             </div>
 
             <div class="glass-card">
@@ -1436,11 +2263,11 @@
                     <div id="pickerMode">
                         <div class="form-group">
                             <label class="form-label">📅 你的生日</label>
-                            <input type="date" class="native-date-input" id="birthday1Picker" onchange="onBirthdayChange(1)">
+                            <input type="date" class="native-date-input" id="birthday1Picker" min="1920-01-01" max="2012-12-31" onchange="onBirthdayChange(1)">
                         </div>
                         <div class="form-group">
                             <label class="form-label">📅 对方生日</label>
-                            <input type="date" class="native-date-input" id="birthday2Picker" onchange="onBirthdayChange(2)">
+                            <input type="date" class="native-date-input" id="birthday2Picker" min="1920-01-01" max="2012-12-31" onchange="onBirthdayChange(2)">
                         </div>
                     </div>
 
@@ -1682,6 +2509,19 @@
                     </div>
                 </div>
 
+                <!-- 塔罗牌占卜 -->
+                <div class="glass-card" id="tarotSection">
+                    <div class="result-section-title" style="justify-content: center;">🃏 塔罗牌占卜</div>
+                    <div class="tarot-instruction">
+                        🔮 从下方牌组中选择3张牌，揭示你与TA的过去、现在与未来
+                    </div>
+                    <div class="tarot-deck" id="tarotDeck"></div>
+                    <div class="tarot-spread hidden" id="tarotSpread"></div>
+                    <button class="btn btn-secondary" onclick="initTarotDeck()" style="margin-top: 15px;">
+                        🔄 重新洗牌
+                    </button>
+                </div>
+
                 <div class="glass-card">
                     <div class="result-section-title" style="justify-content: center;">💌 专属缘分海报</div>
                     <div class="poster-preview">
@@ -1717,6 +2557,130 @@
                 <p>纯娱乐测算，仅供消遣</p>
             </div>
         </div>
+
+        <!-- ========== 依恋人格测试页面 ========== -->
+        <div class="page" id="page-attachment-test">
+            <div class="glass-card">
+                <!-- 测试入口 -->
+                <div id="attachment-intro">
+                    <div style="text-align: center;">
+                        <div style="font-size: 4em; margin-bottom: 15px;">🧠</div>
+                        <h2 style="font-size: 1.6em; color: var(--gold); margin-bottom: 12px;">恋爱依恋人格测试</h2>
+                        <p style="color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 20px;">
+                            你在亲密关系中是怎样的性格？<br>
+                            通过专业的心理学量表，深入了解你的依恋类型
+                        </p>
+                    </div>
+                    
+                    <div class="decorative-line"></div>
+                    
+                    <div class="feature-list" style="margin: 20px 0;">
+                        <div class="feature-item">
+                            <span class="feature-icon">📋</span>
+                            <span class="feature-text">15道专业心理学量表</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🔍</span>
+                            <span class="feature-text">深度解析依恋成因与表现</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">💡</span>
+                            <span class="feature-text">AI专属改善建议</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">❤️</span>
+                            <span class="feature-text">科学改善亲密关系</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="startAttachmentTest()" style="margin-top: 20px;">
+                        🧠 开始测试
+                    </button>
+                </div>
+                
+                <!-- 测试进行中 -->
+                <div id="attachment-testing" class="hidden">
+                    <div class="test-progress" id="testProgress"></div>
+                    <div class="question-number" id="questionNumber">第 1 题</div>
+                    <div class="question-text" id="questionText"></div>
+                    <div class="answer-options" id="answerOptions"></div>
+                    
+                    <div class="step-buttons" style="margin-top: 25px;">
+                        <button class="btn btn-secondary" id="prevQuestionBtn" onclick="prevQuestion()">← 上一题</button>
+                        <button class="btn btn-primary" id="nextQuestionBtn" onclick="nextQuestion()">下一题 →</button>
+                    </div>
+                </div>
+                
+                <!-- 测试结果 -->
+                <div id="attachment-result" class="hidden">
+                    <div style="text-align: center;">
+                        <div style="font-size: 4em; margin-bottom: 15px;" id="resultEmoji">🧠</div>
+                        <div id="resultTypeBadge"></div>
+                        <h3 style="font-size: 1.3em; color: white; margin: 15px 0;" id="resultTypeName">加载中...</h3>
+                        <p style="color: rgba(255,255,255,0.7); line-height: 1.7;" id="resultTypeDesc"></p>
+                    </div>
+                    
+                    <div class="decorative-line"></div>
+                    
+                    <div id="analysisContent"></div>
+                    
+                    <button class="btn btn-primary" onclick="restartAttachmentTest()" style="margin-top: 20px;">
+                        🔄 重新测试
+                    </button>
+                    <button class="btn btn-secondary" onclick="showPage('page-home')" style="margin-top: 10px;">
+                        🏠 返回首页
+                    </button>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <p>纯娱乐参考 · 请勿迷信</p>
+            </div>
+        </div>
+
+        <!-- ========== 情感解忧室聊天页面 ========== -->
+        <div class="page" id="page-chat">
+            <div class="glass-card">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="chat-header-icon">💕</div>
+                        <div class="chat-header-title">情感解忧室</div>
+                        <div class="chat-header-desc">专业情感咨询师 · 温柔陪伴倾听</div>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-message ai">
+                            你好呀，我是你的情感陪伴师 💕<br><br>
+                            无论你有任何情感困惑，都可以和我聊聊：<br>
+                            • 恋爱中的小矛盾<br>
+                            • 相处中的烦恼<br>
+                            • 吵架冷战不知所措<br>
+                            • 想复合不知道怎么办<br>
+                            • 异地恋的安全感缺失<br>
+                            • 暧昧期不知道如何推进<br><br>
+                            我会用心倾听，陪你一起找到答案 ❤️
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-area">
+                        <div class="quick-topics">
+                            <div class="quick-topic" onclick="sendQuickTopic('和男朋友吵架了怎么办')">💭 吵架问题</div>
+                            <div class="quick-topic" onclick="sendQuickTopic('异地恋感觉没有安全感')">🌍 异地恋</div>
+                            <div class="quick-topic" onclick="sendQuickTopic('想复合还有可能吗')">💔 复合问题</div>
+                            <div class="quick-topic" onclick="sendQuickTopic('不知道他是不是真的喜欢我')">❓ 暧昧困惑</div>
+                        </div>
+                        <div class="chat-input-wrapper">
+                            <textarea class="chat-input" id="chatInput" placeholder="输入你的情感困惑..." rows="1" onkeydown="handleChatKeydown(event)" oninput="autoResizeChatInput(this)"></textarea>
+                            <button class="chat-send-btn" id="chatSendBtn" onclick="sendChatMessage()">➤</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <p style="font-size: 0.75em;">AI辅助仅供参考 · 专业问题建议咨询心理咨询师</p>
+            </div>
+        </div>
     </div>
 
     <!-- 反馈按钮 -->
@@ -1727,6 +2691,60 @@
         const AD_MODE = false;
         const API_BASE = 'http://localhost:5000/api';
         
+        // ==================== Toast 通知系统 ====================
+        const toastIcons = {
+            success: '✓',
+            error: '✕',
+            warning: '⚠',
+            info: 'ℹ'
+        };
+
+        const toastTitles = {
+            success: '操作成功',
+            error: '出错了',
+            warning: '温馨提示',
+            info: '提示'
+        };
+
+        function showToast(message, type = 'info', title = null, duration = 3000) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <div class="toast-icon">${toastIcons[type]}</div>
+                <div class="toast-content">
+                    <div class="toast-title">${title || toastTitles[type]}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close" onclick="this.parentElement.remove()">×</button>
+                <div class="toast-progress" style="animation-duration: ${duration}ms;"></div>
+            `;
+            
+            container.appendChild(toast);
+            
+            // 自动移除
+            setTimeout(() => {
+                toast.classList.add('toast-out');
+                setTimeout(() => toast.remove(), 400);
+            }, duration);
+        }
+
+        function showSuccess(message, title = '操作成功') {
+            showToast(message, 'success', title);
+        }
+
+        function showError(message, title = '出错了') {
+            showToast(message, 'error', title, 4000);
+        }
+
+        function showWarning(message, title = '温馨提示') {
+            showToast(message, 'warning', title, 3500);
+        }
+
+        function showInfo(message, title = '提示') {
+            showToast(message, 'info', title);
+        }
+
         // ==================== 星座数据 ====================
         const ZODIACS = [
             { name: '白羊座', icon: '♈', start: [3, 21], end: [4, 19] },
@@ -1749,6 +2767,222 @@
             '射手座': '♐', '摩羯座': '♑', '水瓶座': '♒', '双鱼座': '♓'
         };
 
+        // ==================== 塔罗牌数据 (78张) ====================
+        const MAJOR_ARCANA = [
+            { name: '愚人', icon: '0', meaning: '新的开始、自由、纯真', advice: '勇敢迈出第一步，相信直觉' },
+            { name: '魔术师', icon: 'I', meaning: '创造力、技能、沟通', advice: '发挥你的才能，善用资源' },
+            { name: '女祭司', icon: 'II', meaning: '直觉、神秘、内在智慧', advice: '倾听内心的声音' },
+            { name: '女皇', icon: 'III', meaning: '丰盛、孕育、情感', advice: '珍惜身边的美好' },
+            { name: '皇帝', icon: 'IV', meaning: '权威、领导、规则', advice: '建立稳定的秩序' },
+            { name: '教皇', icon: 'V', meaning: '信仰、传统、精神', advice: '寻求智慧指引' },
+            { name: '恋人', icon: 'VI', meaning: '爱情、选择、和谐', advice: '跟随心的选择' },
+            { name: '战车', icon: 'VII', meaning: '意志、胜利、决心', advice: '坚定向前' },
+            { name: '力量', icon: 'VIII', meaning: '勇气、耐心、内在力量', advice: '用温柔展现力量' },
+            { name: '隐士', icon: 'IX', meaning: '内省、孤独、指引', advice: '在独处中找到答案' },
+            { name: '命运之轮', icon: 'X', meaning: '命运、转变、循环', advice: '接受生命的变化' },
+            { name: '正义', icon: 'XI', meaning: '公正、真相、法律', advice: '诚实面对一切' },
+            { name: '倒吊人', icon: 'XII', meaning: '等待、牺牲、换位思考', advice: '换个角度看世界' },
+            { name: '死神', icon: 'XIII', meaning: '结束、转变、释放', advice: '放下过去，迎接新生' },
+            { name: '节制', icon: 'XIV', meaning: '平衡、调节、中庸', advice: '找到内心的平衡' },
+            { name: '恶魔', icon: 'XV', meaning: '束缚、欲望、物质', advice: '摆脱无形的枷锁' },
+            { name: '塔', icon: 'XVI', meaning: '突变、觉醒、解放', advice: '破茧成蝶的阵痛' },
+            { name: '星星', icon: 'XVII', meaning: '希望、灵感、宁静', advice: '黑暗中总有光明' },
+            { name: '月亮', icon: 'XVIII', meaning: '幻觉、恐惧、潜意识', advice: '穿越迷雾看清真相' },
+            { name: '太阳', icon: 'XIX', meaning: '快乐、成功、活力', advice: '拥抱生命的温暖' },
+            { name: '审判', icon: 'XX', meaning: '重生、复兴、觉醒', advice: '给自己一个重新开始的机会' },
+            { name: '世界', icon: 'XXI', meaning: '完成、成就、圆满', advice: '旅程即将圆满结束' }
+        ];
+
+        const MINOR_ARCANA = {
+            wands: [
+                { name: '权杖Ace', meaning: '新的热情、创意火花', advice: '点燃你的激情' },
+                { name: '权杖二', meaning: '决定、计划、领导力', advice: '规划你的方向' },
+                { name: '权杖三', meaning: '扩张、远见、胸怀', advice: '展望更广阔的世界' },
+                { name: '权杖四', meaning: '和谐、庆祝、繁荣', advice: '享受当下的美好' },
+                { name: '权杖五', meaning: '竞争、冲突、多样性', advice: '在差异中成长' },
+                { name: '权杖六', meaning: '胜利、荣誉、认可', advice: '庆祝你的成就' },
+                { name: '权杖七', meaning: '挑战、坚守、勇气', advice: '捍卫你的立场' },
+                { name: '权杖八', meaning: '行动、速度、扩张', advice: '快速推进计划' },
+                { name: '权杖九', meaning: '防御、困难、坚持', advice: '坚持就是胜利' },
+                { name: '权杖十', meaning: '负担、压力、责任', advice: '学会适当放手' }
+            ],
+            cups: [
+                { name: '圣杯Ace', meaning: '新感情、爱、机会', advice: '敞开心扉迎接爱' },
+                { name: '圣杯二', meaning: '关系、吸引、选择', advice: '珍惜眼前的缘分' },
+                { name: '圣杯三', meaning: '庆祝、友谊、欢乐', advice: '与朋友共度时光' },
+                { name: '圣杯四', meaning: '不满足、幻想、选择', advice: '看清真正的渴望' },
+                { name: '圣杯五', meaning: '失落、悲伤、接受', advice: '失去中有收获' },
+                { name: '圣杯六', meaning: '回忆、纯真、 nostalgia', advice: '珍藏美好回忆' },
+                { name: '圣杯七', meaning: '幻想、选择、迷茫', advice: '分清现实与幻想' },
+                { name: '圣杯八', meaning: '离开、追寻、放弃', advice: '勇敢追寻真正想要的' },
+                { name: '圣杯九', meaning: '满足、欲望、愿塑', advice: '感恩所拥有的' },
+                { name: '圣杯十', meaning: '圆满、家庭、和谐', advice: '家庭是温暖的港湾' }
+            ],
+            swords: [
+                { name: '宝剑Ace', meaning: '新思想、清晰、真相', advice: '用智慧斩断困惑' },
+                { name: '宝剑二', meaning: '僵局、决定、平衡', advice: '冷静做出选择' },
+                { name: '宝剑三', meaning: '伤心、痛苦、背叛', advice: '伤痛终会愈合' },
+                { name: '宝剑四', meaning: '休息、恢复、沉思', advice: '给自己喘息空间' },
+                { name: '宝剑五', meaning: '失败、冲突、失去', advice: '失败是成功之母' },
+                { name: '宝剑六', meaning: '离开、过渡、疗愈', advice: '带着伤痕前行' },
+                { name: '宝剑七', meaning: '策略、智谋、生存', advice: '用智慧解决问题' },
+                { name: '宝剑八', meaning: '限制、困境、囚禁', advice: '挣脱束缚找出口' },
+                { name: '宝剑九', meaning: '恐惧、焦虑、噩梦', advice: '恐惧只是幻象' },
+                { name: '宝剑十', meaning: '结束、痛苦、失败', advice: '最坏的已经过去' }
+            ],
+            pentacles: [
+                { name: '星币Ace', meaning: '新财运、物质、开始', advice: '财富即将到来' },
+                { name: '星币二', meaning: '平衡、适应、管理', advice: '学会分配资源' },
+                { name: '星币三', meaning: '技能、工作、团队', advice: '团队协作创佳绩' },
+                { name: '星币四', meaning: '保守、占有、安全', advice: '学会分享与给予' },
+                { name: '星币五', meaning: '困难、分离、援助', advice: '困境中仍有希望' },
+                { name: '星币六', meaning: '给予、慷慨、富足', advice: '施比受更有福' },
+                { name: '星币七', meaning: '等待、耐心、投资', advice: '耐心等待回报' },
+                { name: '星币八', meaning: '技能、奉献、精进', advice: '专注提升自我' },
+                { name: '星币九', meaning: '独立、繁荣、成就', advice: '你的努力得到回报' },
+                { name: '星币十', meaning: '财富、繁荣、传承', advice: '家族繁荣昌盛' }
+            ]
+        };
+
+        const COURT_CARDS = [
+            { name: '权杖侍从', meaning: '充满活力的消息、热情', advice: '保持好奇与热情' },
+            { name: '权杖骑士', meaning: '行动、热情、冲动', advice: '勇往直前' },
+            { name: '权杖皇后', meaning: '温暖、慈爱、独立', advice: '发挥母性的力量' },
+            { name: '权杖国王', meaning: '领导力、权威、决断', advice: '成为领路人' },
+            { name: '圣杯侍从', meaning: '创意消息、直觉、好奇', advice: '追随内心的声音' },
+            { name: '圣杯骑士', meaning: '浪漫、想象、追求', advice: '勇敢追求爱情' },
+            { name: '圣杯皇后', meaning: '直觉、温柔、情感', advice: '用爱感化世界' },
+            { name: '圣杯国王', meaning: '成熟、平衡、仁慈', advice: '成为情感支柱' },
+            { name: '宝剑侍从', meaning: '好奇心、新想法、辩论', advice: '保持思维活跃' },
+            { name: '宝剑骑士', meaning: '热情、冲动、挑战', advice: '直面挑战' },
+            { name: '宝剑皇后', meaning: '智慧、独立、真理', advice: '追求真相与公正' },
+            { name: '宝剑国王', meaning: '思想清晰、权威、理性', advice: '用智慧领导' },
+            { name: '星币侍从', meaning: '学习、实践、消息', advice: '踏实学习' },
+            { name: '星币骑士', meaning: '务实、勤奋、成功', advice: '一分耕耘一分收获' },
+            { name: '星币皇后', meaning: '实用、慈爱、繁荣', advice: '创造舒适环境' },
+            { name: '星币国王', meaning: '富裕、稳定、耐心', advice: '稳健致富' }
+        ];
+
+        const ALL_TAROT_CARDS = [
+            ...MAJOR_ARCANA,
+            ...MINOR_ARCANA.wands,
+            ...MINOR_ARCANA.cups,
+            ...MINOR_ARCANA.swords,
+            ...MINOR_ARCANA.pentacles,
+            ...COURT_CARDS
+        ];
+
+        let tarotState = {
+            deck: [],
+            selectedCards: [],
+            revealedPositions: []
+        };
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function initTarotDeck() {
+            tarotState.deck = shuffleArray(ALL_TAROT_CARDS);
+            tarotState.selectedCards = [];
+            tarotState.revealedPositions = [];
+            renderTarotDeck();
+        }
+
+        function renderTarotDeck() {
+            const deckContainer = document.getElementById('tarotDeck');
+            if (!deckContainer) return;
+            deckContainer.innerHTML = tarotState.deck.slice(0, 10).map((card, i) => `
+                <div class="tarot-card" data-index="${i}" onclick="selectTarotCard(this, ${i})" 
+                     style="transform: rotate(${(i - 5) * 3}deg) translateY(${Math.abs(i - 5) * 3}px); z-index: ${10 - Math.abs(i - 5)}">
+                </div>
+            `).join('');
+        }
+
+        function selectTarotCard(element, index) {
+            if (tarotState.selectedCards.length >= 3) {
+                showWarning('已选择3张牌，请点击下方位置进行占卜', '牌组已满');
+                return;
+            }
+            element.classList.add('selected');
+            tarotState.selectedCards.push(tarotState.deck[index]);
+            if (tarotState.selectedCards.length === 3) {
+                showSuccess('牌已选好，点击下方三个位置开启解读', '✨');
+                showTarotSpread();
+            }
+        }
+
+        function showTarotSpread() {
+            const spreadContainer = document.getElementById('tarotSpread');
+            if (!spreadContainer) return;
+            spreadContainer.classList.remove('hidden');
+            const positions = ['过去', '现在', '未来'];
+            spreadContainer.innerHTML = `
+                <div class="tarot-spread">
+                    ${positions.map((pos, i) => `
+                        <div class="tarot-position">
+                            <div class="tarot-position-label">${pos}</div>
+                            <div class="tarot-revealed" id="tarotPos${i}" onclick="revealTarotCard(${i})">
+                                <div class="card-back">🌟</div>
+                                <div class="card-name">点击翻开</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="tarot-interpretation hidden" id="tarotInterpretation">
+                    <h4>🔮 塔罗解读</h4>
+                    <div id="tarotResultText"></div>
+                </div>
+            `;
+        }
+
+        function revealTarotCard(position) {
+            if (tarotState.revealedPositions.includes(position)) return;
+            const card = tarotState.selectedCards[position];
+            if (!card) return;
+            const cardElement = document.getElementById(`tarotPos${position}`);
+            cardElement.classList.add('revealed', 'flipping');
+            setTimeout(() => {
+                cardElement.innerHTML = `
+                    <div class="card-name" style="font-size: 1em;">${card.name}</div>
+                    <div class="card-meaning">${card.meaning}</div>
+                `;
+                cardElement.classList.remove('flipping');
+            }, 400);
+            tarotState.revealedPositions.push(position);
+            if (tarotState.revealedPositions.length === 3) {
+                setTimeout(() => showTarotInterpretation(), 800);
+            }
+        }
+
+        function showTarotInterpretation() {
+            const interpContainer = document.getElementById('tarotInterpretation');
+            const resultText = document.getElementById('tarotResultText');
+            const [past, present, future] = tarotState.selectedCards;
+            const userName = formData.name1 || '你';
+            const partnerName = formData.name2 || 'TA';
+            resultText.innerHTML = `
+                <p><strong>📖 整体解读：</strong></p>
+                <p>${userName}与${partnerName}的感情历程中，${past.name}象征着你们的<strong>${past.meaning}</strong>。</p>
+                <p>而现在，${present.name}正影响着你们的关系，代表<strong>${present.meaning}</strong>。</p>
+                <p>展望未来，${future.name}预示着<strong>${future.meaning}</strong>。</p>
+                <div class="tarot-advice">
+                    <p><strong>💡 塔罗指引：</strong></p>
+                    <p>${past.advice} | ${present.advice} | ${future.advice}</p>
+                </div>
+                <p style="margin-top: 15px; color: rgba(255,255,255,0.6); font-size: 0.9em;">
+                    💫 记住，塔罗牌指引的是可能性，真正的未来掌握在你们自己手中。
+                </p>
+            `;
+            interpContainer.classList.remove('hidden');
+            interpContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
         // ==================== 全局状态 ====================
         let formData = {
             name1: '', name2: '',
@@ -1761,6 +2995,197 @@
         let resultData = {};
         let currentDateMode = 'picker';
         let currentStep = 1;
+        
+        // ==================== 依恋人格测试数据 ====================
+        const ATTACHMENT_QUESTIONS = [
+            {
+                question: "当我和伴侣发生矛盾时，我通常会：",
+                options: [
+                    { text: "主动沟通，积极寻求解决方案", score: { secure: 3, anxious: 1, avoidant: 0, fearful: 0 } },
+                    { text: "情绪激动，忍不住反复追问原因", score: { secure: 0, anxious: 3, avoidant: 0, fearful: 1 } },
+                    { text: "选择冷战，等对方先来道歉", score: { secure: 0, anxious: 0, avoidant: 3, fearful: 1 } },
+                    { text: "内心很乱，不知道该怎么做", score: { secure: 0, anxious: 1, avoidant: 1, fearful: 3 } }
+                ]
+            },
+            {
+                question: "在恋爱关系中，我最担心的事情是：",
+                options: [
+                    { text: "害怕失去自由，被束缚", score: { secure: 0, anxious: 0, avoidant: 3, fearful: 1 } },
+                    { text: "担心对方不够爱自己", score: { secure: 0, anxious: 3, avoidant: 0, fearful: 1 } },
+                    { text: "既怕被抛弃，又怕太亲密", score: { secure: 0, anxious: 1, avoidant: 1, fearful: 3 } },
+                    { text: "相信我们的感情会长久稳定", score: { secure: 3, anxious: 0, avoidant: 0, fearful: 0 } }
+                ]
+            },
+            {
+                question: "当伴侣没有及时回复消息时，我的反应是：",
+                options: [
+                    { text: "理解对方可能在忙，不会多想", score: { secure: 3, anxious: 0, avoidant: 0, fearful: 0 } },
+                    { text: "忍不住一直刷新，想确认对方是不是不想理我", score: { secure: 0, anxious: 3, avoidant: 0, fearful: 1 } },
+                    { text: "无所谓，正好做自己的事", score: { secure: 1, anxious: 0, avoidant: 3, fearful: 0 } },
+                    { text: "心里很慌，但表面装作不在意", score: { secure: 0, anxious: 1, avoidant: 1, fearful: 3 } }
+                ]
+            },
+            {
+                question: "我认为理想的亲密关系应该是：",
+                options: [
+                    { text: "相互独立又彼此依赖，舒适自在", score: { secure: 3, anxious: 0, avoidant: 0, fearful: 0 } },
+                    { text: "恨不得24小时黏在一起", score: { secure: 0, anxious: 3, avoidant: 0, fearful: 0 } },
+                    { text: "保持适当距离，有各自空间", score: { secure: 1, anxious: 0, avoidant: 3, fearful: 0 } },
+                    { text: "时而亲密时而疏远，看心情", score: { secure: 0, anxious: 1, avoidant: 1, fearful: 3 } }
+                ]
+            },
+            {
+                question: "在表达爱意方面，我通常是：",
+                options: [
+                    { text: "自然大方，愿意让对方感受到我的爱", score: { secure: 3, anxious: 0, avoidant: 0, fearful: 0 } },
+                    { text: "想表达但又怕被拒绝，犹豫不决", score: { secure: 0, anxious: 1, avoidant: 1, fearful: 2 } },
+                    { text: "不善表达，觉得说出来太肉麻", score: { secure: 0, anxious: 0, avoidant: 3, fearful: 1 } },
+                    { text: "情绪化表达，时而热烈时而冷淡", score: { secure: 0, anxious: 2, avoidant: 0, fearful: 2 } }
+                ]
+            },
+            {
+                question: "面对伴侣的缺点，我的态度是：",
+                options: [
+                    { text: "包容理解，共同成长", score: { secure: 3, anxious: 0, avoidant: 0, fearful: 0 } },
+                    { text: "希望对方为自己改变", score: { secure: 0, anxious: 2, avoidant: 1, fearful: 1 } },
+                    { text: "觉得不合适会选择分开", score: { secure: 0, anxious: 0, avoidant: 3, fearful: 1 } },
+                    { text: "内心矛盾，不知道该接受还是放弃", score: { secure: 0, anxious: 1, avoidant: 1, fearful: 3 } }
+                ]
+            },
+            {
+                question: "当感情出现问题时，我会：",
+                options: [
+                    { text: "冷静分析，和伴侣一起解决", score: { secure: 3, anxious: 0, avoidant: 0, fearful: 0 } },
+                    { text: "情绪崩溃，觉得天都要塌了", score: { secure: 0, anxious: 3, avoidant: 0, fearful: 1 } },
+                    { text: "逃避问题，不愿面对", score: { secure: 0, anxious: 0, avoidant: 3, fearful: 1 } },
+                    { text: "忽冷忽热，反应反复无常", score: { secure: 0, anxious: 1, avoidant: 1, fearful: 3 } }
+                ]
+            },
+            {
+                question: "我对承诺的态度是：",
+                options: [
+                    { text: "愿意做出承诺，也相信对方会遵守", score: { secure: 3, anxious: 0, avoidant: 0, fearful: 0 } },
+                    { text: "渴望承诺，但又不相信它会实现", score: { secure: 0, anxious: 2, avoidant: 1, fearful: 2 } },
+                    { text: "害怕承诺，会让我感到压力", score: { secure: 0, anxious: 0, avoidant: 3, fearful: 1 } },
+                    { text: "想要承诺但又害怕被伤害", score: { secure: 0, anxious: 1, avoidant: 1, fearful: 3 } }
+                ]
+            },
+            {
+                question: "在吵架后，我会：",
+                options: [
+                    { text: "冷静后主动沟通和解", score: { secure: 3, anxious: 0, avoidant: 0, fearful: 0 } },
+                    { text: "等对方来哄，否则一直生闷气", score: { secure: 0, anxious: 2, avoidant: 1, fearful: 1 } },
+                    { text: "假装什么都没发生", score: { secure: 0, anxious: 0, avoidant: 3, fearful: 1 } },
+                    { text: "内心很矛盾，想和好又拉不下脸", score: { secure: 0, anxious: 1, avoidant: 1, fearful: 3 } }
+                ]
+            },
+            {
+                question: "关于前任，我现在的态度是：",
+                options: [
+                    { text: "已经放下，专注于现在和未来", score: { secure: 3, anxious: 0, avoidant: 0, fearful: 0 } },
+                    { text: "还是会想起，偶尔幻想复合", score: { secure: 0, anxious: 2, avoidant: 0, fearful: 2 } },
+                    { text: "不想再提起，刻意回避", score: { secure: 0, anxious: 0, avoidant: 3, fearful: 0 } },
+                    { text: "说不清，感觉很复杂", score: { secure: 0, anxious: 1, avoidant: 1, fearful: 3 } }
+                ]
+            },
+            {
+                question: "当伴侣需要独处时，我的反应是：",
+                options: [
+                    { text: "尊重对方，给彼此空间", score: { secure: 3, anxious: 0, avoidant: 0, fearful: 0 } },
+                    { text: "担心是不是自己做错了什么", score: { secure: 0, anxious: 3, avoidant: 0, fearful: 1 } },
+                    { text: "正好也可以做自己的事", score: { secure: 1, anxious: 0, avoidant: 3, fearful: 0 } },
+                    { text: "表面说好，内心很不安", score: { secure: 0, anxious: 1, avoidant: 1, fearful: 3 } }
+                ]
+            },
+            {
+                question: "我觉得自己在感情中是一个怎样的人：",
+                options: [
+                    { text: "懂得付出，也懂得索取，关系平衡", score: { secure: 3, anxious: 0, avoidant: 0, fearful: 0 } },
+                    { text: "付出型人格，总是为对方考虑很多", score: { secure: 0, anxious: 2, avoidant: 0, fearful: 2 } },
+                    { text: "很难完全信任对方，保持警惕", score: { secure: 0, anxious: 0, avoidant: 3, fearful: 1 } },
+                    { text: "时而付出时而冷漠，很矛盾", score: { secure: 0, anxious: 1, avoidant: 1, fearful: 3 } }
+                ]
+            },
+            {
+                question: "面对父母的反对，我的态度是：",
+                options: [
+                    { text: "理性沟通，证明我们的感情", score: { secure: 3, anxious: 0, avoidant: 0, fearful: 0 } },
+                    { text: "很焦虑，不知道该怎么办", score: { secure: 0, anxious: 3, avoidant: 0, fearful: 1 } },
+                    { text: "会考虑父母的意见，犹豫不决", score: { secure: 0, anxious: 1, avoidant: 2, fearful: 2 } },
+                    { text: "内心很撕裂，想要又不敢要", score: { secure: 0, anxious: 1, avoidant: 1, fearful: 3 } }
+                ]
+            },
+            {
+                question: "我认为建立信任需要：",
+                options: [
+                    { text: "时间和经历，自然而然建立", score: { secure: 3, anxious: 0, avoidant: 0, fearful: 0 } },
+                    { text: "对方不断证明自己", score: { secure: 0, anxious: 2, avoidant: 1, fearful: 1 } },
+                    { text: "很难建立，总会保持怀疑", score: { secure: 0, anxious: 0, avoidant: 3, fearful: 1 } },
+                    { text: "既想信任又怕受伤，很矛盾", score: { secure: 0, anxious: 1, avoidant: 1, fearful: 3 } }
+                ]
+            },
+            {
+                question: "对于未来的感情生活，我的感觉是：",
+                options: [
+                    { text: "充满期待，相信会幸福", score: { secure: 3, anxious: 0, avoidant: 0, fearful: 0 } },
+                    { text: "既期待又害怕，患得患失", score: { secure: 0, anxious: 2, avoidant: 0, fearful: 2 } },
+                    { text: "觉得一个人也挺好，对感情没信心", score: { secure: 0, anxious: 0, avoidant: 3, fearful: 0 } },
+                    { text: "不知道会怎样，感觉很迷茫", score: { secure: 0, anxious: 1, avoidant: 1, fearful: 3 } }
+                ]
+            }
+        ];
+        
+        const ATTACHMENT_TYPES = {
+            secure: {
+                name: "安全型依恋",
+                emoji: "🌟",
+                badge: "attachment-badge-secure",
+                description: "你在亲密关系中表现得成熟而稳定。你既能享受亲密，又能保持独立。你敢于表达爱意，也尊重对方的需求。你对感情有信心，相信通过沟通和努力可以解决大多数问题。"
+            },
+            anxious: {
+                name: "焦虑型依恋",
+                emoji: "💗",
+                badge: "attachment-badge-anxious",
+                description: "你极度渴望被爱和被认可。在感情中你常常患得患失，容易过度依赖伴侣。你对伴侣的一举一动都很敏感，害怕被冷落或抛弃。情绪波动较大，容易内耗。"
+            },
+            avoidant: {
+                name: "回避型依恋",
+                emoji: "🌙",
+                badge: "attachment-badge-avoidant",
+                description: "你习惯与他人保持距离，不善于表达情感。你害怕亲密关系带来的束缚，宁愿独自面对问题也不愿向伴侣倾诉。你习惯压抑情绪，给人冷漠疏离的感觉。"
+            },
+            fearful: {
+                name: "恐惧混乱型依恋",
+                emoji: "🌪️",
+                badge: "attachment-badge-fearful",
+                description: "你的内心充满了矛盾和拉扯。你既渴望被爱，又害怕被伤害；既想靠近，又忍不住想逃。你的情绪起伏大，行为反复无常，在亲密关系中常常感到困惑和疲惫。"
+            }
+        };
+        
+        let attachmentTestState = {
+            currentQuestion: 0,
+            answers: [],
+            scores: { secure: 0, anxious: 0, avoidant: 0, fearful: 0 }
+        };
+        
+        // ==================== 情感解忧室数据 ====================
+        let chatHistory = [];
+        const CHAT_SYSTEM_PROMPT = `你是一位温柔专业、充满同理心的情感咨询师和恋爱军师。你的职责是：
+1. 认真倾听用户的情感困惑，不敷衍、不套模板
+2. 用温暖治愈的语气回应，让用户感受到被理解
+3. 深度分析用户的情感模式和相处问题
+4. 给出落地可行的相处建议和解决方案
+5. 疏导用户的情绪内耗，帮助理清思路
+6. 不评判、不指责，始终保持包容和理解
+
+你的风格：
+- 温柔但有力量，像知心姐姐/哥哥一样
+- 语言温暖细腻，有画面感
+- 分析深入但不学术，接地气
+- 建议具体可操作
+- 偶尔用小故事或比喻帮助理解
+
+请用自然的对话方式回复，每次回复不要太长，200字左右为宜。`;
 
         // ==================== 星座计算 ====================
         function getZodiacFromDate(month, day) {
@@ -1898,8 +3323,18 @@
 
         // ==================== 页面导航 ====================
         function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active');
+                p.classList.remove('page-transition-enter');
+            });
+            const targetPage = document.getElementById(pageId);
+            targetPage.classList.add('active');
+            targetPage.classList.add('page-transition-enter');
+            
+            // 如果进入聊天页面，滚动到底部
+            if (pageId === 'page-chat') {
+                setTimeout(() => scrollChatToBottom(), 100);
+            }
         }
 
         // ==================== 表单步骤 ====================
@@ -1954,11 +3389,11 @@
                     return;
                 }
                 if (!formData.gender1) {
-                    alert('请选择你的性别');
+                    showWarning('请选择你的性别', '性别未选择');
                     return;
                 }
                 if (!formData.gender2) {
-                    alert('请选择对方性别');
+                    showWarning('请选择对方性别', '性别未选择');
                     return;
                 }
 
@@ -1966,11 +3401,11 @@
                 formData.name2 = name2;
             } else if (current === 2) {
                 if (!formData.birthday1) {
-                    alert('请填写你的生日');
+                    showWarning('请填写你的生日', '信息不完整');
                     return;
                 }
                 if (!formData.birthday2) {
-                    alert('请填写对方生日');
+                    showWarning('请填写对方生日', '信息不完整');
                     return;
                 }
                 
@@ -1979,9 +3414,7 @@
                 const b2 = new Date(formData.birthday2);
                 const ageDiff = Math.abs(new Date().getFullYear() - b1.getFullYear() - new Date().getFullYear() + b2.getFullYear());
                 if (ageDiff > 30) {
-                    if (!confirm('年龄差较大，是否继续测算？')) {
-                        return;
-                    }
+                    showInfo('年龄差较大，但这并不影响真爱的可能 ❤️', '缘分无界限');
                 }
             }
             
@@ -2037,7 +3470,8 @@
                 const monthSelect = document.getElementById(`birthMonth${num}`);
                 const daySelect = document.getElementById(`birthDay${num}`);
 
-                for (let y = currentYear - 60; y <= currentYear - 18; y++) {
+                // 扩大年份范围：从14岁到100岁都可以选择
+                for (let y = currentYear - 100; y <= currentYear - 14; y++) {
                     yearSelect.innerHTML += `<option value="${y}">${y}年</option>`;
                 }
 
@@ -2070,7 +3504,7 @@
                 // 验证日期是否有效
                 const daysInMonth = new Date(year, month, 0).getDate();
                 if (day > daysInMonth) {
-                    alert('日期不合法，请重新选择');
+                    showError('日期不合法，请重新选择', '日期错误');
                     return;
                 }
                 
@@ -2177,17 +3611,17 @@
         async function submitForm() {
             // 最终验证
             if (!formData.zodiac1) {
-                alert('请确保生日信息正确，系统将自动计算星座');
+                showWarning('请确保生日信息正确，系统将自动计算星座', '信息不完整');
                 switchForm(2);
                 return;
             }
             if (!formData.zodiac2) {
-                alert('请确保生日信息正确，系统将自动计算星座');
+                showWarning('请确保生日信息正确，系统将自动计算星座', '信息不完整');
                 switchForm(2);
                 return;
             }
             if (!formData.knowDuration) {
-                alert('请选择认识多久了');
+                showWarning('请选择认识多久了', '信息不完整');
                 return;
             }
 
@@ -2235,7 +3669,15 @@
             document.getElementById('resultInfo2').textContent = 
                 `${ZODIAC_EMOJI[formData.zodiac2]} ${formData.zodiac2} · ${date2.getMonth() + 1}月${date2.getDate()}日`;
 
-            const stars = resultData.compatibility ? Math.min(5, Math.max(1, Math.floor(resultData.compatibility / 20))) : 4;
+            // 根据新的分数范围(30-99)重新计算星星数
+            const compatValue = resultData.compatibility || 50;
+            let stars;
+            if (compatValue >= 90) stars = 5;
+            else if (compatValue >= 80) stars = 4;
+            else if (compatValue >= 65) stars = 3;
+            else if (compatValue >= 50) stars = 2;
+            else stars = 1;
+            
             const starsContainer = document.getElementById('matchStars');
             starsContainer.innerHTML = '';
             for (let i = 0; i < 5; i++) {
@@ -2246,8 +3688,15 @@
                 starsContainer.appendChild(star);
             }
 
-            const levels = ['普通缘分', '有点缘分', '缘分不错', '灵魂伴侣', '天生绝配'];
-            document.getElementById('matchLevel').textContent = levels[Math.min(stars - 1, 4)];
+            // 等级划分更细致：30-49普通缘分，50-59有点缘分，60-74缘分不错，75-89灵魂伴侣，90-99天生绝配
+            const levels = ['还需努力', '普通缘分', '有点缘分', '缘分不错', '灵魂伴侣', '天生绝配'];
+            let levelIndex;
+            if (compatValue >= 90) levelIndex = 5;
+            else if (compatValue >= 75) levelIndex = 4;
+            else if (compatValue >= 60) levelIndex = 3;
+            else if (compatValue >= 50) levelIndex = 2;
+            else levelIndex = 1;
+            document.getElementById('matchLevel').textContent = levels[levelIndex];
 
             const compat = resultData.compatibility || 95;
             const personality = resultData.personality || 90;
@@ -2277,18 +3726,29 @@
             // 基于星座计算更严谨的契合度
             const zodiacCompatibility = calculateZodiacCompatibility(formData.zodiac1, formData.zodiac2);
             const nameScore = calculateNameScore(formData.name1, formData.name2);
-            const durationBonus = calculateDurationBonus(formData.knowDuration);
+            const ageScore = calculateAgeScore(formData.birthday1, formData.birthday2);
+            const durationScore = calculateDurationScore(formData.knowDuration);
             
-            const baseCompat = 70;
-            const finalCompat = Math.min(98, Math.max(60, Math.round(baseCompat + zodiacCompatibility * 0.5 + nameScore * 0.3 + durationBonus)));
+            // 加权综合评分（更真实的算法）
+            // 星座权重40%，姓名权重20%，年龄匹配20%，认识时长20%
+            const rawScore = (
+                zodiacCompatibility * 0.40 +
+                nameScore * 0.20 +
+                ageScore * 0.20 +
+                durationScore * 0.20
+            );
+            
+            // 添加小幅随机波动（±5分），避免结果过于规律
+            const randomFactor = (Math.random() * 10) - 5;
+            const finalCompat = Math.round(Math.max(30, Math.min(99, rawScore + randomFactor)));
             
             resultData = {
                 compatibility: finalCompat,
-                personality: Math.min(98, Math.round(finalCompat - 3 + Math.random() * 8)),
-                communication: Math.min(98, Math.round(finalCompat - 5 + Math.random() * 10)),
+                personality: Math.max(25, Math.min(98, Math.round(finalCompat - 5 + Math.random() * 12))),
+                communication: Math.max(25, Math.min(98, Math.round(finalCompat - 8 + Math.random() * 15))),
                 nameAnalysis: generateNameAnalysis(formData.name1, formData.name2, nameScore),
                 zodiacAnalysis: generateZodiacAnalysis(formData.zodiac1, formData.zodiac2, zodiacCompatibility),
-                baziAnalysis: generateBaziAnalysis(formData.name1, formData.name2, formData.birthday1, formData.birthday2),
+                baziAnalysis: generateBaziAnalysis(formData.name1, formData.name2, formData.birthday1, formData.birthday2, zodiacCompatibility),
                 pastLifeAnalysis: generatePastLifeAnalysis(formData.name1, formData.name2),
                 loveForecast: generateLoveForecast(formData.name1, formData.name2),
                 warningAdvice: generateWarningAdvice(formData.zodiac1, formData.zodiac2),
@@ -2317,23 +3777,49 @@
         }
 
         function calculateNameScore(name1, name2) {
-            // 简单的姓名笔画计算
+            // 姓名笔画计算 - 根据笔画数差异和五行相生相克判断
             const stroke1 = name1.split('').reduce((sum, char) => sum + (char.charCodeAt(0) % 9) + 1, 0);
             const stroke2 = name2.split('').reduce((sum, char) => sum + (char.charCodeAt(0) % 9) + 1, 0);
             const diff = Math.abs(stroke1 - stroke2);
-            return diff < 5 ? 90 : diff < 10 ? 75 : 60;
+            
+            // 五行相生相助关系加分
+            const wuxingBonus = (stroke1 + stroke2) % 5;
+            // 笔画数差异越小越好
+            return Math.max(45, 100 - diff * 6 - wuxingBonus * 3);
         }
 
-        function calculateDurationBonus(duration) {
-            const bonusMap = {
-                '暗恋中': 10,
-                '刚认识': 5,
-                '朋友': 15,
-                '暧昧中': 25,
-                '恋人': 35,
-                '已婚': 50
+        function calculateAgeScore(birthday1, birthday2) {
+            // 根据年龄差距计算匹配度
+            try {
+                const date1 = new Date(birthday1);
+                const date2 = new Date(birthday2);
+                const age1 = Math.floor((new Date() - date1) / (365.25 * 24 * 60 * 60 * 1000));
+                const age2 = Math.floor((new Date() - date2) / (365.25 * 24 * 60 * 60 * 1000));
+                const ageDiff = Math.abs(age1 - age2);
+                
+                // 年龄差3岁以内最合适
+                if (ageDiff <= 2) return 90;
+                if (ageDiff <= 4) return 80;
+                if (ageDiff <= 6) return 70;
+                if (ageDiff <= 8) return 60;
+                if (ageDiff <= 10) return 50;
+                return Math.max(35, 60 - ageDiff * 2);
+            } catch (e) {
+                return 65; // 默认值
+            }
+        }
+
+        function calculateDurationScore(duration) {
+            // 认识时长评分 - 已婚最高，暗恋最低
+            const scoreMap = {
+                '暗恋中': 55,
+                '刚认识': 60,
+                '朋友': 70,
+                '暧昧中': 75,
+                '恋人': 85,
+                '已婚': 95
             };
-            return bonusMap[duration] || 15;
+            return scoreMap[duration] || 65;
         }
 
         function generateNameAnalysis(name1, name2, score) {
@@ -2355,13 +3841,38 @@
             return commonTraits + level + detail + advice;
         }
 
-        function generateBaziAnalysis(name1, name2, b1, b2) {
+        function generateBaziAnalysis(name1, name2, b1, b2, zodiacScore) {
             const date1 = new Date(b1);
             const date2 = new Date(b2);
             const element1 = ['金', '木', '水', '火', '土'][date1.getMonth() % 5];
             const element2 = ['金', '木', '水', '火', '土'][date2.getMonth() % 5];
             
-            return `【八字五行分析】\n根据八字五行分析，${name1}（${element1}命）和 ${name2}（${element2}命）的生辰在婚姻配对表中属于上等婚配。\n\n${element1}与${element2}相生相合，象征着两人能够互相扶持、共同进步。\n\n这样的缘分在世间难得，值得好好珍惜！`;
+            // 根据五行关系生成不同评价
+            const xiangsheng = ['金生水', '水生木', '木生火', '火生土', '土生金'];
+            const xiangke = ['金克木', '木克土', '土克水', '水克火', '火克金'];
+            
+            let quality;
+            if (zodiacScore >= 85) {
+                quality = '上等婚配';
+            } else if (zodiacScore >= 70) {
+                quality = '中等婚配';
+            } else {
+                quality = '下等婚配';
+            }
+            
+            let relation, advice;
+            if (['金', '水', '木'].includes(element1) && ['水', '木', '火'].includes(element2)) {
+                relation = '相生相助';
+                advice = '两人能够互相扶持、共同进步，在生活中形成良好的互补关系。';
+            } else if (element1 === element2) {
+                relation = '同命相连';
+                advice = '虽然五行相同，但两人思维方式和处事风格相近，需要学会欣赏彼此的独特之处。';
+            } else {
+                relation = '相克相冲';
+                advice = '五行之间存在一些冲克，需要多沟通理解，学会包容对方的不同。';
+            }
+            
+            return `【八字五行分析】\n根据八字五行分析，${name1}（${element1}命）和 ${name2}（${element2}命）的生辰在婚姻配对表中属于${quality}。\n\n两人五行${relation}：${element1}与${element2}的组合，${advice}\n\n这样的缘分需要双方用心经营，珍惜彼此！`;
         }
 
         function generatePastLifeAnalysis(name1, name2) {
@@ -2433,7 +3944,14 @@
 
             // 契合度圆形
             const level = document.getElementById('matchLevel').textContent;
-            const levelColors = { '天生绝配': '#FFD700', '灵魂伴侣': '#FF69B4', '缘分不错': '#D8B4FF', '有点缘分': '#87CEEB', '普通缘分': '#CCCCCC' };
+            const levelColors = { 
+                '天生绝配': '#FFD700', 
+                '灵魂伴侣': '#FF69B4', 
+                '缘分不错': '#D8B4FF', 
+                '有点缘分': '#87CEEB', 
+                '普通缘分': '#CCCCCC',
+                '还需努力': '#888888'
+            };
             ctx.fillStyle = levelColors[level] || '#FFD700'; ctx.font = 'bold 34px sans-serif'; ctx.textAlign = 'center';
             ctx.fillText(level, width / 2, 390);
 
@@ -2506,9 +4024,9 @@
                 }).catch(() => {});
             } else {
                 navigator.clipboard.writeText(shareText + '\n' + window.location.href).then(() => {
-                    alert('分享内容已复制到剪贴板！');
+                    showSuccess('分享内容已复制到剪贴板！快去分享给TA吧 💕');
                 }).catch(() => {
-                    alert('分享功能已准备就绪');
+                    showInfo('分享功能已准备就绪');
                 });
             }
         }
@@ -2614,7 +4132,7 @@
         function submitFeedback() {
             const text = document.getElementById('feedbackText').value.trim();
             if (!text) {
-                alert('请输入反馈内容');
+                showWarning('请输入反馈内容', '内容为空');
                 return;
             }
             
@@ -2627,7 +4145,7 @@
             });
             localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
             
-            alert('感谢您的反馈！🙏\n我们会认真听取您的意见！');
+            showSuccess('感谢您的反馈！🙏 我们会认真听取您的意见！');
             closeFeedback();
         }
 
@@ -2642,6 +4160,532 @@
         initDateSelectors();
         initZodiacGrids();
         updateTotalCount();
+
+        // ==================== 依恋人格测试功能 ====================
+        function startAttachmentTest() {
+            attachmentTestState = {
+                currentQuestion: 0,
+                answers: [],
+                scores: { secure: 0, anxious: 0, avoidant: 0, fearful: 0 }
+            };
+            
+            document.getElementById('attachment-intro').classList.add('hidden');
+            document.getElementById('attachment-testing').classList.remove('hidden');
+            document.getElementById('attachment-result').classList.add('hidden');
+            
+            renderQuestion();
+            renderProgress();
+        }
+        
+        function renderProgress() {
+            const progress = document.getElementById('testProgress');
+            const total = ATTACHMENT_QUESTIONS.length;
+            const current = attachmentTestState.currentQuestion;
+            
+            progress.innerHTML = ATTACHMENT_QUESTIONS.map((_, i) => {
+                let className = 'test-progress-dot';
+                if (i < current) className += ' completed';
+                else if (i === current) className += ' active';
+                return `<div class="${className}"></div>`;
+            }).join('');
+        }
+        
+        function renderQuestion() {
+            const q = ATTACHMENT_QUESTIONS[attachmentTestState.currentQuestion];
+            document.getElementById('questionNumber').textContent = `第 ${attachmentTestState.currentQuestion + 1} 题 / 共 ${ATTACHMENT_QUESTIONS.length} 题`;
+            document.getElementById('questionText').textContent = q.question;
+            
+            const letters = ['A', 'B', 'C', 'D'];
+            const optionsContainer = document.getElementById('answerOptions');
+            optionsContainer.innerHTML = q.options.map((opt, i) => `
+                <div class="answer-option" data-index="${i}" onclick="selectAnswer(${i})">
+                    <div class="option-letter">${letters[i]}</div>
+                    <div class="option-text">${opt.text}</div>
+                </div>
+            `).join('');
+            
+            // 如果有之前的选择，恢复它
+            if (attachmentTestState.answers[attachmentTestState.currentQuestion] !== undefined) {
+                const prevIndex = attachmentTestState.answers[attachmentTestState.currentQuestion];
+                selectAnswer(prevIndex);
+            }
+            
+            updateNavButtons();
+        }
+        
+        function selectAnswer(index) {
+            document.querySelectorAll('.answer-option').forEach((opt, i) => {
+                opt.classList.toggle('selected', i === index);
+            });
+            attachmentTestState.answers[attachmentTestState.currentQuestion] = index;
+            updateNavButtons();
+        }
+        
+        function updateNavButtons() {
+            const prevBtn = document.getElementById('prevQuestionBtn');
+            const nextBtn = document.getElementById('nextQuestionBtn');
+            
+            prevBtn.style.visibility = attachmentTestState.currentQuestion > 0 ? 'visible' : 'hidden';
+            
+            const isLastQuestion = attachmentTestState.currentQuestion === ATTACHMENT_QUESTIONS.length - 1;
+            nextBtn.textContent = isLastQuestion ? '查看结果 →' : '下一题 →';
+        }
+        
+        function nextQuestion() {
+            // 检查是否已作答
+            if (attachmentTestState.answers[attachmentTestState.currentQuestion] === undefined) {
+                showWarning('请先选择一个答案', '提示');
+                return;
+            }
+            
+            if (attachmentTestState.currentQuestion < ATTACHMENT_QUESTIONS.length - 1) {
+                attachmentTestState.currentQuestion++;
+                renderQuestion();
+                renderProgress();
+            } else {
+                // 完成测试，显示结果
+                calculateAttachmentResult();
+            }
+        }
+        
+        function prevQuestion() {
+            if (attachmentTestState.currentQuestion > 0) {
+                attachmentTestState.currentQuestion--;
+                renderQuestion();
+                renderProgress();
+            }
+        }
+        
+        function calculateAttachmentResult() {
+            // 计算各类型得分
+            attachmentTestState.scores = { secure: 0, anxious: 0, avoidant: 0, fearful: 0 };
+            
+            attachmentTestState.answers.forEach((answerIndex, questionIndex) => {
+                if (answerIndex !== undefined) {
+                    const scores = ATTACHMENT_QUESTIONS[questionIndex].options[answerIndex].score;
+                    attachmentTestState.scores.secure += scores.secure || 0;
+                    attachmentTestState.scores.anxious += scores.anxious || 0;
+                    attachmentTestState.scores.avoidant += scores.avoidant || 0;
+                    attachmentTestState.scores.fearful += scores.fearful || 0;
+                }
+            });
+            
+            // 确定主要类型（得分最高的）
+            const { secure, anxious, avoidant, fearful } = attachmentTestState.scores;
+            const maxScore = Math.max(secure, anxious, avoidant, fearful);
+            
+            let primaryType = 'secure';
+            if (maxScore === anxious) primaryType = 'anxious';
+            else if (maxScore === avoidant) primaryType = 'avoidant';
+            else if (maxScore === fearful) primaryType = 'fearful';
+            
+            // 如果两个类型得分接近（差距小于3），可能是混合型
+            let secondaryType = null;
+            const scores = [
+                { type: 'secure', score: secure },
+                { type: 'anxious', score: anxious },
+                { type: 'avoidant', score: avoidant },
+                { type: 'fearful', score: fearful }
+            ].sort((a, b) => b.score - a.score);
+            
+            if (scores[0].score - scores[1].score < 3 && scores[1].score > 15) {
+                secondaryType = scores[1].type;
+            }
+            
+            displayAttachmentResult(primaryType, secondaryType);
+        }
+        
+        async function displayAttachmentResult(primaryType, secondaryType) {
+            document.getElementById('attachment-testing').classList.add('hidden');
+            document.getElementById('attachment-result').classList.remove('hidden');
+            
+            const type = ATTACHMENT_TYPES[primaryType];
+            document.getElementById('resultEmoji').textContent = type.emoji;
+            
+            let badgeHtml = `<span class="attachment-type-badge ${type.badge}">${type.name}</span>`;
+            if (secondaryType) {
+                badgeHtml += `<span style="color: rgba(255,255,255,0.6); font-size: 0.9em; margin-left: 10px;">（混合倾向）</span>`;
+            }
+            document.getElementById('resultTypeBadge').innerHTML = badgeHtml;
+            document.getElementById('resultTypeName').textContent = type.name;
+            document.getElementById('resultTypeDesc').textContent = type.description;
+            
+            // 获取AI深度分析
+            const loadingAnalysis = document.getElementById('analysisContent');
+            loadingAnalysis.innerHTML = `
+                <div style="text-align: center; padding: 20px;">
+                    <div class="loading-spinner" style="width: 50px; height: 50px; margin: 0 auto 15px;"></div>
+                    <p style="color: rgba(255,255,255,0.7);">AI正在深度分析中...</p>
+                </div>
+            `;
+            
+            // 尝试获取AI分析
+            let aiAnalysis = await getAIAttachmentAnalysis(primaryType, secondaryType);
+            
+            loadingAnalysis.innerHTML = aiAnalysis;
+        }
+        
+        async function getAIAttachmentAnalysis(primaryType, secondaryType) {
+            const type = ATTACHMENT_TYPES[primaryType];
+            const scores = attachmentTestState.scores;
+            const total = scores.secure + scores.anxious + scores.avoidant + scores.fearful;
+            
+            const prompt = `请为一位依恋类型测试者进行深度分析。
+
+测试结果：
+- 主要类型：${type.name}
+- 安全型得分：${scores.secure}（占比${Math.round(scores.secure/total*100)}%）
+- 焦虑型得分：${scores.anxious}（占比${Math.round(scores.anxious/total*100)}%）
+- 回避型得分：${scores.avoidant}（占比${Math.round(scores.avoidant/total*100)}%）
+- 恐惧型得分：${scores.fearful}（占比${Math.round(scores.fearful/total*100)}%）
+${secondaryType ? `- 混合倾向：${ATTACHMENT_TYPES[secondaryType].name}` : ''}
+
+请生成以下6个维度的深度分析（每个150-200字）：
+1. 【依恋成因】分析这种依恋类型可能的原生家庭或成长经历原因
+2. 【恋爱表现】描述在恋爱中的典型行为模式和情绪反应
+3. 【相处痛点】指出在亲密关系中最容易出现问题的地方
+4. 【感情雷区】列出绝对不能触碰的底线和禁区
+5. 【原生影响】探讨这种依恋模式对下一代的潜在影响
+6. 【磨合指南】给出与不同类型伴侣相处的具体建议
+
+最后给出【专属改善建议】（200字）：
+- 如何调整依恋模式
+- 日常情绪管理技巧
+- 减少内耗的具体方法
+- 修复亲密关系的步骤
+
+请用温暖治愈但专业的语气，像一位资深的心理咨询师在和你谈心。`;
+
+            try {
+                const response = await fetch(`${API_BASE}/attachment/analyze`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        primaryType,
+                        secondaryType,
+                        scores,
+                        prompt
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    return formatAIAnalysis(data.analysis);
+                }
+            } catch (e) {
+                console.log('AI分析接口不可用，使用本地分析');
+            }
+            
+            // 本地备用分析
+            return generateLocalAnalysis(primaryType, secondaryType, scores);
+        }
+        
+        function formatAIAnalysis(analysis) {
+            // 解析AI返回的分析内容并格式化
+            return `
+                <div class="analysis-item">
+                    <div class="analysis-item-title">📋 深度解析报告</div>
+                    <div class="analysis-item-content" style="white-space: pre-line;">${analysis}</div>
+                </div>
+            `;
+        }
+        
+        function generateLocalAnalysis(primaryType, secondaryType, scores) {
+            const type = ATTACHMENT_TYPES[primaryType];
+            const tips = {
+                secure: {
+                    cause: "你在成长过程中获得了足够的安全感和稳定的爱。这让你相信自己是值得被爱的，也相信他人是可靠的。",
+                    behavior: "你能够自然地表达爱意，也能够接受被爱。在关系中既有依赖又有独立，尊重自己也尊重对方。",
+                    painPoint: "有时候可能过于理想化关系，对伴侣的不安全信号不够敏感。",
+                    taboo: "不要忽视自己的真实感受去迎合对方；不要因为害怕冲突而回避重要话题。",
+                    offspring: "你很可能给孩子提供安全型依恋的示范，创造温暖稳定的家庭氛围。",
+                    guide: "继续保持开放的沟通；当伴侣有情绪时给予耐心倾听；定期表达感激和爱意。"
+                },
+                anxious: {
+                    cause: "在成长过程中，你的需求常常被忽视或回应不稳定。这让你形成了'只有不断争取才能被爱'的信念。",
+                    behavior: "你极度渴望亲密，可能会过度依赖伴侣。对伴侣的一举一动都很敏感，容易患得患失。",
+                    painPoint: "过度依赖给对方造成压力；情绪起伏大让双方都疲惫；容易在关系中失去自我。",
+                    taboo: "不要用'作'来试探对方的爱；不要在对方忙碌时频繁打扰；不要把全部情感寄托在伴侣身上。",
+                    offspring: "需要警惕将焦虑传递给孩子；过度担心可能影响孩子的独立性发展。",
+                    guide: "建立自己的社交圈和兴趣爱好；当想发消息时先等10分钟；学会自我安抚，写情绪日记。"
+                },
+                avoidant: {
+                    cause: "可能在小時候表达情感时遭到拒绝或嘲笑，形成了'暴露脆弱是危险的'信念。",
+                    behavior: "你习惯独自处理问题，不善于求助。对亲密感到不适，会下意识保持距离。",
+                    painPoint: "让伴侣感觉被疏远；压抑情绪导致爆发；难以建立深度连接。",
+                    taboo: "不要用冷暴力处理冲突；不要完全封闭自己的情感世界；不要害怕表达需要。",
+                    offspring: "孩子可能习得回避模式；需要刻意练习在孩子面前表达情感。",
+                    guide: "从小的情感表达开始练习；和伴侣约定固定的情绪交流时间；允许自己在脆弱时被照顾。"
+                },
+                fearful: {
+                    cause: "可能经历过矛盾的养育方式——时而溺爱时而冷漠，让你对亲密关系既渴望又恐惧。",
+                    behavior: "你常常在渴望亲密和害怕受伤之间挣扎。情绪和行为都不稳定，让伴侣感到困惑。",
+                    painPoint: "反复无常让双方都疲惫；难以建立信任；容易陷入'追逃'模式。",
+                    taboo: "不要在情绪激动时做决定；不要用推开对方来测试忠诚；不要完全封闭自己。",
+                    offspring: "需要非常注意不将矛盾模式传递给孩子；建议寻求专业帮助来打破循环。",
+                    guide: "建议寻求专业心理咨询；在情绪稳定时进行自我对话；建立明确的关系边界和沟通规则。"
+                }
+            };
+            
+            const t = tips[primaryType];
+            
+            return `
+                <div class="analysis-item">
+                    <div class="analysis-item-title">🧩 依恋成因</div>
+                    <div class="analysis-item-content">${t.cause}</div>
+                </div>
+                <div class="analysis-item">
+                    <div class="analysis-item-title">💕 恋爱表现</div>
+                    <div class="analysis-item-content">${t.behavior}</div>
+                </div>
+                <div class="analysis-item">
+                    <div class="analysis-item-title">⚠️ 相处痛点</div>
+                    <div class="analysis-item-content">${t.painPoint}</div>
+                </div>
+                <div class="analysis-item">
+                    <div class="analysis-item-title">🚫 感情雷区</div>
+                    <div class="analysis-item-content">${t.taboo}</div>
+                </div>
+                <div class="analysis-item">
+                    <div class="analysis-item-title">👨‍👩‍👧 原生影响</div>
+                    <div class="analysis-item-content">${t.offspring}</div>
+                </div>
+                <div class="analysis-item">
+                    <div class="analysis-item-title">💡 专属改善建议</div>
+                    <div class="analysis-item-content">${t.guide}</div>
+                </div>
+            `;
+        }
+        
+        function restartAttachmentTest() {
+            document.getElementById('attachment-intro').classList.remove('hidden');
+            document.getElementById('attachment-testing').classList.add('hidden');
+            document.getElementById('attachment-result').classList.add('hidden');
+        }
+
+        // ==================== 情感解忧室聊天功能 ====================
+        function scrollChatToBottom() {
+            const container = document.getElementById('chatMessages');
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        function handleChatKeydown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendChatMessage();
+            }
+        }
+        
+        function autoResizeChatInput(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+        }
+        
+        function sendQuickTopic(topic) {
+            document.getElementById('chatInput').value = topic;
+            sendChatMessage();
+        }
+        
+        async function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            const sendBtn = document.getElementById('chatSendBtn');
+            sendBtn.disabled = true;
+            
+            // 添加用户消息
+            addChatMessage(message, 'user');
+            input.value = '';
+            input.style.height = 'auto';
+            
+            // 添加AI正在输入的提示
+            const typingId = addTypingIndicator();
+            
+            try {
+                const aiResponse = await getAIChatResponse(message);
+                removeTypingIndicator(typingId);
+                addChatMessage(aiResponse, 'ai');
+            } catch (e) {
+                removeTypingIndicator(typingId);
+                addChatMessage('抱歉，我现在遇到了一点问题，请稍后再试 💕 如果有紧急情况，可以寻求专业心理咨询师的帮助。', 'ai');
+            }
+            
+            sendBtn.disabled = false;
+            scrollChatToBottom();
+        }
+        
+        function addChatMessage(content, type) {
+            const container = document.getElementById('chatMessages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chat-message ${type}`;
+            msgDiv.textContent = content;
+            container.appendChild(msgDiv);
+            
+            // 保存到历史
+            chatHistory.push({ role: type === 'user' ? 'user' : 'assistant', content });
+        }
+        
+        function addTypingIndicator() {
+            const container = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'chat-typing';
+            typingDiv.id = 'typing-' + Date.now();
+            typingDiv.innerHTML = '<div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+            container.appendChild(typingDiv);
+            scrollChatToBottom();
+            return typingDiv.id;
+        }
+        
+        function removeTypingIndicator(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+        
+        async function getAIChatResponse(userMessage) {
+            // 构建消息历史
+            const messages = [
+                { role: 'system', content: CHAT_SYSTEM_PROMPT },
+                ...chatHistory.slice(-10), // 只保留最近10条对话
+                { role: 'user', content: userMessage }
+            ];
+            
+            try {
+                const response = await fetch(`${API_BASE}/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ messages })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.response;
+                } else {
+                    throw new Error('API error');
+                }
+            } catch (e) {
+                // API不可用时返回本地安慰回复
+                return getLocalComfortResponse(userMessage);
+            }
+        }
+        
+        function getLocalComfortResponse(message) {
+            const msg = message.toLowerCase();
+            
+            if (msg.includes('吵架') || msg.includes('矛盾')) {
+                return `听起来你们之间发生了一些不愉快 💭
+
+我想先告诉你，吵架本身并不是坏事，它说明你们都在乎这段关系。
+
+几个小建议：
+1. 先给彼此一点冷静的时间
+2. 等情绪平复后再沟通
+3. 沟通时用"我觉得"而不是"你总是"
+4. 试着理解对方行为背后的原因
+
+有时候，吵架是因为我们内心有未被满足的需求。试着问问自己：我在这段关系中真正需要的是什么？
+
+能告诉我具体是什么事情让你们吵架吗？我想更了解情况，给你更有针对性的建议 💕`;
+            }
+            
+            if (msg.includes('异地')) {
+                return `异地恋确实很不容易呢 🌟
+
+隔着屏幕的感觉常常让人感到无力，但你们已经在为这段关系付出了额外的努力。
+
+我的建议：
+• 保持固定的联系时间，形成仪式感
+• 每天分享一件小事，让对方参与你的日常
+• 有矛盾时尽量视频沟通，文字容易产生误解
+• 给彼此信任，但也保持适度的透明度
+• 期待下次见面的计划，让等待有目标
+
+异地虽然辛苦，但如果你们能走过这段时间，感情会更加坚固 💪
+
+你目前遇到的具体问题是什么呢？`;
+            }
+            
+            if (msg.includes('复合') || msg.includes('分手')) {
+                return `💔 我能感受到你现在的难过和纠结
+
+复合这件事，需要先问自己几个问题：
+1. 分手的原因现在解决了吗？
+2. 你是真的爱这个人，还是不甘心？
+3. 对方是否有复合的意愿？
+
+如果只是你单方面想复合，可能需要更多时间冷静。如果双方都有意愿，可以：
+• 先从朋友开始，重新建立信任
+• 认真沟通之前的问题，看是否能解决
+• 给彼此一些空间，不要急于求成
+
+无论结果如何，请记住：你值得被好好爱着 💕
+
+想聊聊你们分手的原因吗？`;
+            }
+            
+            if (msg.includes('暧昧') || msg.includes('喜欢')) {
+                return `🤔 暧昧期的忐忑我懂！
+
+那种"他到底喜不喜欢我"的猜测，真的很折磨人。
+
+几个小建议：
+• 注意他主动联系你的频率
+• 看他愿不愿意在你面前展示脆弱
+• 他是否愿意为你付出时间和精力
+• 肢体语言也很重要，眼神和小动作会透露真心
+
+但最重要的是，不要因为太在意对方而失去了自己。最好的关系是两个人都在变好，而不是一个人拼命追、一个人拼命逃。
+
+你觉得他对你有特别的意思吗？你们现在的互动是怎样的？`;
+            }
+            
+            if (msg.includes('冷战') || msg.includes('冷暴力')) {
+                return `😢 冷战真的很消耗感情
+
+我理解那种被冷落的难受，等待的一方往往更煎熬。
+
+打破冷战的方法：
+1. 观察对方的情绪底线，在他快要崩溃前先开口
+2. 找个轻松的时机，用一个小话题开启对话
+3. 不要在气头上沟通，等冷静后再复盘
+4. 约定以后吵架不过夜，最迟第二天必须和好
+
+长期冷战的感情很难健康地走下去，如果对方总是用冷战来逃避问题，可能需要认真谈谈这对你的伤害。
+
+你们冷战多久了？方便说是因为什么吗？`;
+            }
+            
+            if (msg.includes('安全感') || msg.includes('不安')) {
+                return `💗 安全感不足的感觉，我非常理解
+
+首先，我想告诉你：感到不安全不是你的错，这可能和你的成长经历有关。
+
+几个小建议：
+1. 试着把注意力放回自己身上，发展兴趣爱好
+2. 和伴侣坦诚沟通你的感受，但不要指责
+3. 给自己一些时间，不要期待立刻改变
+4. 记录下每次感到安全的时刻，慢慢建立自信
+
+记住，真正爱你的人会让你感到安心，但如果无论对方怎么做你都无法信任，这可能需要更多地向内探索自己。
+
+能告诉我，是什么让你感到不安全吗？`;
+            }
+            
+            // 默认回复
+            return `谢谢你的信任，愿意和我分享 💕
+
+我听到了你的困惑。感情中的问题往往没有标准答案，因为每个人和每段关系都是独特的。
+
+我想先问你几个问题，帮助我更好地理解你的情况：
+• 这种情况持续多久了？
+• 你内心真正的感受是什么？
+• 你希望这段关系走向何方？
+
+有时候，把困惑写下来、说出来，本身就是一种疗愈。我在这里陪着你，慢慢聊，不着急 ❤️
+
+有什么想倾诉的，我都在听。`;
+        }
 
         function updateTotalCount() {
             const base = 128847;
