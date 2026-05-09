@@ -1,0 +1,6 @@
+# 情侣正缘姻缘测算 - Python 依赖
+# 安装命令: pip install -r requirements.txt
+
+flask>=2.3.0
+flask-cors>=4.0.0
+requests>=2.31.0

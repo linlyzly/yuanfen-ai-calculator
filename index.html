@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2026 情侣正缘姻缘缘分测算 | 抖音超火</title>
+    <meta name="description" content="2026抖音最火情侣正缘姻缘缘分测算，AI智能解析八字五行、星座合盘、前世今生，生成专属缘分海报！">
+    <style>
+        /* ========== 全局样式 ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink-light: #FFE4EC;
+            --pink-main: #FFB6C1;
+            --pink-deep: #FF69B4;
+            --purple-light: #E8D5FF;
+            --purple-main: #D8B4FF;
+            --purple-deep: #9B59B6;
+            --gold: #FFD700;
+            --gold-light: #FFF3B0;
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --text-light: #FFFFFF;
+            --text-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--text-light);
+        }
+
+        /* ========== 全屏动态背景 ========== */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* ========== 主容器 ========== */
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* ========== 页面通用样式 ========== */
+        .page {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            animation: fadeInScale 0.6s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* ========== 磨砂玻璃卡片 ========== */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: skewX(-20deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -50%; }
+            100% { left: 50%; }
+        }
+
+        /* ========== 首页样式 ========== */
+        .hero-title {
+            font-size: 2.2em;
+            font-weight: 700;
+            text-align: center;
+            background: linear-gradient(135deg, var(--pink-light), var(--purple-light), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px rgba(255, 182, 193, 0.5)); }
+            to { filter: drop-shadow(0 0 30px rgba(255, 105, 180, 0.8)); }
+        }
+
+        .hero-subtitle {
+            text-align: center;
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .fate-number {
+            text-align: center;
+            font-size: 0.9em;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+
+        .fate-number span {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 0 5px;
+        }
+
+        /* ========== 按钮样式 ========== */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--pink-deep), var(--purple-deep));
+            color: white;
+            box-shadow: 0 4px 20px rgba(255, 105, 180, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(255, 105, 180, 0.6);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #FFA500);
+            color: #333;
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(255, 215, 0, 0.6);
+        }
+
+        /* ========== 表单样式 ========== */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 1em;
+            border: 2px solid transparent;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-input:focus {
+            border-color: var(--pink-deep);
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* ========== 美化的选项选择器 ========== */
+        .option-group {
+            margin-bottom: 15px;
+        }
+
+        .option-label {
+            display: block;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 8px;
+        }
+
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .option-item {
+            padding: 10px 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .option-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 105, 180, 0.5);
+        }
+
+        .option-item.selected {
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.4), rgba(155, 89, 182, 0.4));
+            border-color: var(--pink-deep);
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .option-item .emoji {
+            font-size: 1.5em;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* ========== 星座选择器（横向滚动卡片） ========== */
+        .zodiac-grid {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .zodiac-grid::-webkit-scrollbar {
+            display: none;
+        }
+
+        .zodiac-card {
+            flex-shrink: 0;
+            width: 80px;
+            padding: 15px 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            scroll-snap-align: start;
+        }
+
+        .zodiac-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .zodiac-card.selected {
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.4), rgba(155, 89, 182, 0.4));
+            border-color: var(--pink-deep);
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+        }
+
+        .zodiac-card .icon {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .zodiac-card .name {
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .zodiac-card.selected .name {
+            color: white;
+            font-weight: bold;
+        }
+
+        /* ========== 日期输入切换 ========== */
+        .input-mode-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.3), rgba(155, 89, 182, 0.3));
+            border-color: var(--pink-deep);
+            color: white;
+        }
+
+        .mode-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* ========== 年份/月份/日期选项 ========== */
+        .date-picker-row {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .date-select {
+            width: 100%;
+            padding: 12px 10px;
+            font-size: 0.95em;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .date-select:focus {
+            border-color: var(--pink-deep);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .date-select option {
+            background: #2d1b4d;
+            color: white;
+        }
+
+        .native-date-input {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 1em;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .native-date-input::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+        .native-date-input:focus {
+            border-color: var(--pink-deep);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* ========== 显示已选星座 ========== */
+        .selected-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(155, 89, 182, 0.2));
+            border-radius: 16px;
+            margin-top: 10px;
+        }
+
+        .selected-zodiac {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1em;
+        }
+
+        .selected-zodiac .icon {
+            font-size: 1.5em;
+        }
+
+        .selected-zodiac .info {
+            text-align: left;
+        }
+
+        .selected-vsymbol {
+            font-size: 1.5em;
+            color: var(--gold);
+        }
+
+        /* ========== 结果页面样式 ========== */
+        .result-header {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .result-title {
+            font-size: 1.8em;
+            background: linear-gradient(135deg, var(--gold), var(--pink-deep), var(--purple-deep));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .result-couple-id {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), #FFA500);
+            color: #333;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1em;
+            margin: 15px 0;
+        }
+
+        .match-level {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin: 15px 0;
+        }
+
+        .match-star {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--gold), #FFA500);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: starPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes starPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .result-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px 20px;
+            margin: 20px 0;
+            border-left: 4px solid var(--pink-deep);
+        }
+
+        .result-section-title {
+            font-size: 1.2em;
+            color: var(--gold);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-section-content {
+            font-size: 0.95em;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.95);
+            white-space: pre-line;
+        }
+
+        /* ========== 心跳动画 ========== */
+        .heartbeat {
+            animation: heartbeat 1.2s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            14% { transform: scale(1.1); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.1); }
+            70% { transform: scale(1); }
+        }
+
+        /* ========== 加载动画 ========== */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            flex-direction: column;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 105, 180, 0.3);
+            border-top-color: var(--pink-deep);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: white;
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+
+        /* ========== 海报生成 ========== */
+        #poster-canvas {
+            display: none;
+        }
+
+        .poster-preview {
+            width: 100%;
+            max-width: 360px;
+            margin: 20px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .poster-preview img {
+            width: 100%;
+            display: block;
+        }
+
+        /* ========== 导航栏 ========== */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding: 5px;
+        }
+
+        .nav-tab {
+            flex-shrink: 0;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, var(--pink-deep), var(--purple-deep));
+            color: white;
+            border-color: transparent;
+        }
+
+        /* ========== 缘分签动画 ========== */
+        .fortune-stick {
+            width: 60px;
+            height: 150px;
+            background: linear-gradient(180deg, #FFF8DC 0%, #F5DEB3 100%);
+            border-radius: 10px 10px 5px 5px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .fortune-stick.shake {
+            animation: stickShake 0.5s ease-in-out;
+        }
+
+        @keyframes stickShake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        /* ========== 签文展示 ========== */
+        .fortune-result {
+            background: linear-gradient(135deg, rgba(255, 248, 220, 0.95), rgba(245, 222, 179, 0.95));
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        .fortune-poem {
+            font-size: 1.1em;
+            line-height: 2;
+            color: #8B4513;
+        }
+
+        /* ========== 页脚 ========== */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85em;
+        }
+
+        /* ========== 响应式 ========== */
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.8em;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .glass-card {
+                padding: 25px 20px;
+            }
+
+            .zodiac-card {
+                width: 70px;
+            }
+
+            .date-picker-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* ========== 闪光边框 ========== */
+        .glow-border {
+            position: relative;
+        }
+
+        .glow-border::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--pink-deep), var(--purple-deep), var(--gold), var(--pink-deep));
+            border-radius: inherit;
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+            background-size: 400% 400%;
+        }
+
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ========== 情侣卡片 ========== */
+        .couple-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .couple-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 20px 15px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .couple-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--pink-deep);
+        }
+
+        .couple-card-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .couple-card-name {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        .couple-card-info {
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 5px;
+        }
+
+        /* ========== 百分比动画 ========== */
+        .percentage-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .percentage-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--pink-deep), var(--purple-deep), var(--gold));
+            border-radius: 4px;
+            transition: width 1.5s ease;
+        }
+
+        .percentage-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* ========== 彩蛋效果 ========== */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            animation: confettiFall 3s linear forwards;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ========== 隐藏类 ========== */
+        .hidden {
+            display: none !important;
+        }
+
+        /* ========== 报告解锁区 ========== */
+        .report-section {
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.3), rgba(255, 105, 180, 0.3));
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .report-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), #FFA500);
+            color: #333;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* ========== 分享按钮 ========== */
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .share-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 15px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .share-wechat {
+            background: #07C160;
+            color: white;
+        }
+
+        .share-qq {
+            background: #12B7F5;
+            color: white;
+        }
+
+        .share-moments {
+            background: linear-gradient(135deg, #FF9500, #FF6B00);
+            color: white;
+        }
+
+        /* ========== 反馈入口 ========== */
+        .feedback-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--pink-deep), var(--purple-deep));
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 105, 180, 0.4);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .feedback-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(255, 105, 180, 0.6);
+        }
+
+        .feedback-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .feedback-modal.active {
+            display: flex;
+        }
+
+        .feedback-content {
+            background: linear-gradient(135deg, #2d1b4d, #1a0a2e);
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .feedback-title {
+            font-size: 1.3em;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .feedback-textarea {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1em;
+            resize: none;
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        .feedback-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .feedback-textarea:focus {
+            border-color: var(--pink-deep);
+        }
+
+        .feedback-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- 全屏动态背景 -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- 加载动画 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text" id="loadingText">正在测算缘分...</div>
+    </div>
+
+    <!-- 反馈弹窗 -->
+    <div class="feedback-modal" id="feedbackModal">
+        <div class="feedback-content">
+            <h3 class="feedback-title">💌 意见反馈</h3>
+            <textarea class="feedback-textarea" id="feedbackText" placeholder="请留下您的宝贵意见...&#10;告诉我们如何做得更好"></textarea>
+            <button class="btn btn-primary" onclick="submitFeedback()">提交反馈</button>
+            <button class="btn btn-gold" style="margin-top: 10px; background: rgba(255,255,255,0.2);" onclick="closeFeedback()">关闭</button>
+        </div>
+    </div>
+
+    <!-- 海报画布 -->
+    <canvas id="poster-canvas"></canvas>
+
+    <div class="container">
+        <!-- ========== 首页 ========== -->
+        <div class="page active" id="page-home">
+            <div class="glass-card glow-border">
+                <h1 class="hero-title">💕 情侣正缘测算</h1>
+                <p class="hero-subtitle">2026 抖音超火 · AI 智能解析</p>
+                <div class="fate-number">
+                    已有 <span id="totalCount">128,847</span> 对情侣测过
+                </div>
+                <div style="text-align: center; font-size: 4em; margin: 30px 0;" class="heartbeat">💘</div>
+                <p style="text-align: center; color: rgba(255,255,255,0.9); margin-bottom: 30px; font-size: 1.1em;">
+                    你的正缘在哪里？<br>
+                    输入信息，AI 为你揭秘专属缘分！
+                </p>
+                <button class="btn btn-primary" onclick="showPage('page-form')">
+                    🔮 开始测算正缘
+                </button>
+            </div>
+
+            <div class="glass-card">
+                <div class="result-section-title">
+                    ✨ 功能特色
+                </div>
+                <div style="display: grid; gap: 12px; font-size: 0.9em; color: rgba(255,255,255,0.9);">
+                    <div>💑 姓名灵魂宿命配对</div>
+                    <div>⭐ 十二星座双向合盘</div>
+                    <div>📅 八字五行夫妻合婚</div>
+                    <div>🔮 前世今生因果轮回</div>
+                    <div>💌 专属命运缘分海报</div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>纯娱乐测算，仅供消遣</p>
+            </div>
+        </div>
+
+        <!-- ========== 表单页 ========== -->
+        <div class="page" id="page-form">
+            <div class="glass-card">
+                <h2 style="text-align: center; font-size: 1.5em; margin-bottom: 25px; color: var(--gold);">
+                    💕 填写你们的缘分信息
+                </h2>
+
+                <div class="nav-tabs">
+                    <div class="nav-tab active" onclick="switchForm(1)">基本信息</div>
+                    <div class="nav-tab" onclick="switchForm(2)">生日信息</div>
+                    <div class="nav-tab" onclick="switchForm(3)">星座确认</div>
+                </div>
+
+                <!-- 表单1：姓名 -->
+                <div class="form-step" id="form-step-1">
+                    <div class="form-group">
+                        <label class="form-label">👤 你的姓名</label>
+                        <input type="text" class="form-input" id="name1" placeholder="请输入你的姓名" maxlength="10">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">👤 对方姓名</label>
+                        <input type="text" class="form-input" id="name2" placeholder="请输入对方姓名" maxlength="10">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">⚧ 你的性别</label>
+                        <div class="option-grid" id="gender1Options">
+                            <div class="option-item" data-value="male" onclick="selectOption('gender1', 'male', 'gender1Options')">
+                                <span class="emoji">👨</span>
+                                男
+                            </div>
+                            <div class="option-item" data-value="female" onclick="selectOption('gender1', 'female', 'gender1Options')">
+                                <span class="emoji">👩</span>
+                                女
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">⚧ 对方性别</label>
+                        <div class="option-grid" id="gender2Options">
+                            <div class="option-item" data-value="male" onclick="selectOption('gender2', 'male', 'gender2Options')">
+                                <span class="emoji">👨</span>
+                                男
+                            </div>
+                            <div class="option-item" data-value="female" onclick="selectOption('gender2', 'female', 'gender2Options')">
+                                <span class="emoji">👩</span>
+                                女
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="nextFormStep(1)">下一步 →</button>
+                </div>
+
+                <!-- 表单2：生日（两种输入方式） -->
+                <div class="form-step hidden" id="form-step-2">
+                    <div class="input-mode-toggle">
+                        <button class="mode-btn active" id="modePicker" onclick="setDateMode('picker')">
+                            📅 日期选择
+                        </button>
+                        <button class="mode-btn" id="modeSelect" onclick="setDateMode('select')">
+                            📝 手动输入
+                        </button>
+                    </div>
+
+                    <!-- 原生日期选择 -->
+                    <div id="pickerMode">
+                        <div class="form-group">
+                            <label class="form-label">📅 你的生日</label>
+                            <input type="date" class="native-date-input" id="birthday1Picker" onchange="onBirthdayChange(1)">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">📅 对方生日</label>
+                            <input type="date" class="native-date-input" id="birthday2Picker" onchange="onBirthdayChange(2)">
+                        </div>
+                    </div>
+
+                    <!-- 选项式输入 -->
+                    <div id="selectMode" class="hidden">
+                        <div class="form-group">
+                            <label class="form-label">🎂 你的生日</label>
+                            <div class="date-picker-row">
+                                <select class="date-select" id="birthYear1" onchange="onBirthdaySelectChange(1)">
+                                    <option value="">年</option>
+                                </select>
+                                <select class="date-select" id="birthMonth1" onchange="onBirthdaySelectChange(1)">
+                                    <option value="">月</option>
+                                </select>
+                                <select class="date-select" id="birthDay1" onchange="onBirthdaySelectChange(1)">
+                                    <option value="">日</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">🎂 对方生日</label>
+                            <div class="date-picker-row">
+                                <select class="date-select" id="birthYear2" onchange="onBirthdaySelectChange(2)">
+                                    <option value="">年</option>
+                                </select>
+                                <select class="date-select" id="birthMonth2" onchange="onBirthdaySelectChange(2)">
+                                    <option value="">月</option>
+                                </select>
+                                <select class="date-select" id="birthDay2" onchange="onBirthdaySelectChange(2)">
+                                    <option value="">日</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 自动计算的星座显示 -->
+                    <div class="selected-display hidden" id="zodiacDisplay">
+                        <div class="selected-vsymbol">💕</div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button class="btn btn-primary" style="background: rgba(255,255,255,0.2);" onclick="prevFormStep(2)">← 上一步</button>
+                        <button class="btn btn-primary" onclick="nextFormStep(2)">下一步 →</button>
+                    </div>
+                </div>
+
+                <!-- 表单3：星座确认 + 认识时间 -->
+                <div class="form-step hidden" id="form-step-3">
+                    <div class="form-group">
+                        <label class="form-label">⭐ 你的星座（已根据生日自动匹配）</label>
+                        <div class="zodiac-grid" id="zodiacGrid1">
+                            <!-- 星座卡片由JS生成 -->
+                        </div>
+                        <div style="text-align: center; margin-top: 10px; color: var(--gold);" id="selectedZodiac1">
+                            请先填写生日
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">⭐ 对方星座（已根据生日自动匹配）</label>
+                        <div class="zodiac-grid" id="zodiacGrid2">
+                            <!-- 星座卡片由JS生成 -->
+                        </div>
+                        <div style="text-align: center; margin-top: 10px; color: var(--gold);" id="selectedZodiac2">
+                            请先填写生日
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">💫 认识多久了？</label>
+                        <div class="option-grid" style="grid-template-columns: repeat(3, 1fr);" id="knowDurationOptions">
+                            <div class="option-item" data-value="暗恋中" onclick="selectOption('knowDuration', '暗恋中', 'knowDurationOptions')">
+                                <span class="emoji">💭</span>
+                                暗恋中
+                            </div>
+                            <div class="option-item" data-value="刚认识" onclick="selectOption('knowDuration', '刚认识', 'knowDurationOptions')">
+                                <span class="emoji">👋</span>
+                                刚认识
+                            </div>
+                            <div class="option-item" data-value="朋友" onclick="selectOption('knowDuration', '朋友', 'knowDurationOptions')">
+                                <span class="emoji">🤝</span>
+                                朋友
+                            </div>
+                            <div class="option-item" data-value="暧昧中" onclick="selectOption('knowDuration', '暧昧中', 'knowDurationOptions')">
+                                <span class="emoji">😳</span>
+                                暧昧中
+                            </div>
+                            <div class="option-item" data-value="恋人" onclick="selectOption('knowDuration', '恋人', 'knowDurationOptions')">
+                                <span class="emoji">💑</span>
+                                恋人
+                            </div>
+                            <div class="option-item" data-value="已婚" onclick="selectOption('knowDuration', '已婚', 'knowDurationOptions')">
+                                <span class="emoji">💒</span>
+                                已婚
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-gold" onclick="submitForm()">
+                        🔮 开始测算缘分
+                    </button>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p style="color: rgba(255,255,255,0.5); font-size: 0.8em;">
+                    纯娱乐测算，信息仅本地使用
+                </p>
+            </div>
+        </div>
+
+        <!-- ========== 测算中页面 ========== -->
+        <div class="page" id="page-loading">
+            <div class="glass-card" style="text-align: center;">
+                <div style="font-size: 5em; margin: 30px 0;" class="heartbeat">💘</div>
+                <h2 style="color: var(--gold); margin-bottom: 20px;">正在分析你们的缘分...</h2>
+                <div style="color: rgba(255,255,255,0.8); margin-bottom: 30px;">
+                    <p>正在解读姓名命理...</p>
+                    <p>正在分析星座合盘...</p>
+                    <p>正在推演前世今生...</p>
+                    <p>正在生成专属海报...</p>
+                </div>
+                <div class="loading-spinner" style="margin: 0 auto;"></div>
+            </div>
+        </div>
+
+        <!-- ========== 结果页 ========== -->
+        <div class="page" id="page-result">
+            <div class="glass-card glow-border">
+                <div class="result-header">
+                    <h1 class="result-title">💕 你们的缘分报告</h1>
+                    <div class="result-couple-id" id="coupleId">
+                        缘分ID: YUAN2026001
+                    </div>
+                    <div class="match-level" id="matchStars"></div>
+                    <p style="font-size: 1.3em; color: var(--gold);" id="matchLevel">天生绝配</p>
+                </div>
+
+                <div class="glass-card">
+                    <div class="couple-cards">
+                        <div class="couple-card">
+                            <div class="couple-card-icon">👤</div>
+                            <div class="couple-card-name" id="resultName1">小明</div>
+                            <div class="couple-card-info" id="resultInfo1">狮子座 · 8月15日</div>
+                        </div>
+                        <div class="couple-card">
+                            <div class="couple-card-icon">👤</div>
+                            <div class="couple-card-name" id="resultName2">小红</div>
+                            <div class="couple-card-info" id="resultInfo2">射手座 · 12月8日</div>
+                        </div>
+                    </div>
+
+                    <div class="result-section">
+                        <div class="result-section-title">💕 缘分契合度</div>
+                        <div class="percentage-label">
+                            <span>综合契合</span>
+                            <span id="compatibilityPercent">98%</span>
+                        </div>
+                        <div class="percentage-bar">
+                            <div class="percentage-fill" id="compatibilityBar" style="width: 0%;"></div>
+                        </div>
+                        <div class="percentage-label">
+                            <span>性格匹配</span>
+                            <span id="personalityPercent">95%</span>
+                        </div>
+                        <div class="percentage-bar">
+                            <div class="percentage-fill" id="personalityBar" style="width: 0%;"></div>
+                        </div>
+                        <div class="percentage-label">
+                            <span>沟通默契</span>
+                            <span id="communicationPercent">92%</span>
+                        </div>
+                        <div class="percentage-bar">
+                            <div class="percentage-fill" id="communicationBar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="report-section">
+                    <div class="report-badge">🔥 深度绝密报告</div>
+
+                    <div class="result-section">
+                        <div class="result-section-title">🔮 姓名灵魂配对</div>
+                        <div class="result-section-content" id="nameAnalysis">正在加载...</div>
+                    </div>
+
+                    <div class="result-section">
+                        <div class="result-section-title">⭐ 星座合盘分析</div>
+                        <div class="result-section-content" id="zodiacAnalysis">正在加载...</div>
+                    </div>
+
+                    <div class="result-section">
+                        <div class="result-section-title">📅 八字五行合婚</div>
+                        <div class="result-section-content" id="baziAnalysis">正在加载...</div>
+                    </div>
+
+                    <div class="result-section">
+                        <div class="result-section-title">🔮 前世今生因果</div>
+                        <div class="result-section-content" id="pastLifeAnalysis">正在加载...</div>
+                    </div>
+
+                    <div class="result-section">
+                        <div class="result-section-title">💌 感情运势预测</div>
+                        <div class="result-section-content" id="loveForecast">正在加载...</div>
+                    </div>
+
+                    <div class="result-section">
+                        <div class="result-section-title">⚠️ 矛盾预警与建议</div>
+                        <div class="result-section-content" id="warningAdvice">正在加载...</div>
+                    </div>
+
+                    <div class="result-section">
+                        <div class="result-section-title">🎎 最佳结婚年份</div>
+                        <div class="result-section-content" id="bestMarriageYear">正在加载...</div>
+                    </div>
+                </div>
+
+                <div class="glass-card" style="text-align: center;">
+                    <div class="result-section-title" style="justify-content: center;">🎴 月老专属姻缘签</div>
+                    <div class="fortune-stick" id="fortuneStick" onclick="shakeFortune()">📜</div>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 0.9em;">点击签筒抽取你的专属姻缘签</p>
+                    <div class="fortune-result hidden" id="fortuneResult">
+                        <div style="font-size: 1.2em; color: #8B4513; margin-bottom: 15px;">第 <span id="fortuneNumber">87</span> 签 · 上上签</div>
+                        <div class="fortune-poem" id="fortunePoem">正在加载签文...</div>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="result-section-title" style="justify-content: center;">💌 专属缘分海报</div>
+                    <div class="poster-preview">
+                        <img id="posterImage" src="" alt="缘分海报">
+                    </div>
+                    <button class="btn btn-gold" onclick="downloadPoster()">💾 保存海报到相册</button>
+                </div>
+
+                <div class="glass-card">
+                    <div class="result-section-title" style="justify-content: center;">🎉 分享给TA</div>
+                    <p style="text-align: center; color: rgba(255,255,255,0.8); margin-bottom: 15px; font-size: 0.9em;">
+                        分享即可解锁更多功能！
+                    </p>
+                    <div class="share-buttons">
+                        <button class="share-btn share-wechat" onclick="shareTo('wechat')">💬 微信</button>
+                        <button class="share-btn share-qq" onclick="shareTo('qq')">🐧 QQ</button>
+                        <button class="share-btn share-moments" onclick="shareTo('moments')">📱 朋友圈</button>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" style="margin-top: 15px;" onclick="restartTest()">
+                    🔄 再测一次
+                </button>
+            </div>
+
+            <div class="footer">
+                <p>纯娱乐测算，仅供消遣</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 反馈按钮 -->
+    <button class="feedback-btn" onclick="openFeedback()" title="意见反馈">💬</button>
+
+    <script>
+        // ==================== 全局配置 ====================
+        const AD_MODE = false;
+        const API_BASE = 'http://localhost:5000/api';
+        
+        // ==================== 星座数据 ====================
+        const ZODIACS = [
+            { name: '白羊座', icon: '♈', start: [3, 21], end: [4, 19] },
+            { name: '金牛座', icon: '♉', start: [4, 20], end: [5, 20] },
+            { name: '双子座', icon: '♊', start: [5, 21], end: [6, 21] },
+            { name: '巨蟹座', icon: '♋', start: [6, 22], end: [7, 22] },
+            { name: '狮子座', icon: '♌', start: [7, 23], end: [8, 22] },
+            { name: '处女座', icon: '♍', start: [8, 23], end: [9, 22] },
+            { name: '天秤座', icon: '♎', start: [9, 23], end: [10, 23] },
+            { name: '天蝎座', icon: '♏', start: [10, 24], end: [11, 22] },
+            { name: '射手座', icon: '♐', start: [11, 23], end: [12, 21] },
+            { name: '摩羯座', icon: '♑', start: [12, 22], end: [1, 19] },
+            { name: '水瓶座', icon: '♒', start: [1, 20], end: [2, 18] },
+            { name: '双鱼座', icon: '♓', start: [2, 19], end: [3, 20] }
+        ];
+
+        const ZODIAC_EMOJI = {
+            '白羊座': '♈', '金牛座': '♉', '双子座': '♊', '巨蟹座': '♋',
+            '狮子座': '♌', '处女座': '♍', '天秤座': '♎', '天蝎座': '♏',
+            '射手座': '♐', '摩羯座': '♑', '水瓶座': '♒', '双鱼座': '♓'
+        };
+
+        // ==================== 全局状态 ====================
+        let formData = {
+            name1: '', name2: '',
+            gender1: 'male', gender2: 'female',
+            birthday1: '', birthday2: '',
+            zodiac1: '', zodiac2: '',
+            knowDuration: '朋友'
+        };
+
+        let resultData = {};
+        let currentDateMode = 'picker';
+
+        // ==================== 星座计算 ====================
+        function getZodiacFromDate(month, day) {
+            for (const z of ZODIACS) {
+                if (z.name === '摩羯座') {
+                    if (month === 12 && day >= z.start[0] || month === 1 && day <= z.end[0]) {
+                        return z.name;
+                    }
+                } else {
+                    if ((month === z.start[0] && day >= z.start[1]) || 
+                        (month === z.end[0] && day <= z.end[1])) {
+                        return z.name;
+                    }
+                }
+            }
+            return '未知';
+        }
+
+        function getZodiacInfo(name) {
+            return ZODIACS.find(z => z.name === name) || { name, icon: '⭐' };
+        }
+
+        // ==================== 背景动画 ====================
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [], hearts = [], nebulaClouds = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function initParticles() {
+            for (let i = 0; i < 80; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 1, speedX: Math.random() * 0.5 - 0.25,
+                    speedY: Math.random() * 0.5 - 0.25,
+                    opacity: Math.random() * 0.5 + 0.3,
+                    color: Math.random() > 0.5 ? '#FFD700' : '#FFB6C1'
+                });
+            }
+            for (let i = 0; i < 15; i++) {
+                hearts.push({
+                    x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                    size: Math.random() * 15 + 10, speedX: Math.random() * 1 + 0.5,
+                    rotation: Math.random() * Math.PI * 2, rotationSpeed: Math.random() * 0.02 - 0.01,
+                    opacity: Math.random() * 0.4 + 0.2, wobble: Math.random() * Math.PI * 2
+                });
+            }
+            for (let i = 0; i < 5; i++) {
+                nebulaClouds.push({
+                    x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                    radius: Math.random() * 200 + 150,
+                    color: Math.random() > 0.5 ? 'rgba(255, 182, 193, 0.05)' : 'rgba(216, 180, 255, 0.05)',
+                    speedX: Math.random() * 0.3 + 0.1, speedY: Math.random() * 0.2 - 0.1
+                });
+            }
+        }
+
+        function drawBackground() {
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#1a0a1f');
+            gradient.addColorStop(0.3, '#2d1b3d');
+            gradient.addColorStop(0.6, '#1f1035');
+            gradient.addColorStop(1, '#0d0515');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            nebulaClouds.forEach(cloud => {
+                const cloudGradient = ctx.createRadialGradient(cloud.x, cloud.y, 0, cloud.x, cloud.y, cloud.radius);
+                cloudGradient.addColorStop(0, cloud.color);
+                cloudGradient.addColorStop(1, 'transparent');
+                ctx.fillStyle = cloudGradient;
+                ctx.fillRect(cloud.x - cloud.radius, cloud.y - cloud.radius, cloud.radius * 2, cloud.radius * 2);
+                cloud.x += cloud.speedX; cloud.y += cloud.speedY;
+                if (cloud.x > canvas.width + cloud.radius) cloud.x = -cloud.radius;
+            });
+
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.opacity;
+                ctx.fill();
+                ctx.globalAlpha = 1;
+                p.x += p.speedX; p.y += p.speedY;
+                if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+            });
+
+            hearts.forEach(h => {
+                ctx.save();
+                ctx.translate(h.x, h.y);
+                ctx.rotate(h.rotation + Math.sin(h.wobble) * 0.2);
+                ctx.globalAlpha = h.opacity;
+                ctx.fillStyle = '#FF69B4';
+                ctx.beginPath();
+                const s = h.size;
+                ctx.moveTo(0, s * 0.3);
+                ctx.bezierCurveTo(-s * 0.5, -s * 0.3, -s, s * 0.1, 0, s);
+                ctx.bezierCurveTo(s, s * 0.1, s * 0.5, -s * 0.3, 0, s * 0.3);
+                ctx.fill();
+                ctx.restore();
+                h.x += h.speedX; h.y += Math.sin(h.wobble) * 0.5;
+                h.rotation += h.rotationSpeed; h.wobble += 0.05;
+                if (h.x > canvas.width + h.size) h.x = -h.size;
+            });
+        }
+
+        function animate() {
+            drawBackground();
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+
+        // ==================== 页面导航 ====================
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // ==================== 表单步骤 ====================
+        function switchForm(step) {
+            document.querySelectorAll('.form-step').forEach(s => s.classList.add('hidden'));
+            document.getElementById(`form-step-${step}`).classList.remove('hidden');
+            document.querySelectorAll('.nav-tab').forEach((t, i) => t.classList.toggle('active', i === step - 1));
+
+            if (step === 3) {
+                updateZodiacDisplays();
+            }
+        }
+
+        function nextFormStep(current) {
+            if (current === 1) {
+                const name1 = document.getElementById('name1').value.trim();
+                const name2 = document.getElementById('name2').value.trim();
+                if (!name1 || !name2) { alert('请填写双方姓名'); return; }
+                formData.name1 = name1;
+                formData.name2 = name2;
+            } else if (current === 2) {
+                if (!formData.birthday1 || !formData.birthday2) {
+                    alert('请填写双方生日');
+                    return;
+                }
+            }
+            switchForm(current + 1);
+        }
+
+        function prevFormStep(current) {
+            switchForm(current - 1);
+        }
+
+        // ==================== 选项选择 ====================
+        function selectOption(field, value, containerId) {
+            const container = document.getElementById(containerId);
+            container.querySelectorAll('.option-item').forEach(item => {
+                item.classList.toggle('selected', item.dataset.value === value);
+            });
+            formData[field] = value;
+        }
+
+        // ==================== 日期模式切换 ====================
+        function setDateMode(mode) {
+            currentDateMode = mode;
+            document.getElementById('modePicker').classList.toggle('active', mode === 'picker');
+            document.getElementById('modeSelect').classList.toggle('active', mode === 'select');
+            document.getElementById('pickerMode').classList.toggle('hidden', mode !== 'picker');
+            document.getElementById('selectMode').classList.toggle('hidden', mode !== 'select');
+        }
+
+        // ==================== 初始化日期选项 ====================
+        function initDateSelectors() {
+            const currentYear = new Date().getFullYear();
+            
+            ['1', '2'].forEach(num => {
+                const yearSelect = document.getElementById(`birthYear${num}`);
+                const monthSelect = document.getElementById(`birthMonth${num}`);
+                const daySelect = document.getElementById(`birthDay${num}`);
+
+                for (let y = currentYear - 50; y <= currentYear - 18; y++) {
+                    yearSelect.innerHTML += `<option value="${y}">${y}年</option>`;
+                }
+
+                for (let m = 1; m <= 12; m++) {
+                    monthSelect.innerHTML += `<option value="${m}">${m}月</option>`;
+                }
+
+                for (let d = 1; d <= 31; d++) {
+                    daySelect.innerHTML += `<option value="${d}">${d}日</option>`;
+                }
+            });
+        }
+
+        // ==================== 生日变化处理 ====================
+        function onBirthdayChange(num) {
+            const picker = document.getElementById(`birthday${num}Picker`);
+            if (picker.value) {
+                formData[`birthday${num}`] = picker.value;
+                updateZodiacFromBirthday(num);
+                updateZodiacDisplay();
+            }
+        }
+
+        function onBirthdaySelectChange(num) {
+            const year = parseInt(document.getElementById(`birthYear${num}`).value);
+            const month = parseInt(document.getElementById(`birthMonth${num}`).value);
+            const day = parseInt(document.getElementById(`birthDay${num}`).value);
+
+            if (year && month && day) {
+                const birthday = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                formData[`birthday${num}`] = birthday;
+                updateZodiacFromBirthday(num);
+                updateZodiacDisplay();
+            }
+        }
+
+        function updateZodiacFromBirthday(num) {
+            const birthday = formData[`birthday${num}`];
+            if (birthday) {
+                const [year, month, day] = birthday.split('-').map(Number);
+                const zodiac = getZodiacFromDate(month, day);
+                formData[`zodiac${num}`] = zodiac;
+            }
+        }
+
+        function updateZodiacDisplay() {
+            const display = document.getElementById('zodiacDisplay');
+            if (formData.zodiac1 && formData.zodiac2) {
+                display.classList.remove('hidden');
+                const z1 = getZodiacInfo(formData.zodiac1);
+                const z2 = getZodiacInfo(formData.zodiac2);
+                display.innerHTML = `
+                    <div class="selected-zodiac">
+                        <span class="icon">${z1.icon}</span>
+                        <span class="name">${formData.zodiac1}</span>
+                    </div>
+                    <div class="selected-vsymbol">💕</div>
+                    <div class="selected-zodiac">
+                        <span class="icon">${z2.icon}</span>
+                        <span class="name">${formData.zodiac2}</span>
+                    </div>
+                `;
+            } else {
+                display.classList.add('hidden');
+            }
+        }
+
+        // ==================== 星座选择器 ====================
+        function initZodiacGrids() {
+            ['1', '2'].forEach(num => {
+                const grid = document.getElementById(`zodiacGrid${num}`);
+                grid.innerHTML = ZODIACS.map(z => `
+                    <div class="zodiac-card" data-zodiac="${z.name}" onclick="selectZodiac(${num}, '${z.name}')">
+                        <div class="icon">${z.icon}</div>
+                        <div class="name">${z.name.replace('座', '')}</div>
+                    </div>
+                `).join('');
+            });
+        }
+
+        function selectZodiac(num, zodiacName) {
+            formData[`zodiac${num}`] = zodiacName;
+            const grid = document.getElementById(`zodiacGrid${num}`);
+            grid.querySelectorAll('.zodiac-card').forEach(card => {
+                card.classList.toggle('selected', card.dataset.zodiac === zodiacName);
+            });
+            document.getElementById(`selectedZodiac${num}`).innerHTML = 
+                `<span style="font-size: 1.5em;">${getZodiacInfo(zodiacName).icon}</span> ${zodiacName}`;
+        }
+
+        function updateZodiacDisplays() {
+            ['1', '2'].forEach(num => {
+                const zodiac = formData[`zodiac${num}`];
+                if (zodiac) {
+                    selectZodiac(num, zodiac);
+                }
+            });
+        }
+
+        // ==================== 提交表单 ====================
+        async function submitForm() {
+            if (!formData.zodiac1 || formData.zodiac1 === '未知') {
+                alert('请确保生日信息正确，系统将自动计算星座');
+                switchForm(2);
+                return;
+            }
+            if (!formData.zodiac2 || formData.zodiac2 === '未知') {
+                alert('请确保生日信息正确，系统将自动计算星座');
+                switchForm(2);
+                return;
+            }
+
+            showPage('page-loading');
+
+            try {
+                const response = await fetch(`${API_BASE}/analyze`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) throw new Error('API请求失败');
+                resultData = await response.json();
+            } catch (error) {
+                console.log('使用本地模拟数据');
+                useLocalFallback();
+            }
+
+            displayResult();
+            showPage('page-result');
+            generatePoster();
+            showConfetti();
+        }
+
+        // ==================== 显示结果 ====================
+        function displayResult() {
+            const yuanId = 'YUAN2026' + String(Math.floor(Math.random() * 999999)).padStart(6, '0');
+            document.getElementById('coupleId').textContent = `缘分ID: ${yuanId}`;
+            document.getElementById('resultName1').textContent = formData.name1;
+            document.getElementById('resultName2').textContent = formData.name2;
+
+            const zodiacEmojis = ZODIAC_EMOJI;
+            const date1 = new Date(formData.birthday1);
+            const date2 = new Date(formData.birthday2);
+            document.getElementById('resultInfo1').textContent = 
+                `${zodiacEmojis[formData.zodiac1]} ${formData.zodiac1} · ${date1.getMonth() + 1}月${date1.getDate()}日`;
+            document.getElementById('resultInfo2').textContent = 
+                `${zodiacEmojis[formData.zodiac2]} ${formData.zodiac2} · ${date2.getMonth() + 1}月${date2.getDate()}日`;
+
+            const stars = resultData.compatibility ? Math.min(5, Math.floor(resultData.compatibility / 20)) : 4;
+            const starsContainer = document.getElementById('matchStars');
+            starsContainer.innerHTML = '';
+            for (let i = 0; i < 5; i++) {
+                const star = document.createElement('div');
+                star.className = 'match-star';
+                star.style.animationDelay = `${i * 0.2}s`;
+                star.style.opacity = i < stars ? '1' : '0.3';
+                starsContainer.appendChild(star);
+            }
+
+            const levels = ['普通缘分', '有点缘分', '缘分不错', '灵魂伴侣', '天生绝配'];
+            document.getElementById('matchLevel').textContent = levels[Math.min(stars - 1, 4)];
+
+            const compat = resultData.compatibility || 95;
+            const personality = resultData.personality || 90;
+            const communication = resultData.communication || 88;
+
+            document.getElementById('compatibilityPercent').textContent = `${compat}%`;
+            document.getElementById('personalityPercent').textContent = `${personality}%`;
+            document.getElementById('communicationPercent').textContent = `${communication}%`;
+
+            setTimeout(() => {
+                document.getElementById('compatibilityBar').style.width = `${compat}%`;
+                document.getElementById('personalityBar').style.width = `${personality}%`;
+                document.getElementById('communicationBar').style.width = `${communication}%`;
+            }, 500);
+
+            document.getElementById('nameAnalysis').textContent = resultData.nameAnalysis || '正在加载...';
+            document.getElementById('zodiacAnalysis').textContent = resultData.zodiacAnalysis || '正在加载...';
+            document.getElementById('baziAnalysis').textContent = resultData.baziAnalysis || '正在加载...';
+            document.getElementById('pastLifeAnalysis').textContent = resultData.pastLifeAnalysis || '正在加载...';
+            document.getElementById('loveForecast').textContent = resultData.loveForecast || '正在加载...';
+            document.getElementById('warningAdvice').textContent = resultData.warningAdvice || '正在加载...';
+            document.getElementById('bestMarriageYear').textContent = resultData.bestMarriageYear || '正在加载...';
+        }
+
+        // ==================== 本地模拟数据 ====================
+        function useLocalFallback() {
+            resultData = {
+                compatibility: 95,
+                personality: 92,
+                communication: 89,
+                nameAnalysis: `从姓名学的角度来看，${formData.name1} 和 ${formData.name2} 的姓名组合蕴含着独特的缘分密码。
+
+"${formData.name1}" 的名字温文尔雅，与 "${formData.name2}" 的名字相映成趣。
+
+两人名字的偏旁部首相互呼应，一个如水般温柔，一个如火般热烈，正是阴阳调和的绝佳配对。
+
+你们的名字注定了今生的相遇不是偶然，而是命运精心安排的必然。`,
+
+                zodiacAnalysis: `${formData.zodiac1} 与 ${formData.zodiac2} 的组合，在十二星座中属于极具化学反应的配对。
+
+${formData.zodiac1} 的特质与 ${formData.zodiac2} 的特质相互吸引，在相处中往往能擦出绚烂的火花。
+
+太阳星座的和谐相位让你们在相处中感到轻松自在，共同创造美好的回忆。`,
+
+                baziAnalysis: `根据八字五行分析，${formData.name1} 和 ${formData.name2} 的生辰八字在婚姻配对表中属于上等婚配。
+
+两人命理互补，性情相投，不仅感情稳定，更能互相成就、共同进步。
+
+这样的缘分在世间难得，值得好好珍惜。`,
+
+                pastLifeAnalysis: `🔮 前世回溯解读 🔮
+
+在灵魂轮回的长河中，你们已经相遇过无数次...
+
+据灵性感应显示，你们的前世曾是青梅竹马、两小无猜的童年玩伴，共同度过纯真的时光。
+
+今生再次相遇，是因为你们在灵魂层面有着未完的约定。
+
+这不仅仅是简单的喜欢或爱，而是一种灵魂层面的召唤。`,
+
+                loveForecast: `📈 感情运势预测 📈
+
+【2026年】：感情升温期，你们会更加珍惜彼此。
+
+【2027年】：磨合与成长的一年，感情反而更加深厚。
+
+【2028年】：财运与感情双丰收，是重要的一年。
+
+【2029年】：事业腾飞期，两人互相扶持。
+
+【2030年】：感情稳定期，生活充满幸福。`,
+
+                warningAdvice: `⚠️ 相处建议 ⚠️
+
+1️⃣ 沟通方式：多尝试用对方能接受的方式沟通。
+
+2️⃣ 处理冲突：不要冷战，约定冷静期规则。
+
+3️⃣ 边界感：给予彼此适当的安全感和自由空间。
+
+4️⃣ 未来规划：尽早讨论婚后生活的规划。`,
+
+                bestMarriageYear: `🎎 最佳结婚年份分析 🎎
+
+🌟 最佳年份：2027年
+- 流年运势与感情宫位形成良好相位
+
+🌟 次佳年份：2028年
+- 太岁与命格相合，姻缘运达顶峰
+
+💍 最佳月份：农历三月、七月、十月
+
+💫 避开年份：2026年下半年`
+            };
+        }
+
+        // ==================== 海报生成 ====================
+        function generatePoster() {
+            const posterCanvas = document.getElementById('poster-canvas');
+            const ctx = posterCanvas.getContext('2d');
+            const width = 540, height = 960;
+            posterCanvas.width = width; posterCanvas.height = height;
+
+            const gradient = ctx.createLinearGradient(0, 0, width, height);
+            gradient.addColorStop(0, '#1a0a2e'); gradient.addColorStop(0.5, '#2d1b4d'); gradient.addColorStop(1, '#0d0a25');
+            ctx.fillStyle = gradient; ctx.fillRect(0, 0, width, height);
+
+            const glow1 = ctx.createRadialGradient(width * 0.3, height * 0.2, 0, width * 0.3, height * 0.2, 200);
+            glow1.addColorStop(0, 'rgba(255, 105, 180, 0.3)'); glow1.addColorStop(1, 'transparent');
+            ctx.fillStyle = glow1; ctx.fillRect(0, 0, width, height);
+
+            ctx.fillStyle = '#FFD700'; ctx.font = 'bold 36px sans-serif'; ctx.textAlign = 'center';
+            ctx.fillText('💕 情侣正缘测算 💕', width / 2, 80);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)'; ctx.font = '22px sans-serif';
+            ctx.fillText('2026 专属缘分报告', width / 2, 120);
+            ctx.fillStyle = '#FFD700'; ctx.font = '18px sans-serif';
+            ctx.fillText(document.getElementById('coupleId').textContent, width / 2, 160);
+
+            ctx.fillStyle = '#FFB6C1'; ctx.font = 'bold 28px sans-serif';
+            ctx.fillText(formData.name1, width / 2 - 80, 260);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'; ctx.font = '24px sans-serif';
+            ctx.fillText('♡', width / 2, 260);
+            ctx.fillStyle = '#D8B4FF'; ctx.font = 'bold 28px sans-serif';
+            ctx.fillText(formData.name2, width / 2 + 80, 260);
+
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; ctx.font = '18px sans-serif';
+            ctx.fillText(`${formData.zodiac1} ♡ ${formData.zodiac2}`, width / 2, 300);
+
+            const level = document.getElementById('matchLevel').textContent;
+            const levelColors = { '天生绝配': '#FFD700', '灵魂伴侣': '#FF69B4', '三世正缘': '#D8B4FF' };
+            ctx.fillStyle = levelColors[level] || '#FFD700'; ctx.font = 'bold 32px sans-serif';
+            ctx.fillText(level, width / 2, 380);
+
+            const centerX = width / 2, centerY = 500, radius = 100;
+            const compat = resultData.compatibility || 95;
+
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'; ctx.lineWidth = 15;
+            ctx.beginPath(); ctx.arc(centerX, centerY, radius, 0, Math.PI * 2); ctx.stroke();
+
+            const arcGradient = ctx.createLinearGradient(centerX - radius, centerY, centerX + radius, centerY);
+            arcGradient.addColorStop(0, '#FF69B4'); arcGradient.addColorStop(0.5, '#D8B4FF'); arcGradient.addColorStop(1, '#FFD700');
+            ctx.strokeStyle = arcGradient; ctx.lineWidth = 15; ctx.lineCap = 'round';
+            ctx.beginPath(); ctx.arc(centerX, centerY, radius, -Math.PI / 2, -Math.PI / 2 + (compat / 100) * Math.PI * 2); ctx.stroke();
+
+            ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 48px sans-serif';
+            ctx.fillText(`${compat}%`, centerX, centerY + 15);
+            ctx.font = '18px sans-serif'; ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.fillText('契合度', centerX, centerY + 40);
+
+            const stats = [
+                { label: '性格匹配', value: resultData.personality || 90 },
+                { label: '沟通默契', value: resultData.communication || 88 },
+                { label: '前世羁绊', value: Math.floor(Math.random() * 20) + 80 },
+                { label: '正缘指数', value: Math.floor(Math.random() * 15) + 85 }
+            ];
+
+            stats.forEach((stat, i) => {
+                const y = 680 + i * 50;
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; ctx.font = '16px sans-serif'; ctx.textAlign = 'left';
+                ctx.fillText(stat.label, 80, y);
+                ctx.textAlign = 'right'; ctx.fillText(`${stat.value}%`, width - 80, y);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+                ctx.fillRect(80, y + 8, width - 160, 6);
+                const barGradient = ctx.createLinearGradient(80, 0, width - 80, 0);
+                barGradient.addColorStop(0, '#FF69B4'); barGradient.addColorStop(1, '#D8B4FF');
+                ctx.fillStyle = barGradient;
+                ctx.fillRect(80, y + 8, (width - 160) * (stat.value / 100), 6);
+            });
+
+            ctx.fillStyle = '#FFD700'; ctx.font = 'bold 20px sans-serif'; ctx.textAlign = 'center';
+            ctx.fillText('✦ 命运安排的相遇 ✦', width / 2, 890);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; ctx.font = '14px sans-serif';
+            ctx.fillText('纯属娱乐 · 仅供参考', width / 2, 920);
+
+            document.getElementById('posterImage').src = posterCanvas.toDataURL('image/png');
+        }
+
+        function downloadPoster() {
+            const link = document.createElement('a');
+            link.download = `缘分海报_${formData.name1}_${formData.name2}_${Date.now()}.png`;
+            link.href = document.getElementById('posterImage').src;
+            link.click();
+        }
+
+        function shareTo(platform) {
+            const shareText = `💕 我和${formData.name2}的缘分契合度达到${resultData.compatibility || 95}%！\n${formData.name1}♡${formData.name2}\n你也来测测吧！`;
+            navigator.clipboard.writeText(shareText).then(() => {
+                alert('分享文案已复制到剪贴板！');
+            }).catch(() => {
+                alert('分享功能已触发');
+            });
+        }
+
+        function shakeFortune() {
+            const stick = document.getElementById('fortuneStick');
+            stick.classList.add('shake');
+            setTimeout(() => {
+                stick.classList.remove('shake');
+                stick.textContent = '✨';
+                document.getElementById('fortuneResult').classList.remove('hidden');
+                const poems = [
+                    '千年修得共枕眠，万年修得同船渡\n红尘深处初相见，魂牵梦萦终不悔',
+                    '月老红线系姻缘，前世今生续前缘\n两心相悦情难断，白首相伴到永远',
+                    '银河隔断双星会，牛郎织女盼七夕\n人间自有真情在，千里姻缘一线牵'
+                ];
+                document.getElementById('fortunePoem').textContent = poems[Math.floor(Math.random() * poems.length)];
+                document.getElementById('fortuneNumber').textContent = Math.floor(Math.random() * 100) + 1;
+            }, 500);
+        }
+
+        function showConfetti() {
+            const colors = ['#FFD700', '#FF69B4', '#D8B4FF', '#FFB6C1', '#87CEEB'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 50);
+            }
+        }
+
+        function restartTest() {
+            document.getElementById('name1').value = '';
+            document.getElementById('name2').value = '';
+            document.getElementById('birthday1Picker').value = '';
+            document.getElementById('birthday2Picker').value = '';
+            formData = { name1: '', name2: '', gender1: 'male', gender2: 'female', birthday1: '', birthday2: '', zodiac1: '', zodiac2: '', knowDuration: '朋友' };
+            
+            document.querySelectorAll('.option-item').forEach(item => item.classList.remove('selected'));
+            document.querySelectorAll('.zodiac-card').forEach(card => card.classList.remove('selected'));
+            document.getElementById('selectedZodiac1').textContent = '请先填写生日';
+            document.getElementById('selectedZodiac2').textContent = '请先填写生日';
+            document.getElementById('fortuneResult').classList.add('hidden');
+            document.getElementById('fortuneStick').textContent = '📜';
+            
+            ['1', '2'].forEach(num => {
+                document.getElementById(`birthYear${num}`).value = '';
+                document.getElementById(`birthMonth${num}`).value = '';
+                document.getElementById(`birthDay${num}`).value = '';
+            });
+
+            showPage('page-home');
+        }
+
+        // ==================== 反馈功能 ====================
+        function openFeedback() {
+            document.getElementById('feedbackModal').classList.add('active');
+        }
+
+        function closeFeedback() {
+            document.getElementById('feedbackModal').classList.remove('active');
+            document.getElementById('feedbackText').value = '';
+        }
+
+        function submitFeedback() {
+            const text = document.getElementById('feedbackText').value.trim();
+            if (!text) {
+                alert('请输入反馈内容');
+                return;
+            }
+            
+            // 这里可以发送到服务器
+            console.log('用户反馈:', text);
+            
+            alert('感谢您的反馈！🙏');
+            closeFeedback();
+        }
+
+        // ==================== 初始化 ====================
+        initDateSelectors();
+        initZodiacGrids();
+        updateTotalCount();
+
+        function updateTotalCount() {
+            const base = 128847;
+            document.getElementById('totalCount').textContent = (base + Math.floor(Math.random() * 100)).toLocaleString();
+        }
+
+        console.log('%c💕 情侣正缘测算', 'font-size: 24px; color: #FF69B4;');
+    </script>
+</body>
+</html>
