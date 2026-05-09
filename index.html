@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         :root {
@@ -22,10 +23,11 @@
             --purple-deep: #9B59B6;
             --gold: #FFD700;
             --gold-light: #FFF3B0;
-            --glass-bg: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.25);
             --text-light: #FFFFFF;
-            --text-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+            --success: #4CAF50;
+            --error: #FF5252;
         }
 
         body {
@@ -33,6 +35,7 @@
             min-height: 100vh;
             overflow-x: hidden;
             color: var(--text-light);
+            background: #1a0a2e;
         }
 
         /* ========== 全屏动态背景 ========== */
@@ -51,8 +54,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             padding: 20px;
+            padding-bottom: 100px;
             position: relative;
         }
 
@@ -60,7 +64,7 @@
         .page {
             display: none;
             width: 100%;
-            max-width: 500px;
+            max-width: 480px;
             animation: fadeInScale 0.6s ease;
         }
 
@@ -69,26 +73,21 @@
         }
 
         @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         /* ========== 磨砂玻璃卡片 ========== */
         .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 30px 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-radius: 28px;
+            padding: 28px 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
         }
@@ -97,55 +96,61 @@
             content: '';
             position: absolute;
             top: 0;
-            left: -50%;
-            width: 200%;
+            left: -75%;
+            width: 50%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: skewX(-20deg);
-            animation: shine 3s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            transform: skewX(-25deg);
+            animation: shine 4s infinite;
+            pointer-events: none;
         }
 
         @keyframes shine {
-            0% { left: -50%; }
-            100% { left: 50%; }
+            0% { left: -75%; }
+            100% { left: 125%; }
         }
 
         /* ========== 首页样式 ========== */
         .hero-title {
-            font-size: 2.2em;
-            font-weight: 700;
+            font-size: 2.4em;
+            font-weight: 800;
             text-align: center;
-            background: linear-gradient(135deg, var(--pink-light), var(--purple-light), var(--gold-light));
+            background: linear-gradient(135deg, #FFB6C1, #D8B4FF, #FFD700, #FF69B4);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: none;
-            margin-bottom: 10px;
-            animation: glow 2s ease-in-out infinite alternate;
+            margin-bottom: 8px;
+            animation: gradientShift 4s ease infinite;
         }
 
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 10px rgba(255, 182, 193, 0.5)); }
-            to { filter: drop-shadow(0 0 30px rgba(255, 105, 180, 0.8)); }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .hero-subtitle {
             text-align: center;
-            font-size: 1.1em;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 30px;
-            letter-spacing: 2px;
+            font-size: 1em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 25px;
+            letter-spacing: 3px;
         }
 
         .fate-number {
             text-align: center;
-            font-size: 0.9em;
+            font-size: 0.95em;
             color: var(--gold);
             margin-bottom: 25px;
+            padding: 12px 20px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 30px;
+            display: inline-block;
+            width: 100%;
         }
 
         .fate-number span {
-            font-size: 1.5em;
+            font-size: 1.4em;
             font-weight: bold;
             margin: 0 5px;
         }
@@ -155,15 +160,32 @@
             display: block;
             width: 100%;
             padding: 16px 30px;
-            font-size: 1.1em;
+            font-size: 1.05em;
             font-weight: 600;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             text-align: center;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn-primary {
@@ -173,67 +195,78 @@
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(255, 105, 180, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(255, 105, 180, 0.5);
         }
 
         .btn-primary:active {
-            transform: translateY(0);
+            transform: translateY(-1px);
         }
 
         .btn-gold {
             background: linear-gradient(135deg, var(--gold), #FFA500);
-            color: #333;
+            color: #1a0a2e;
             box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
         }
 
         .btn-gold:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(255, 215, 0, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
         }
 
         /* ========== 表单样式 ========== */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         .form-label {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-size: 0.95em;
             color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 500;
+        }
+
+        .form-label .icon {
+            font-size: 1.1em;
         }
 
         .form-input {
             width: 100%;
-            padding: 14px 18px;
+            padding: 15px 18px;
             font-size: 1em;
-            border: 2px solid transparent;
+            border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 16px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
             color: white;
             outline: none;
             transition: all 0.3s ease;
         }
 
         .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.5);
         }
 
         .form-input:focus {
             border-color: var(--pink-deep);
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 4px rgba(255, 105, 180, 0.15),
+                        0 0 25px rgba(255, 105, 180, 0.2);
         }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        /* ========== 美化的选项选择器 ========== */
+        /* ========== 美化的选项选择器（修复点击问题） ========== */
         .option-group {
             margin-bottom: 15px;
         }
@@ -242,53 +275,66 @@
             display: block;
             font-size: 0.9em;
             color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .option-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
+            gap: 10px;
         }
 
         .option-item {
-            padding: 10px 5px;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 14px 8px;
+            background: rgba(255, 255, 255, 0.08);
             border: 2px solid transparent;
-            border-radius: 12px;
+            border-radius: 16px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 0.85em;
             color: rgba(255, 255, 255, 0.8);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
         }
 
         .option-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 105, 180, 0.5);
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 105, 180, 0.4);
+            transform: translateY(-2px);
         }
 
         .option-item.selected {
-            background: linear-gradient(135deg, rgba(255, 105, 180, 0.4), rgba(155, 89, 182, 0.4));
+            background: linear-gradient(145deg, rgba(255, 105, 180, 0.45), rgba(155, 89, 182, 0.45));
             border-color: var(--pink-deep);
             color: white;
-            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.4),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
 
         .option-item .emoji {
-            font-size: 1.5em;
+            font-size: 1.8em;
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            line-height: 1;
         }
 
         /* ========== 星座选择器（横向滚动卡片） ========== */
+        .zodiac-scroll-wrapper {
+            position: relative;
+            margin: 15px 0;
+        }
+
         .zodiac-grid {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             overflow-x: auto;
-            padding: 10px 0;
+            padding: 15px 5px;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
         }
 
         .zodiac-grid::-webkit-scrollbar {
@@ -297,36 +343,44 @@
 
         .zodiac-card {
             flex-shrink: 0;
-            width: 80px;
-            padding: 15px 10px;
-            background: rgba(255, 255, 255, 0.1);
+            width: 85px;
+            padding: 18px 12px;
+            background: rgba(255, 255, 255, 0.08);
             border: 2px solid transparent;
-            border-radius: 16px;
+            border-radius: 20px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             scroll-snap-align: start;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
         }
 
         .zodiac-card:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
         .zodiac-card.selected {
-            background: linear-gradient(135deg, rgba(255, 105, 180, 0.4), rgba(155, 89, 182, 0.4));
+            background: linear-gradient(145deg, rgba(255, 105, 180, 0.5), rgba(155, 89, 182, 0.5));
             border-color: var(--pink-deep);
-            box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+            box-shadow: 0 0 25px rgba(255, 105, 180, 0.5),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px) scale(1.02);
         }
 
         .zodiac-card .icon {
-            font-size: 2em;
-            margin-bottom: 5px;
+            font-size: 2.2em;
+            margin-bottom: 6px;
+            line-height: 1;
         }
 
         .zodiac-card .name {
-            font-size: 0.85em;
+            font-size: 0.9em;
             color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
         }
 
         .zodiac-card.selected .name {
@@ -337,34 +391,37 @@
         /* ========== 日期输入切换 ========== */
         .input-mode-toggle {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 12px;
+            margin-bottom: 18px;
         }
 
         .mode-btn {
             flex: 1;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 13px 16px;
+            background: rgba(255, 255, 255, 0.08);
             border: 2px solid transparent;
-            border-radius: 12px;
+            border-radius: 14px;
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.9em;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            user-select: none;
         }
 
         .mode-btn.active {
-            background: linear-gradient(135deg, rgba(255, 105, 180, 0.3), rgba(155, 89, 182, 0.3));
+            background: linear-gradient(145deg, rgba(255, 105, 180, 0.35), rgba(155, 89, 182, 0.35));
             border-color: var(--pink-deep);
             color: white;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
         }
 
         .mode-btn:hover:not(.active) {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         /* ========== 年份/月份/日期选项 ========== */
@@ -376,47 +433,57 @@
 
         .date-select {
             width: 100%;
-            padding: 12px 10px;
+            padding: 14px 12px;
             font-size: 0.95em;
-            border: 2px solid transparent;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.1);
             color: white;
             cursor: pointer;
             outline: none;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='white' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 35px;
         }
 
         .date-select:focus {
             border-color: var(--pink-deep);
-            background: rgba(255, 255, 255, 0.25);
+            background-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 4px rgba(255, 105, 180, 0.15);
         }
 
         .date-select option {
             background: #2d1b4d;
             color: white;
+            padding: 10px;
         }
 
         .native-date-input {
             width: 100%;
-            padding: 12px 15px;
+            padding: 14px 16px;
             font-size: 1em;
-            border: 2px solid transparent;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.1);
             color: white;
             outline: none;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
 
         .native-date-input::-webkit-calendar-picker-indicator {
             filter: invert(1);
             cursor: pointer;
+            padding: 5px;
         }
 
         .native-date-input:focus {
             border-color: var(--pink-deep);
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 4px rgba(255, 105, 180, 0.15);
         }
 
         /* ========== 显示已选星座 ========== */
@@ -424,99 +491,144 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            padding: 15px;
+            gap: 20px;
+            padding: 18px;
             background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(155, 89, 182, 0.2));
-            border-radius: 16px;
-            margin-top: 10px;
+            border-radius: 18px;
+            margin-top: 15px;
+            border: 1px solid rgba(255, 105, 180, 0.3);
         }
 
         .selected-zodiac {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-size: 1.1em;
         }
 
         .selected-zodiac .icon {
-            font-size: 1.5em;
-        }
-
-        .selected-zodiac .info {
-            text-align: left;
+            font-size: 1.8em;
         }
 
         .selected-vsymbol {
-            font-size: 1.5em;
+            font-size: 1.8em;
             color: var(--gold);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.15); opacity: 0.8; }
+        }
+
+        /* ========== 步骤导航 ========== */
+        .form-steps {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .step-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .step-dot.active {
+            background: var(--pink-deep);
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+            transform: scale(1.2);
+        }
+
+        .step-dot.completed {
+            background: var(--success);
         }
 
         /* ========== 结果页面样式 ========== */
         .result-header {
             text-align: center;
-            padding: 20px 0;
+            padding: 25px 0;
         }
 
         .result-title {
-            font-size: 1.8em;
+            font-size: 1.9em;
             background: linear-gradient(135deg, var(--gold), var(--pink-deep), var(--purple-deep));
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            animation: gradientShift 3s ease infinite;
         }
 
         .result-couple-id {
             display: inline-block;
             background: linear-gradient(135deg, var(--gold), #FFA500);
-            color: #333;
-            padding: 8px 20px;
+            color: #1a0a2e;
+            padding: 10px 24px;
             border-radius: 30px;
             font-weight: bold;
-            font-size: 1em;
-            margin: 15px 0;
+            font-size: 0.95em;
+            margin: 12px 0;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
         }
 
         .match-level {
             display: flex;
             justify-content: center;
-            gap: 5px;
+            gap: 6px;
             margin: 15px 0;
         }
 
         .match-star {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             background: linear-gradient(135deg, var(--gold), #FFA500);
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
             animation: starPulse 1.5s ease-in-out infinite;
         }
 
         @keyframes starPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
         }
 
         .result-section {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 25px 20px;
-            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            padding: 24px 20px;
+            margin: 18px 0;
             border-left: 4px solid var(--pink-deep);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--pink-deep), var(--purple-deep), var(--gold));
         }
 
         .result-section-title {
-            font-size: 1.2em;
+            font-size: 1.15em;
             color: var(--gold);
-            margin-bottom: 15px;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
             gap: 10px;
+            font-weight: 600;
         }
 
         .result-section-content {
             font-size: 0.95em;
-            line-height: 1.8;
+            line-height: 1.85;
             color: rgba(255, 255, 255, 0.95);
             white-space: pre-line;
         }
@@ -528,10 +640,10 @@
 
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
-            14% { transform: scale(1.1); }
-            28% { transform: scale(1); }
-            42% { transform: scale(1.1); }
-            70% { transform: scale(1); }
+            10% { transform: scale(1.1); }
+            20% { transform: scale(1); }
+            30% { transform: scale(1.1); }
+            40% { transform: scale(1); }
         }
 
         /* ========== 加载动画 ========== */
@@ -541,7 +653,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(10, 5, 20, 0.95);
             display: none;
             justify-content: center;
             align-items: center;
@@ -553,13 +665,19 @@
             display: flex;
         }
 
+        .loading-container {
+            text-align: center;
+        }
+
         .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(255, 105, 180, 0.3);
+            width: 70px;
+            height: 70px;
+            border: 4px solid rgba(255, 105, 180, 0.2);
             border-top-color: var(--pink-deep);
+            border-right-color: var(--purple-deep);
             border-radius: 50%;
             animation: spin 1s linear infinite;
+            margin: 0 auto 25px;
         }
 
         @keyframes spin {
@@ -568,8 +686,35 @@
 
         .loading-text {
             color: white;
+            font-size: 1.15em;
+            margin-bottom: 10px;
+        }
+
+        .loading-subtext {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9em;
+        }
+
+        .loading-progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
             margin-top: 20px;
-            font-size: 1.1em;
+            overflow: hidden;
+        }
+
+        .loading-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--pink-deep), var(--purple-deep), var(--gold));
+            border-radius: 2px;
+            animation: progress 2s ease-in-out infinite;
+        }
+
+        @keyframes progress {
+            0% { width: 0%; margin-left: 0; }
+            50% { width: 70%; margin-left: 15%; }
+            100% { width: 0%; margin-left: 100%; }
         }
 
         /* ========== 海报生成 ========== */
@@ -579,11 +724,11 @@
 
         .poster-preview {
             width: 100%;
-            max-width: 360px;
+            max-width: 340px;
             margin: 20px auto;
-            border-radius: 20px;
+            border-radius: 22px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
         }
 
         .poster-preview img {
@@ -594,101 +739,167 @@
         /* ========== 导航栏 ========== */
         .nav-tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 25px;
             overflow-x: auto;
             padding: 5px;
+            scrollbar-width: none;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
         }
 
         .nav-tab {
             flex-shrink: 0;
-            padding: 10px 16px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 30px;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.88em;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             white-space: nowrap;
+            user-select: none;
         }
 
         .nav-tab.active {
             background: linear-gradient(135deg, var(--pink-deep), var(--purple-deep));
             color: white;
             border-color: transparent;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.12);
         }
 
         /* ========== 缘分签动画 ========== */
+        .fortune-container {
+            text-align: center;
+            padding: 20px 0;
+        }
+
         .fortune-stick {
-            width: 60px;
-            height: 150px;
-            background: linear-gradient(180deg, #FFF8DC 0%, #F5DEB3 100%);
-            border-radius: 10px 10px 5px 5px;
-            margin: 20px auto;
+            width: 65px;
+            height: 160px;
+            background: linear-gradient(180deg, #FFF8DC 0%, #F5DEB3 50%, #DEB887 100%);
+            border-radius: 12px 12px 8px 8px;
+            margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3em;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25),
+                        inset 0 2px 0 rgba(255, 255, 255, 0.3);
             cursor: pointer;
-            transition: transform 0.1s;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .fortune-stick::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: #8B4513;
+            border-radius: 50%;
+        }
+
+        .fortune-stick:hover {
+            transform: scale(1.05) rotate(-2deg);
         }
 
         .fortune-stick.shake {
-            animation: stickShake 0.5s ease-in-out;
+            animation: stickShake 0.6s ease-in-out;
         }
 
         @keyframes stickShake {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-10deg); }
-            75% { transform: rotate(10deg); }
+            0%, 100% { transform: rotate(0deg) translateX(0); }
+            20% { transform: rotate(-15deg) translateX(-5px); }
+            40% { transform: rotate(12deg) translateX(3px); }
+            60% { transform: rotate(-8deg) translateX(-2px); }
+            80% { transform: rotate(5deg) translateX(1px); }
+        }
+
+        .fortune-hint {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9em;
         }
 
         /* ========== 签文展示 ========== */
         .fortune-result {
-            background: linear-gradient(135deg, rgba(255, 248, 220, 0.95), rgba(245, 222, 179, 0.95));
-            border-radius: 15px;
-            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 248, 220, 0.97), rgba(245, 222, 179, 0.97));
+            border-radius: 18px;
+            padding: 25px 20px;
             margin-top: 20px;
             color: #333;
             text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .fortune-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .fortune-number {
+            font-size: 1.1em;
+            color: #8B4513;
+            font-weight: bold;
+        }
+
+        .fortune-type {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #333;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
         }
 
         .fortune-poem {
-            font-size: 1.1em;
-            line-height: 2;
-            color: #8B4513;
+            font-size: 1.05em;
+            line-height: 2.2;
+            color: #5D4037;
+            font-family: 'KaiTi', 'STKaiti', serif;
         }
 
         /* ========== 页脚 ========== */
         .footer {
             text-align: center;
             padding: 30px 20px;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.5);
             font-size: 0.85em;
         }
 
         /* ========== 响应式 ========== */
         @media (max-width: 480px) {
             .hero-title {
-                font-size: 1.8em;
-            }
-            
-            .form-row {
-                grid-template-columns: 1fr;
+                font-size: 2em;
             }
             
             .glass-card {
-                padding: 25px 20px;
+                padding: 24px 18px;
             }
 
             .zodiac-card {
-                width: 70px;
+                width: 78px;
             }
 
             .date-picker-row {
                 grid-template-columns: 1fr 1fr;
+            }
+
+            .option-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
@@ -704,11 +915,11 @@
             left: -2px;
             right: -2px;
             bottom: -2px;
-            background: linear-gradient(45deg, var(--pink-deep), var(--purple-deep), var(--gold), var(--pink-deep));
-            border-radius: inherit;
-            z-index: -1;
-            animation: borderGlow 3s linear infinite;
+            background: linear-gradient(45deg, var(--pink-deep), var(--purple-deep), var(--gold), var(--pink-deep), var(--purple-deep));
             background-size: 400% 400%;
+            border-radius: 30px;
+            z-index: -1;
+            animation: borderGlow 4s linear infinite;
         }
 
         @keyframes borderGlow {
@@ -726,57 +937,76 @@
         }
 
         .couple-card {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 20px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            padding: 22px 15px;
             text-align: center;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
         }
 
         .couple-card:hover {
             transform: translateY(-5px);
-            border-color: var(--pink-deep);
+            border-color: rgba(255, 105, 180, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         .couple-card-icon {
-            font-size: 2.5em;
+            font-size: 2.8em;
             margin-bottom: 10px;
         }
 
         .couple-card-name {
-            font-size: 1.1em;
+            font-size: 1.15em;
             font-weight: bold;
             color: var(--gold);
+            margin-bottom: 5px;
         }
 
         .couple-card-info {
             font-size: 0.85em;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 5px;
+            color: rgba(255, 255, 255, 0.75);
         }
 
         /* ========== 百分比动画 ========== */
         .percentage-bar {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-            margin: 15px 0;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin: 12px 0;
             overflow: hidden;
         }
 
         .percentage-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--pink-deep), var(--purple-deep), var(--gold));
-            border-radius: 4px;
-            transition: width 1.5s ease;
+            border-radius: 5px;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .percentage-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .percentage-label {
             display: flex;
             justify-content: space-between;
-            font-size: 0.85em;
+            font-size: 0.88em;
             color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 6px;
         }
 
         /* ========== 彩蛋效果 ========== */
@@ -784,21 +1014,15 @@
             position: fixed;
             width: 10px;
             height: 10px;
-            background: var(--gold);
+            border-radius: 2px;
             animation: confettiFall 3s linear forwards;
             z-index: 9999;
             pointer-events: none;
         }
 
         @keyframes confettiFall {
-            0% {
-                transform: translateY(-100vh) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(720deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
 
         /* ========== 隐藏类 ========== */
@@ -808,18 +1032,19 @@
 
         /* ========== 报告解锁区 ========== */
         .report-section {
-            background: linear-gradient(135deg, rgba(155, 89, 182, 0.3), rgba(255, 105, 180, 0.3));
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.25), rgba(255, 105, 180, 0.25));
             border: 2px solid var(--gold);
-            border-radius: 20px;
+            border-radius: 22px;
             padding: 25px;
             margin: 20px 0;
+            position: relative;
         }
 
         .report-badge {
             display: inline-block;
             background: linear-gradient(135deg, var(--gold), #FFA500);
-            color: #333;
-            padding: 5px 15px;
+            color: #1a0a2e;
+            padding: 6px 16px;
             border-radius: 20px;
             font-size: 0.8em;
             font-weight: bold;
@@ -828,61 +1053,59 @@
 
         /* ========== 分享按钮 ========== */
         .share-buttons {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             margin-top: 20px;
         }
 
         .share-btn {
-            flex: 1;
-            padding: 12px;
+            padding: 14px 10px;
             border: none;
-            border-radius: 15px;
-            font-size: 0.9em;
+            border-radius: 16px;
+            font-size: 0.88em;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-        }
-
-        .share-wechat {
-            background: #07C160;
+            gap: 6px;
             color: white;
         }
 
-        .share-qq {
-            background: #12B7F5;
-            color: white;
-        }
+        .share-wechat { background: #07C160; }
+        .share-qq { background: #12B7F5; }
+        .share-moments { background: linear-gradient(135deg, #FF9500, #FF6B00); }
 
-        .share-moments {
-            background: linear-gradient(135deg, #FF9500, #FF6B00);
-            color: white;
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
 
         /* ========== 反馈入口 ========== */
         .feedback-btn {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
+            bottom: 25px;
+            right: 25px;
+            width: 55px;
+            height: 55px;
             background: linear-gradient(135deg, var(--pink-deep), var(--purple-deep));
             border: none;
             border-radius: 50%;
             color: white;
-            font-size: 1.5em;
+            font-size: 1.6em;
             cursor: pointer;
-            box-shadow: 0 4px 20px rgba(255, 105, 180, 0.4);
-            transition: all 0.3s;
+            box-shadow: 0 6px 25px rgba(255, 105, 180, 0.5);
+            transition: all 0.3s ease;
             z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .feedback-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 30px rgba(255, 105, 180, 0.6);
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 8px 35px rgba(255, 105, 180, 0.6);
         }
 
         .feedback-modal {
@@ -891,7 +1114,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(10, 5, 20, 0.9);
+            backdrop-filter: blur(10px);
             display: none;
             justify-content: center;
             align-items: center;
@@ -905,12 +1129,14 @@
 
         .feedback-content {
             background: linear-gradient(135deg, #2d1b4d, #1a0a2e);
-            border-radius: 24px;
+            border-radius: 28px;
             padding: 30px;
             max-width: 400px;
             width: 100%;
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
         }
 
         .feedback-title {
@@ -918,20 +1144,25 @@
             color: var(--gold);
             margin-bottom: 20px;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .feedback-textarea {
             width: 100%;
-            height: 150px;
-            padding: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.1);
+            height: 160px;
+            padding: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.08);
             color: white;
             font-size: 1em;
             resize: none;
             outline: none;
             margin-bottom: 15px;
+            transition: all 0.3s ease;
         }
 
         .feedback-textarea::placeholder {
@@ -940,20 +1171,98 @@
 
         .feedback-textarea:focus {
             border-color: var(--pink-deep);
+            box-shadow: 0 0 0 4px rgba(255, 105, 180, 0.15);
         }
 
         .feedback-close {
             position: absolute;
             top: 15px;
             right: 15px;
-            width: 30px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.2);
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.1);
             border: none;
             border-radius: 50%;
             color: white;
             font-size: 1.2em;
             cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feedback-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        /* ========== 验证提示 ========== */
+        .validation-tip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background: rgba(76, 175, 80, 0.15);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            border-radius: 12px;
+            color: var(--success);
+            font-size: 0.85em;
+            margin-top: 10px;
+        }
+
+        .validation-tip.error {
+            background: rgba(255, 82, 82, 0.15);
+            border-color: rgba(255, 82, 82, 0.3);
+            color: var(--error);
+        }
+
+        /* ========== 步骤按钮组 ========== */
+        .step-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .step-buttons .btn {
+            flex: 1;
+        }
+
+        /* ========== 浮雕装饰 ========== */
+        .decorative-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.5), transparent);
+            margin: 20px 0;
+        }
+
+        /* ========== 功能特色卡片 ========== */
+        .feature-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .feature-icon {
+            font-size: 1.5em;
+        }
+
+        .feature-text {
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.9);
         }
     </style>
 </head>
@@ -963,17 +1272,24 @@
 
     <!-- 加载动画 -->
     <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
-        <div class="loading-text" id="loadingText">正在测算缘分...</div>
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <div class="loading-text" id="loadingText">正在测算缘分...</div>
+            <div class="loading-subtext" id="loadingSubtext">请稍候，AI正在分析你们的数据</div>
+            <div class="loading-progress">
+                <div class="loading-progress-bar"></div>
+            </div>
+        </div>
     </div>
 
     <!-- 反馈弹窗 -->
     <div class="feedback-modal" id="feedbackModal">
         <div class="feedback-content">
+            <button class="feedback-close" onclick="closeFeedback()">✕</button>
             <h3 class="feedback-title">💌 意见反馈</h3>
-            <textarea class="feedback-textarea" id="feedbackText" placeholder="请留下您的宝贵意见...&#10;告诉我们如何做得更好"></textarea>
+            <textarea class="feedback-textarea" id="feedbackText" placeholder="请留下您的宝贵意见...&#10;&#10;可以告诉我们：&#10;• 哪些功能需要改进&#10;• 遇到了什么问题&#10;• 想要添加什么新功能"></textarea>
             <button class="btn btn-primary" onclick="submitFeedback()">提交反馈</button>
-            <button class="btn btn-gold" style="margin-top: 10px; background: rgba(255,255,255,0.2);" onclick="closeFeedback()">关闭</button>
+            <button class="btn btn-secondary" style="margin-top: 10px;" onclick="closeFeedback()">关闭</button>
         </div>
     </div>
 
@@ -987,10 +1303,10 @@
                 <h1 class="hero-title">💕 情侣正缘测算</h1>
                 <p class="hero-subtitle">2026 抖音超火 · AI 智能解析</p>
                 <div class="fate-number">
-                    已有 <span id="totalCount">128,847</span> 对情侣测过
+                    🔥 已有 <span id="totalCount">128,847</span> 对情侣测过
                 </div>
-                <div style="text-align: center; font-size: 4em; margin: 30px 0;" class="heartbeat">💘</div>
-                <p style="text-align: center; color: rgba(255,255,255,0.9); margin-bottom: 30px; font-size: 1.1em;">
+                <div style="text-align: center; font-size: 4.5em; margin: 25px 0;" class="heartbeat">💘</div>
+                <p style="text-align: center; color: rgba(255,255,255,0.9); margin-bottom: 28px; font-size: 1.05em; line-height: 1.8;">
                     你的正缘在哪里？<br>
                     输入信息，AI 为你揭秘专属缘分！
                 </p>
@@ -1003,45 +1319,78 @@
                 <div class="result-section-title">
                     ✨ 功能特色
                 </div>
-                <div style="display: grid; gap: 12px; font-size: 0.9em; color: rgba(255,255,255,0.9);">
-                    <div>💑 姓名灵魂宿命配对</div>
-                    <div>⭐ 十二星座双向合盘</div>
-                    <div>📅 八字五行夫妻合婚</div>
-                    <div>🔮 前世今生因果轮回</div>
-                    <div>💌 专属命运缘分海报</div>
+                <div class="decorative-line"></div>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <span class="feature-icon">💑</span>
+                        <span class="feature-text">姓名灵魂宿命配对</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">⭐</span>
+                        <span class="feature-text">十二星座双向合盘</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📅</span>
+                        <span class="feature-text">八字五行夫妻合婚</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔮</span>
+                        <span class="feature-text">前世今生因果轮回</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">💌</span>
+                        <span class="feature-text">专属命运缘分海报</span>
+                    </div>
                 </div>
             </div>
 
             <div class="footer">
-                <p>纯娱乐测算，仅供消遣</p>
+                <p>纯娱乐测算，仅供消遣 · 请勿迷信</p>
             </div>
         </div>
 
         <!-- ========== 表单页 ========== -->
         <div class="page" id="page-form">
             <div class="glass-card">
-                <h2 style="text-align: center; font-size: 1.5em; margin-bottom: 25px; color: var(--gold);">
+                <h2 style="text-align: center; font-size: 1.5em; margin-bottom: 20px; color: var(--gold);">
                     💕 填写你们的缘分信息
                 </h2>
 
+                <div class="form-steps">
+                    <div class="step-dot active" id="step-dot-1"></div>
+                    <div class="step-dot" id="step-dot-2"></div>
+                    <div class="step-dot" id="step-dot-3"></div>
+                </div>
+
                 <div class="nav-tabs">
-                    <div class="nav-tab active" onclick="switchForm(1)">基本信息</div>
-                    <div class="nav-tab" onclick="switchForm(2)">生日信息</div>
-                    <div class="nav-tab" onclick="switchForm(3)">星座确认</div>
+                    <div class="nav-tab active" data-step="1" onclick="switchForm(1)">基本信息</div>
+                    <div class="nav-tab" data-step="2" onclick="switchForm(2)">生日信息</div>
+                    <div class="nav-tab" data-step="3" onclick="switchForm(3)">星座确认</div>
                 </div>
 
                 <!-- 表单1：姓名 -->
                 <div class="form-step" id="form-step-1">
                     <div class="form-group">
-                        <label class="form-label">👤 你的姓名</label>
+                        <label class="form-label">
+                            <span class="icon">👤</span>
+                            你的姓名
+                        </label>
                         <input type="text" class="form-input" id="name1" placeholder="请输入你的姓名" maxlength="10">
+                        <div class="validation-tip hidden" id="name1-tip"></div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">👤 对方姓名</label>
+                        <label class="form-label">
+                            <span class="icon">👤</span>
+                            对方姓名
+                        </label>
                         <input type="text" class="form-input" id="name2" placeholder="请输入对方姓名" maxlength="10">
+                        <div class="validation-tip hidden" id="name2-tip"></div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">⚧ 你的性别</label>
+                        <label class="form-label">
+                            <span class="icon">⚧</span>
+                            你的性别
+                        </label>
                         <div class="option-grid" id="gender1Options">
                             <div class="option-item" data-value="male" onclick="selectOption('gender1', 'male', 'gender1Options')">
                                 <span class="emoji">👨</span>
@@ -1054,7 +1403,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">⚧ 对方性别</label>
+                        <label class="form-label">
+                            <span class="icon">⚧</span>
+                            对方性别
+                        </label>
                         <div class="option-grid" id="gender2Options">
                             <div class="option-item" data-value="male" onclick="selectOption('gender2', 'male', 'gender2Options')">
                                 <span class="emoji">👨</span>
@@ -1126,11 +1478,19 @@
 
                     <!-- 自动计算的星座显示 -->
                     <div class="selected-display hidden" id="zodiacDisplay">
+                        <div class="selected-zodiac" id="displayZodiac1">
+                            <span class="icon">❓</span>
+                            <span class="name">待选择</span>
+                        </div>
                         <div class="selected-vsymbol">💕</div>
+                        <div class="selected-zodiac" id="displayZodiac2">
+                            <span class="icon">❓</span>
+                            <span class="name">待选择</span>
+                        </div>
                     </div>
 
-                    <div style="display: flex; gap: 10px; margin-top: 20px;">
-                        <button class="btn btn-primary" style="background: rgba(255,255,255,0.2);" onclick="prevFormStep(2)">← 上一步</button>
+                    <div class="step-buttons">
+                        <button class="btn btn-secondary" onclick="prevFormStep(2)">← 上一步</button>
                         <button class="btn btn-primary" onclick="nextFormStep(2)">下一步 →</button>
                     </div>
                 </div>
@@ -1139,20 +1499,20 @@
                 <div class="form-step hidden" id="form-step-3">
                     <div class="form-group">
                         <label class="form-label">⭐ 你的星座（已根据生日自动匹配）</label>
-                        <div class="zodiac-grid" id="zodiacGrid1">
-                            <!-- 星座卡片由JS生成 -->
+                        <div class="zodiac-scroll-wrapper">
+                            <div class="zodiac-grid" id="zodiacGrid1"></div>
                         </div>
-                        <div style="text-align: center; margin-top: 10px; color: var(--gold);" id="selectedZodiac1">
+                        <div style="text-align: center; margin-top: 12px; color: var(--gold); font-size: 1.05em;" id="selectedZodiac1">
                             请先填写生日
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">⭐ 对方星座（已根据生日自动匹配）</label>
-                        <div class="zodiac-grid" id="zodiacGrid2">
-                            <!-- 星座卡片由JS生成 -->
+                        <div class="zodiac-scroll-wrapper">
+                            <div class="zodiac-grid" id="zodiacGrid2"></div>
                         </div>
-                        <div style="text-align: center; margin-top: 10px; color: var(--gold);" id="selectedZodiac2">
+                        <div style="text-align: center; margin-top: 12px; color: var(--gold); font-size: 1.05em;" id="selectedZodiac2">
                             请先填写生日
                         </div>
                     </div>
@@ -1205,11 +1565,12 @@
             <div class="glass-card" style="text-align: center;">
                 <div style="font-size: 5em; margin: 30px 0;" class="heartbeat">💘</div>
                 <h2 style="color: var(--gold); margin-bottom: 20px;">正在分析你们的缘分...</h2>
-                <div style="color: rgba(255,255,255,0.8); margin-bottom: 30px;">
-                    <p>正在解读姓名命理...</p>
-                    <p>正在分析星座合盘...</p>
-                    <p>正在推演前世今生...</p>
-                    <p>正在生成专属海报...</p>
+                <div style="color: rgba(255,255,255,0.8); margin-bottom: 30px; line-height: 2;">
+                    <p>✨ 正在解读姓名命理</p>
+                    <p>⭐ 正在分析星座合盘</p>
+                    <p>📅 正在推演八字五行</p>
+                    <p>🔮 正在解读前世今生</p>
+                    <p>💌 正在生成专属海报</p>
                 </div>
                 <div class="loading-spinner" style="margin: 0 auto;"></div>
             </div>
@@ -1224,7 +1585,7 @@
                         缘分ID: YUAN2026001
                     </div>
                     <div class="match-level" id="matchStars"></div>
-                    <p style="font-size: 1.3em; color: var(--gold);" id="matchLevel">天生绝配</p>
+                    <p style="font-size: 1.35em; color: var(--gold); font-weight: 600;" id="matchLevel">天生绝配</p>
                 </div>
 
                 <div class="glass-card">
@@ -1306,12 +1667,17 @@
                     </div>
                 </div>
 
-                <div class="glass-card" style="text-align: center;">
+                <div class="glass-card">
                     <div class="result-section-title" style="justify-content: center;">🎴 月老专属姻缘签</div>
-                    <div class="fortune-stick" id="fortuneStick" onclick="shakeFortune()">📜</div>
-                    <p style="color: rgba(255,255,255,0.7); font-size: 0.9em;">点击签筒抽取你的专属姻缘签</p>
+                    <div class="fortune-container">
+                        <div class="fortune-stick" id="fortuneStick" onclick="shakeFortune()">📜</div>
+                        <p class="fortune-hint">点击签筒抽取你的专属姻缘签</p>
+                    </div>
                     <div class="fortune-result hidden" id="fortuneResult">
-                        <div style="font-size: 1.2em; color: #8B4513; margin-bottom: 15px;">第 <span id="fortuneNumber">87</span> 签 · 上上签</div>
+                        <div class="fortune-header">
+                            <span class="fortune-number">第 <span id="fortuneNumber">87</span> 签</span>
+                            <span class="fortune-type">上上签</span>
+                        </div>
                         <div class="fortune-poem" id="fortunePoem">正在加载签文...</div>
                     </div>
                 </div>
@@ -1330,9 +1696,15 @@
                         分享即可解锁更多功能！
                     </p>
                     <div class="share-buttons">
-                        <button class="share-btn share-wechat" onclick="shareTo('wechat')">💬 微信</button>
-                        <button class="share-btn share-qq" onclick="shareTo('qq')">🐧 QQ</button>
-                        <button class="share-btn share-moments" onclick="shareTo('moments')">📱 朋友圈</button>
+                        <button class="share-btn share-wechat" onclick="shareTo('wechat')">
+                            💬 微信
+                        </button>
+                        <button class="share-btn share-qq" onclick="shareTo('qq')">
+                            🐧 QQ
+                        </button>
+                        <button class="share-btn share-moments" onclick="shareTo('moments')">
+                            📱 朋友圈
+                        </button>
                     </div>
                 </div>
 
@@ -1380,20 +1752,21 @@
         // ==================== 全局状态 ====================
         let formData = {
             name1: '', name2: '',
-            gender1: 'male', gender2: 'female',
+            gender1: '', gender2: '',
             birthday1: '', birthday2: '',
             zodiac1: '', zodiac2: '',
-            knowDuration: '朋友'
+            knowDuration: ''
         };
 
         let resultData = {};
         let currentDateMode = 'picker';
+        let currentStep = 1;
 
         // ==================== 星座计算 ====================
         function getZodiacFromDate(month, day) {
             for (const z of ZODIACS) {
                 if (z.name === '摩羯座') {
-                    if (month === 12 && day >= z.start[0] || month === 1 && day <= z.end[0]) {
+                    if ((month === 12 && day >= z.start[0]) || (month === 1 && day <= z.end[0])) {
                         return z.name;
                     }
                 } else {
@@ -1403,7 +1776,7 @@
                     }
                 }
             }
-            return '未知';
+            return '双鱼座';
         }
 
         function getZodiacInfo(name) {
@@ -1424,29 +1797,37 @@
         resizeCanvas();
 
         function initParticles() {
-            for (let i = 0; i < 80; i++) {
+            for (let i = 0; i < 100; i++) {
                 particles.push({
-                    x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-                    size: Math.random() * 2 + 1, speedX: Math.random() * 0.5 - 0.25,
-                    speedY: Math.random() * 0.5 - 0.25,
-                    opacity: Math.random() * 0.5 + 0.3,
+                    x: Math.random() * canvas.width, 
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2.5 + 0.5, 
+                    speedX: Math.random() * 0.4 - 0.2,
+                    speedY: Math.random() * 0.4 - 0.2,
+                    opacity: Math.random() * 0.6 + 0.2,
                     color: Math.random() > 0.5 ? '#FFD700' : '#FFB6C1'
                 });
             }
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 20; i++) {
                 hearts.push({
-                    x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-                    size: Math.random() * 15 + 10, speedX: Math.random() * 1 + 0.5,
-                    rotation: Math.random() * Math.PI * 2, rotationSpeed: Math.random() * 0.02 - 0.01,
-                    opacity: Math.random() * 0.4 + 0.2, wobble: Math.random() * Math.PI * 2
+                    x: Math.random() * canvas.width, 
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 18 + 8, 
+                    speedX: Math.random() * 0.8 + 0.3,
+                    rotation: Math.random() * Math.PI * 2, 
+                    rotationSpeed: Math.random() * 0.015 - 0.007,
+                    opacity: Math.random() * 0.4 + 0.15, 
+                    wobble: Math.random() * Math.PI * 2
                 });
             }
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 6; i++) {
                 nebulaClouds.push({
-                    x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-                    radius: Math.random() * 200 + 150,
-                    color: Math.random() > 0.5 ? 'rgba(255, 182, 193, 0.05)' : 'rgba(216, 180, 255, 0.05)',
-                    speedX: Math.random() * 0.3 + 0.1, speedY: Math.random() * 0.2 - 0.1
+                    x: Math.random() * canvas.width, 
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 250 + 150,
+                    color: Math.random() > 0.5 ? 'rgba(255, 182, 193, 0.04)' : 'rgba(216, 180, 255, 0.04)',
+                    speedX: Math.random() * 0.25 + 0.05, 
+                    speedY: Math.random() * 0.15 - 0.075
                 });
             }
         }
@@ -1465,8 +1846,11 @@
                 cloudGradient.addColorStop(0, cloud.color);
                 cloudGradient.addColorStop(1, 'transparent');
                 ctx.fillStyle = cloudGradient;
-                ctx.fillRect(cloud.x - cloud.radius, cloud.y - cloud.radius, cloud.radius * 2, cloud.radius * 2);
-                cloud.x += cloud.speedX; cloud.y += cloud.speedY;
+                ctx.beginPath();
+                ctx.arc(cloud.x, cloud.y, cloud.radius, 0, Math.PI * 2);
+                ctx.fill();
+                cloud.x += cloud.speedX; 
+                cloud.y += cloud.speedY;
                 if (cloud.x > canvas.width + cloud.radius) cloud.x = -cloud.radius;
             });
 
@@ -1477,7 +1861,8 @@
                 ctx.globalAlpha = p.opacity;
                 ctx.fill();
                 ctx.globalAlpha = 1;
-                p.x += p.speedX; p.y += p.speedY;
+                p.x += p.speedX; 
+                p.y += p.speedY;
                 if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
                 if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
             });
@@ -1485,7 +1870,7 @@
             hearts.forEach(h => {
                 ctx.save();
                 ctx.translate(h.x, h.y);
-                ctx.rotate(h.rotation + Math.sin(h.wobble) * 0.2);
+                ctx.rotate(h.rotation + Math.sin(h.wobble) * 0.15);
                 ctx.globalAlpha = h.opacity;
                 ctx.fillStyle = '#FF69B4';
                 ctx.beginPath();
@@ -1495,8 +1880,10 @@
                 ctx.bezierCurveTo(s, s * 0.1, s * 0.5, -s * 0.3, 0, s * 0.3);
                 ctx.fill();
                 ctx.restore();
-                h.x += h.speedX; h.y += Math.sin(h.wobble) * 0.5;
-                h.rotation += h.rotationSpeed; h.wobble += 0.05;
+                h.x += h.speedX; 
+                h.y += Math.sin(h.wobble) * 0.4;
+                h.rotation += h.rotationSpeed; 
+                h.wobble += 0.04;
                 if (h.x > canvas.width + h.size) h.x = -h.size;
             });
         }
@@ -1517,28 +1904,87 @@
 
         // ==================== 表单步骤 ====================
         function switchForm(step) {
+            currentStep = step;
             document.querySelectorAll('.form-step').forEach(s => s.classList.add('hidden'));
             document.getElementById(`form-step-${step}`).classList.remove('hidden');
-            document.querySelectorAll('.nav-tab').forEach((t, i) => t.classList.toggle('active', i === step - 1));
+            
+            document.querySelectorAll('.nav-tab').forEach((t, i) => {
+                t.classList.toggle('active', i === step - 1);
+            });
+
+            document.querySelectorAll('.step-dot').forEach((dot, i) => {
+                dot.classList.remove('active', 'completed');
+                if (i < step - 1) dot.classList.add('completed');
+                if (i === step - 1) dot.classList.add('active');
+            });
 
             if (step === 3) {
                 updateZodiacDisplays();
             }
         }
 
+        function updateStepDots() {
+            document.querySelectorAll('.step-dot').forEach((dot, i) => {
+                dot.classList.remove('active', 'completed');
+                if (i < currentStep - 1) dot.classList.add('completed');
+                if (i === currentStep - 1) dot.classList.add('active');
+            });
+        }
+
         function nextFormStep(current) {
+            // 验证当前步骤
             if (current === 1) {
                 const name1 = document.getElementById('name1').value.trim();
                 const name2 = document.getElementById('name2').value.trim();
-                if (!name1 || !name2) { alert('请填写双方姓名'); return; }
+                
+                if (!name1) {
+                    showValidationTip('name1-tip', '请输入你的姓名', true);
+                    return;
+                }
+                if (!name2) {
+                    showValidationTip('name2-tip', '请输入对方姓名', true);
+                    return;
+                }
+                if (name1.length < 2) {
+                    showValidationTip('name1-tip', '姓名至少2个字符', true);
+                    return;
+                }
+                if (name2.length < 2) {
+                    showValidationTip('name2-tip', '姓名至少2个字符', true);
+                    return;
+                }
+                if (!formData.gender1) {
+                    alert('请选择你的性别');
+                    return;
+                }
+                if (!formData.gender2) {
+                    alert('请选择对方性别');
+                    return;
+                }
+
                 formData.name1 = name1;
                 formData.name2 = name2;
             } else if (current === 2) {
-                if (!formData.birthday1 || !formData.birthday2) {
-                    alert('请填写双方生日');
+                if (!formData.birthday1) {
+                    alert('请填写你的生日');
                     return;
                 }
+                if (!formData.birthday2) {
+                    alert('请填写对方生日');
+                    return;
+                }
+                
+                // 验证年龄差
+                const b1 = new Date(formData.birthday1);
+                const b2 = new Date(formData.birthday2);
+                const ageDiff = Math.abs(new Date().getFullYear() - b1.getFullYear() - new Date().getFullYear() + b2.getFullYear());
+                if (ageDiff > 30) {
+                    if (!confirm('年龄差较大，是否继续测算？')) {
+                        return;
+                    }
+                }
             }
+            
             switchForm(current + 1);
         }
 
@@ -1546,12 +1992,30 @@
             switchForm(current - 1);
         }
 
-        // ==================== 选项选择 ====================
+        function showValidationTip(elementId, message, isError) {
+            const tip = document.getElementById(elementId);
+            tip.textContent = message;
+            tip.className = 'validation-tip' + (isError ? ' error' : '');
+            tip.classList.remove('hidden');
+            
+            setTimeout(() => {
+                tip.classList.add('hidden');
+            }, 3000);
+        }
+
+        // ==================== 选项选择（修复点击问题） ====================
         function selectOption(field, value, containerId) {
             const container = document.getElementById(containerId);
-            container.querySelectorAll('.option-item').forEach(item => {
-                item.classList.toggle('selected', item.dataset.value === value);
+            const items = container.querySelectorAll('.option-item');
+            
+            items.forEach(item => {
+                if (item.dataset.value === value) {
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
             });
+            
             formData[field] = value;
         }
 
@@ -1573,7 +2037,7 @@
                 const monthSelect = document.getElementById(`birthMonth${num}`);
                 const daySelect = document.getElementById(`birthDay${num}`);
 
-                for (let y = currentYear - 50; y <= currentYear - 18; y++) {
+                for (let y = currentYear - 60; y <= currentYear - 18; y++) {
                     yearSelect.innerHTML += `<option value="${y}">${y}年</option>`;
                 }
 
@@ -1603,6 +2067,13 @@
             const day = parseInt(document.getElementById(`birthDay${num}`).value);
 
             if (year && month && day) {
+                // 验证日期是否有效
+                const daysInMonth = new Date(year, month, 0).getDate();
+                if (day > daysInMonth) {
+                    alert('日期不合法，请重新选择');
+                    return;
+                }
+                
                 const birthday = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                 formData[`birthday${num}`] = birthday;
                 updateZodiacFromBirthday(num);
@@ -1625,16 +2096,36 @@
                 display.classList.remove('hidden');
                 const z1 = getZodiacInfo(formData.zodiac1);
                 const z2 = getZodiacInfo(formData.zodiac2);
-                display.innerHTML = `
-                    <div class="selected-zodiac">
-                        <span class="icon">${z1.icon}</span>
-                        <span class="name">${formData.zodiac1}</span>
-                    </div>
-                    <div class="selected-vsymbol">💕</div>
-                    <div class="selected-zodiac">
-                        <span class="icon">${z2.icon}</span>
-                        <span class="name">${formData.zodiac2}</span>
-                    </div>
+                
+                document.getElementById('displayZodiac1').innerHTML = `
+                    <span class="icon">${z1.icon}</span>
+                    <span class="name">${formData.zodiac1}</span>
+                `;
+                document.getElementById('displayZodiac2').innerHTML = `
+                    <span class="icon">${z2.icon}</span>
+                    <span class="name">${formData.zodiac2}</span>
+                `;
+            } else if (formData.zodiac1) {
+                display.classList.remove('hidden');
+                const z1 = getZodiacInfo(formData.zodiac1);
+                document.getElementById('displayZodiac1').innerHTML = `
+                    <span class="icon">${z1.icon}</span>
+                    <span class="name">${formData.zodiac1}</span>
+                `;
+                document.getElementById('displayZodiac2').innerHTML = `
+                    <span class="icon">❓</span>
+                    <span class="name">待选择</span>
+                `;
+            } else if (formData.zodiac2) {
+                display.classList.remove('hidden');
+                const z2 = getZodiacInfo(formData.zodiac2);
+                document.getElementById('displayZodiac1').innerHTML = `
+                    <span class="icon">❓</span>
+                    <span class="name">待选择</span>
+                `;
+                document.getElementById('displayZodiac2').innerHTML = `
+                    <span class="icon">${z2.icon}</span>
+                    <span class="name">${formData.zodiac2}</span>
                 `;
             } else {
                 display.classList.add('hidden');
@@ -1657,9 +2148,16 @@
         function selectZodiac(num, zodiacName) {
             formData[`zodiac${num}`] = zodiacName;
             const grid = document.getElementById(`zodiacGrid${num}`);
-            grid.querySelectorAll('.zodiac-card').forEach(card => {
-                card.classList.toggle('selected', card.dataset.zodiac === zodiacName);
+            const cards = grid.querySelectorAll('.zodiac-card');
+            
+            cards.forEach(card => {
+                if (card.dataset.zodiac === zodiacName) {
+                    card.classList.add('selected');
+                } else {
+                    card.classList.remove('selected');
+                }
             });
+            
             document.getElementById(`selectedZodiac${num}`).innerHTML = 
                 `<span style="font-size: 1.5em;">${getZodiacInfo(zodiacName).icon}</span> ${zodiacName}`;
         }
@@ -1669,36 +2167,51 @@
                 const zodiac = formData[`zodiac${num}`];
                 if (zodiac) {
                     selectZodiac(num, zodiac);
+                } else {
+                    document.getElementById(`selectedZodiac${num}`).textContent = '请选择星座';
                 }
             });
         }
 
         // ==================== 提交表单 ====================
         async function submitForm() {
-            if (!formData.zodiac1 || formData.zodiac1 === '未知') {
+            // 最终验证
+            if (!formData.zodiac1) {
                 alert('请确保生日信息正确，系统将自动计算星座');
                 switchForm(2);
                 return;
             }
-            if (!formData.zodiac2 || formData.zodiac2 === '未知') {
+            if (!formData.zodiac2) {
                 alert('请确保生日信息正确，系统将自动计算星座');
                 switchForm(2);
+                return;
+            }
+            if (!formData.knowDuration) {
+                alert('请选择认识多久了');
                 return;
             }
 
             showPage('page-loading');
+            document.getElementById('loadingSubtext').textContent = '正在连接AI分析引擎...';
 
             try {
                 const response = await fetch(`${API_BASE}/analyze`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify(formData)
                 });
 
-                if (!response.ok) throw new Error('API请求失败');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
                 resultData = await response.json();
             } catch (error) {
-                console.log('使用本地模拟数据');
+                console.log('API连接失败，使用本地模拟数据:', error.message);
+                document.getElementById('loadingSubtext').textContent = '使用本地智能分析...';
+                await new Promise(resolve => setTimeout(resolve, 500));
                 useLocalFallback();
             }
 
@@ -1715,15 +2228,14 @@
             document.getElementById('resultName1').textContent = formData.name1;
             document.getElementById('resultName2').textContent = formData.name2;
 
-            const zodiacEmojis = ZODIAC_EMOJI;
             const date1 = new Date(formData.birthday1);
             const date2 = new Date(formData.birthday2);
             document.getElementById('resultInfo1').textContent = 
-                `${zodiacEmojis[formData.zodiac1]} ${formData.zodiac1} · ${date1.getMonth() + 1}月${date1.getDate()}日`;
+                `${ZODIAC_EMOJI[formData.zodiac1]} ${formData.zodiac1} · ${date1.getMonth() + 1}月${date1.getDate()}日`;
             document.getElementById('resultInfo2').textContent = 
-                `${zodiacEmojis[formData.zodiac2]} ${formData.zodiac2} · ${date2.getMonth() + 1}月${date2.getDate()}日`;
+                `${ZODIAC_EMOJI[formData.zodiac2]} ${formData.zodiac2} · ${date2.getMonth() + 1}月${date2.getDate()}日`;
 
-            const stars = resultData.compatibility ? Math.min(5, Math.floor(resultData.compatibility / 20)) : 4;
+            const stars = resultData.compatibility ? Math.min(5, Math.max(1, Math.floor(resultData.compatibility / 20))) : 4;
             const starsContainer = document.getElementById('matchStars');
             starsContainer.innerHTML = '';
             for (let i = 0; i < 5; i++) {
@@ -1749,7 +2261,7 @@
                 document.getElementById('compatibilityBar').style.width = `${compat}%`;
                 document.getElementById('personalityBar').style.width = `${personality}%`;
                 document.getElementById('communicationBar').style.width = `${communication}%`;
-            }, 500);
+            }, 300);
 
             document.getElementById('nameAnalysis').textContent = resultData.nameAnalysis || '正在加载...';
             document.getElementById('zodiacAnalysis').textContent = resultData.zodiacAnalysis || '正在加载...';
@@ -1762,74 +2274,118 @@
 
         // ==================== 本地模拟数据 ====================
         function useLocalFallback() {
+            // 基于星座计算更严谨的契合度
+            const zodiacCompatibility = calculateZodiacCompatibility(formData.zodiac1, formData.zodiac2);
+            const nameScore = calculateNameScore(formData.name1, formData.name2);
+            const durationBonus = calculateDurationBonus(formData.knowDuration);
+            
+            const baseCompat = 70;
+            const finalCompat = Math.min(98, Math.max(60, Math.round(baseCompat + zodiacCompatibility * 0.5 + nameScore * 0.3 + durationBonus)));
+            
             resultData = {
-                compatibility: 95,
-                personality: 92,
-                communication: 89,
-                nameAnalysis: `从姓名学的角度来看，${formData.name1} 和 ${formData.name2} 的姓名组合蕴含着独特的缘分密码。
-
-"${formData.name1}" 的名字温文尔雅，与 "${formData.name2}" 的名字相映成趣。
-
-两人名字的偏旁部首相互呼应，一个如水般温柔，一个如火般热烈，正是阴阳调和的绝佳配对。
-
-你们的名字注定了今生的相遇不是偶然，而是命运精心安排的必然。`,
-
-                zodiacAnalysis: `${formData.zodiac1} 与 ${formData.zodiac2} 的组合，在十二星座中属于极具化学反应的配对。
-
-${formData.zodiac1} 的特质与 ${formData.zodiac2} 的特质相互吸引，在相处中往往能擦出绚烂的火花。
-
-太阳星座的和谐相位让你们在相处中感到轻松自在，共同创造美好的回忆。`,
-
-                baziAnalysis: `根据八字五行分析，${formData.name1} 和 ${formData.name2} 的生辰八字在婚姻配对表中属于上等婚配。
-
-两人命理互补，性情相投，不仅感情稳定，更能互相成就、共同进步。
-
-这样的缘分在世间难得，值得好好珍惜。`,
-
-                pastLifeAnalysis: `🔮 前世回溯解读 🔮
-
-在灵魂轮回的长河中，你们已经相遇过无数次...
-
-据灵性感应显示，你们的前世曾是青梅竹马、两小无猜的童年玩伴，共同度过纯真的时光。
-
-今生再次相遇，是因为你们在灵魂层面有着未完的约定。
-
-这不仅仅是简单的喜欢或爱，而是一种灵魂层面的召唤。`,
-
-                loveForecast: `📈 感情运势预测 📈
-
-【2026年】：感情升温期，你们会更加珍惜彼此。
-
-【2027年】：磨合与成长的一年，感情反而更加深厚。
-
-【2028年】：财运与感情双丰收，是重要的一年。
-
-【2029年】：事业腾飞期，两人互相扶持。
-
-【2030年】：感情稳定期，生活充满幸福。`,
-
-                warningAdvice: `⚠️ 相处建议 ⚠️
-
-1️⃣ 沟通方式：多尝试用对方能接受的方式沟通。
-
-2️⃣ 处理冲突：不要冷战，约定冷静期规则。
-
-3️⃣ 边界感：给予彼此适当的安全感和自由空间。
-
-4️⃣ 未来规划：尽早讨论婚后生活的规划。`,
-
-                bestMarriageYear: `🎎 最佳结婚年份分析 🎎
-
-🌟 最佳年份：2027年
-- 流年运势与感情宫位形成良好相位
-
-🌟 次佳年份：2028年
-- 太岁与命格相合，姻缘运达顶峰
-
-💍 最佳月份：农历三月、七月、十月
-
-💫 避开年份：2026年下半年`
+                compatibility: finalCompat,
+                personality: Math.min(98, Math.round(finalCompat - 3 + Math.random() * 8)),
+                communication: Math.min(98, Math.round(finalCompat - 5 + Math.random() * 10)),
+                nameAnalysis: generateNameAnalysis(formData.name1, formData.name2, nameScore),
+                zodiacAnalysis: generateZodiacAnalysis(formData.zodiac1, formData.zodiac2, zodiacCompatibility),
+                baziAnalysis: generateBaziAnalysis(formData.name1, formData.name2, formData.birthday1, formData.birthday2),
+                pastLifeAnalysis: generatePastLifeAnalysis(formData.name1, formData.name2),
+                loveForecast: generateLoveForecast(formData.name1, formData.name2),
+                warningAdvice: generateWarningAdvice(formData.zodiac1, formData.zodiac2),
+                bestMarriageYear: generateBestMarriageYear()
             };
+        }
+
+        // ==================== 严谨的测算函数 ====================
+        function calculateZodiacCompatibility(z1, z2) {
+            const compatibilityMap = {
+                '白羊座': { '白羊座': 75, '金牛座': 70, '双子座': 90, '巨蟹座': 65, '狮子座': 95, '处女座': 70, '天秤座': 80, '天蝎座': 75, '射手座': 95, '摩羯座': 70, '水瓶座': 85, '双鱼座': 70 },
+                '金牛座': { '白羊座': 70, '金牛座': 85, '双子座': 70, '巨蟹座': 95, '狮子座': 75, '处女座': 90, '天秤座': 70, '天蝎座': 85, '射手座': 65, '摩羯座': 95, '水瓶座': 70, '双鱼座': 85 },
+                '双子座': { '白羊座': 90, '金牛座': 70, '双子座': 80, '巨蟹座': 70, '狮子座': 85, '处女座': 85, '天秤座': 95, '天蝎座': 70, '射手座': 90, '摩羯座': 70, '水瓶座': 95, '双鱼座': 75 },
+                '巨蟹座': { '白羊座': 65, '金牛座': 95, '双子座': 70, '巨蟹座': 85, '狮子座': 70, '处女座': 85, '天秤座': 75, '天蝎座': 95, '射手座': 65, '摩羯座': 80, '水瓶座': 70, '双鱼座': 90 },
+                '狮子座': { '白羊座': 95, '金牛座': 75, '双子座': 85, '巨蟹座': 70, '狮子座': 80, '处女座': 75, '天秤座': 90, '天蝎座': 80, '射手座': 90, '摩羯座': 75, '水瓶座': 80, '双鱼座': 70 },
+                '处女座': { '白羊座': 70, '金牛座': 90, '双子座': 85, '巨蟹座': 85, '狮子座': 75, '处女座': 85, '天秤座': 85, '天蝎座': 90, '射手座': 70, '摩羯座': 95, '水瓶座': 80, '双鱼座': 80 },
+                '天秤座': { '白羊座': 80, '金牛座': 70, '双子座': 95, '巨蟹座': 75, '狮子座': 90, '处女座': 85, '天秤座': 80, '天蝎座': 80, '射手座': 90, '摩羯座': 75, '水瓶座': 90, '双鱼座': 80 },
+                '天蝎座': { '白羊座': 75, '金牛座': 85, '双子座': 70, '巨蟹座': 95, '狮子座': 80, '处女座': 90, '天秤座': 80, '天蝎座': 85, '射手座': 70, '摩羯座': 85, '水瓶座': 75, '双鱼座': 95 },
+                '射手座': { '白羊座': 95, '金牛座': 65, '双子座': 90, '巨蟹座': 65, '狮子座': 90, '处女座': 70, '天秤座': 90, '天蝎座': 70, '射手座': 80, '摩羯座': 70, '水瓶座': 95, '双鱼座': 75 },
+                '摩羯座': { '白羊座': 70, '金牛座': 95, '双子座': 70, '巨蟹座': 80, '狮子座': 75, '处女座': 95, '天秤座': 75, '天蝎座': 85, '射手座': 70, '摩羯座': 85, '水瓶座': 75, '双鱼座': 80 },
+                '水瓶座': { '白羊座': 85, '金牛座': 70, '双子座': 95, '巨蟹座': 70, '狮子座': 80, '处女座': 80, '天秤座': 90, '天蝎座': 75, '射手座': 95, '摩羯座': 75, '水瓶座': 80, '双鱼座': 80 },
+                '双鱼座': { '白羊座': 70, '金牛座': 85, '双子座': 75, '巨蟹座': 90, '狮子座': 70, '处女座': 80, '天秤座': 80, '天蝎座': 95, '射手座': 75, '摩羯座': 80, '水瓶座': 80, '双鱼座': 85 }
+            };
+            
+            return compatibilityMap[z1]?.[z2] || 75;
+        }
+
+        function calculateNameScore(name1, name2) {
+            // 简单的姓名笔画计算
+            const stroke1 = name1.split('').reduce((sum, char) => sum + (char.charCodeAt(0) % 9) + 1, 0);
+            const stroke2 = name2.split('').reduce((sum, char) => sum + (char.charCodeAt(0) % 9) + 1, 0);
+            const diff = Math.abs(stroke1 - stroke2);
+            return diff < 5 ? 90 : diff < 10 ? 75 : 60;
+        }
+
+        function calculateDurationBonus(duration) {
+            const bonusMap = {
+                '暗恋中': 10,
+                '刚认识': 5,
+                '朋友': 15,
+                '暧昧中': 25,
+                '恋人': 35,
+                '已婚': 50
+            };
+            return bonusMap[duration] || 15;
+        }
+
+        function generateNameAnalysis(name1, name2, score) {
+            const intro = `从姓名学的角度来看，${name1} 和 ${name2} 的姓名组合蕴含着独特的缘分密码。`;
+            const detail = score > 85 
+                ? `两人名字的偏旁部首相互呼应，一个温文尔雅，一个热情奔放，正是阴阳调和的绝佳配对。`
+                : score > 75
+                ? `名字的音律搭配和谐，读起来朗朗上口，象征着沟通顺畅。`
+                : `虽然名字风格略有差异，但正是这种互补让感情更加丰富多彩。`;
+            const conclusion = `\n\n你们名字注定了今生的相遇不是偶然，而是命运精心安排的必然。`;
+            return intro + detail + conclusion;
+        }
+
+        function generateZodiacAnalysis(z1, z2, compat) {
+            const commonTraits = `【星座速配分析】\n${z1} 与 ${z2} 的组合在十二星座中属于 `;
+            const level = compat > 90 ? '极具化学反应的配对' : compat > 80 ? '非常默契的组合' : '需要磨合的配对';
+            const detail = `\n\n${z1} 的特质与 ${z2} 的特质相互吸引，在相处中往往能擦出绚烂的火花。太阳星座的和谐相位让你们在相处中感到轻松自在。`;
+            const advice = compat > 85 ? '\n\n💡 建议：保持现在的默契，多给对方空间。' : '\n\n💡 建议：学会欣赏彼此的不同，包容对方的缺点。';
+            return commonTraits + level + detail + advice;
+        }
+
+        function generateBaziAnalysis(name1, name2, b1, b2) {
+            const date1 = new Date(b1);
+            const date2 = new Date(b2);
+            const element1 = ['金', '木', '水', '火', '土'][date1.getMonth() % 5];
+            const element2 = ['金', '木', '水', '火', '土'][date2.getMonth() % 5];
+            
+            return `【八字五行分析】\n根据八字五行分析，${name1}（${element1}命）和 ${name2}（${element2}命）的生辰在婚姻配对表中属于上等婚配。\n\n${element1}与${element2}相生相合，象征着两人能够互相扶持、共同进步。\n\n这样的缘分在世间难得，值得好好珍惜！`;
+        }
+
+        function generatePastLifeAnalysis(name1, name2) {
+            const stories = [
+                `在灵魂轮回的长河中，你们已经相遇过无数次...\n\n据灵性感应显示，你们的前世曾是青梅竹马、两小无猜的童年玩伴，共同度过纯真的时光。\n\n今生再次相遇，是因为你们在灵魂层面有着未完的约定。`,
+                `追溯到前世的记忆，你们曾是共患难的战友，在艰难岁月里互相扶持建立了深厚的情谊。\n\n今生的相遇是命运给你们重新续写缘分的机会。`,
+                `在无数轮回中，你们是彼此生命中最重要的人。今生再度相逢，是灵魂深处的召唤。`
+            ];
+            return '🔮 前世回溯解读 🔮\n\n' + stories[Math.floor(Math.random() * stories.length)];
+        }
+
+        function generateLoveForecast(name1, name2) {
+            const currentYear = new Date().getFullYear();
+            return `📈 感情运势预测 📈\n\n【${currentYear}年】：感情升温期，你们会更加珍惜彼此。\n\n【${currentYear + 1}年】：磨合与成长的一年，感情反而更加深厚。\n\n【${currentYear + 2}年】：财运与感情双丰收，是重要的一年。\n\n【${currentYear + 3}年】：事业腾飞期，两人互相扶持。\n\n【${currentYear + 4}年】：感情稳定期，生活充满幸福。`;
+        }
+
+        function generateWarningAdvice(z1, z2) {
+            return `⚠️ 相处建议 ⚠️\n\n1️⃣ 沟通方式：多尝试用对方能接受的方式沟通，避免情绪化表达。\n\n2️⃣ 处理冲突：不要冷战，约定冷静期规则，冷静后好好沟通。\n\n3️⃣ 边界感：给予彼此适当的安全感和自由空间，建立信任。\n\n4️⃣ 未来规划：尽早讨论婚后生活的规划，达成共识。\n\n5️⃣ 经济管理：讨论并制定共同的财务计划，避免因金钱产生矛盾。`;
+        }
+
+        function generateBestMarriageYear() {
+            const currentYear = new Date().getFullYear();
+            const luckyYears = [currentYear + 1, currentYear + 2, currentYear + 3].filter(y => y % 2 === 0);
+            return `🎎 最佳结婚年份分析 🎎\n\n🌟 最佳年份：${luckyYears[0]}年\n- 流年运势与感情宫位形成良好相位\n\n🌟 次佳年份：${luckyYears[1]}年\n- 太岁与命格相合，姻缘运达顶峰\n\n💍 最佳月份：农历三月、七月、十月\n\n💫 避开年份：${currentYear}年下半年`;
         }
 
         // ==================== 海报生成 ====================
@@ -1839,52 +2395,68 @@ ${formData.zodiac1} 的特质与 ${formData.zodiac2} 的特质相互吸引，在
             const width = 540, height = 960;
             posterCanvas.width = width; posterCanvas.height = height;
 
+            // 渐变背景
             const gradient = ctx.createLinearGradient(0, 0, width, height);
-            gradient.addColorStop(0, '#1a0a2e'); gradient.addColorStop(0.5, '#2d1b4d'); gradient.addColorStop(1, '#0d0a25');
-            ctx.fillStyle = gradient; ctx.fillRect(0, 0, width, height);
+            gradient.addColorStop(0, '#1a0a2e'); 
+            gradient.addColorStop(0.5, '#2d1b4d'); 
+            gradient.addColorStop(1, '#0d0a25');
+            ctx.fillStyle = gradient; 
+            ctx.fillRect(0, 0, width, height);
 
-            const glow1 = ctx.createRadialGradient(width * 0.3, height * 0.2, 0, width * 0.3, height * 0.2, 200);
-            glow1.addColorStop(0, 'rgba(255, 105, 180, 0.3)'); glow1.addColorStop(1, 'transparent');
+            // 光晕效果
+            const glow1 = ctx.createRadialGradient(width * 0.3, height * 0.2, 0, width * 0.3, height * 0.2, 250);
+            glow1.addColorStop(0, 'rgba(255, 105, 180, 0.35)'); glow1.addColorStop(1, 'transparent');
             ctx.fillStyle = glow1; ctx.fillRect(0, 0, width, height);
 
-            ctx.fillStyle = '#FFD700'; ctx.font = 'bold 36px sans-serif'; ctx.textAlign = 'center';
+            const glow2 = ctx.createRadialGradient(width * 0.7, height * 0.7, 0, width * 0.7, height * 0.7, 200);
+            glow2.addColorStop(0, 'rgba(216, 180, 255, 0.25)'); glow2.addColorStop(1, 'transparent');
+            ctx.fillStyle = glow2; ctx.fillRect(0, 0, width, height);
+
+            // 标题
+            ctx.fillStyle = '#FFD700'; ctx.font = 'bold 38px sans-serif'; ctx.textAlign = 'center';
             ctx.fillText('💕 情侣正缘测算 💕', width / 2, 80);
             ctx.fillStyle = 'rgba(255, 255, 255, 0.9)'; ctx.font = '22px sans-serif';
             ctx.fillText('2026 专属缘分报告', width / 2, 120);
-            ctx.fillStyle = '#FFD700'; ctx.font = '18px sans-serif';
+            ctx.fillStyle = 'rgba(255, 215, 0, 0.8)'; ctx.font = '18px sans-serif';
             ctx.fillText(document.getElementById('coupleId').textContent, width / 2, 160);
 
-            ctx.fillStyle = '#FFB6C1'; ctx.font = 'bold 28px sans-serif';
-            ctx.fillText(formData.name1, width / 2 - 80, 260);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'; ctx.font = '24px sans-serif';
-            ctx.fillText('♡', width / 2, 260);
-            ctx.fillStyle = '#D8B4FF'; ctx.font = 'bold 28px sans-serif';
-            ctx.fillText(formData.name2, width / 2 + 80, 260);
+            // 名字区域
+            ctx.fillStyle = '#FFB6C1'; ctx.font = 'bold 30px sans-serif';
+            ctx.fillText(formData.name1, width / 2 - 80, 270);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'; ctx.font = '28px sans-serif';
+            ctx.fillText('♡', width / 2, 270);
+            ctx.fillStyle = '#D8B4FF'; ctx.font = 'bold 30px sans-serif';
+            ctx.fillText(formData.name2, width / 2 + 80, 270);
 
             ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'; ctx.font = '18px sans-serif';
-            ctx.fillText(`${formData.zodiac1} ♡ ${formData.zodiac2}`, width / 2, 300);
+            ctx.fillText(`${formData.zodiac1} ♡ ${formData.zodiac2}`, width / 2, 310);
 
+            // 契合度圆形
             const level = document.getElementById('matchLevel').textContent;
-            const levelColors = { '天生绝配': '#FFD700', '灵魂伴侣': '#FF69B4', '三世正缘': '#D8B4FF' };
-            ctx.fillStyle = levelColors[level] || '#FFD700'; ctx.font = 'bold 32px sans-serif';
-            ctx.fillText(level, width / 2, 380);
+            const levelColors = { '天生绝配': '#FFD700', '灵魂伴侣': '#FF69B4', '缘分不错': '#D8B4FF', '有点缘分': '#87CEEB', '普通缘分': '#CCCCCC' };
+            ctx.fillStyle = levelColors[level] || '#FFD700'; ctx.font = 'bold 34px sans-serif'; ctx.textAlign = 'center';
+            ctx.fillText(level, width / 2, 390);
 
-            const centerX = width / 2, centerY = 500, radius = 100;
+            const centerX = width / 2, centerY = 510, radius = 110;
             const compat = resultData.compatibility || 95;
 
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'; ctx.lineWidth = 15;
+            // 背景圆环
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'; ctx.lineWidth = 18;
             ctx.beginPath(); ctx.arc(centerX, centerY, radius, 0, Math.PI * 2); ctx.stroke();
 
+            // 进度圆环
             const arcGradient = ctx.createLinearGradient(centerX - radius, centerY, centerX + radius, centerY);
             arcGradient.addColorStop(0, '#FF69B4'); arcGradient.addColorStop(0.5, '#D8B4FF'); arcGradient.addColorStop(1, '#FFD700');
-            ctx.strokeStyle = arcGradient; ctx.lineWidth = 15; ctx.lineCap = 'round';
+            ctx.strokeStyle = arcGradient; ctx.lineWidth = 18; ctx.lineCap = 'round';
             ctx.beginPath(); ctx.arc(centerX, centerY, radius, -Math.PI / 2, -Math.PI / 2 + (compat / 100) * Math.PI * 2); ctx.stroke();
 
-            ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 48px sans-serif';
-            ctx.fillText(`${compat}%`, centerX, centerY + 15);
-            ctx.font = '18px sans-serif'; ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-            ctx.fillText('契合度', centerX, centerY + 40);
+            // 中心文字
+            ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 52px sans-serif';
+            ctx.fillText(`${compat}%`, centerX, centerY + 18);
+            ctx.font = '20px sans-serif'; ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.fillText('契合度', centerX, centerY + 45);
 
+            // 详细数据
             const stats = [
                 { label: '性格匹配', value: resultData.personality || 90 },
                 { label: '沟通默契', value: resultData.communication || 88 },
@@ -1893,22 +2465,25 @@ ${formData.zodiac1} 的特质与 ${formData.zodiac2} 的特质相互吸引，在
             ];
 
             stats.forEach((stat, i) => {
-                const y = 680 + i * 50;
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; ctx.font = '16px sans-serif'; ctx.textAlign = 'left';
+                const y = 700 + i * 55;
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.65)'; ctx.font = '17px sans-serif'; ctx.textAlign = 'left';
                 ctx.fillText(stat.label, 80, y);
                 ctx.textAlign = 'right'; ctx.fillText(`${stat.value}%`, width - 80, y);
+                
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-                ctx.fillRect(80, y + 8, width - 160, 6);
+                ctx.fillRect(80, y + 10, width - 160, 8);
+                
                 const barGradient = ctx.createLinearGradient(80, 0, width - 80, 0);
                 barGradient.addColorStop(0, '#FF69B4'); barGradient.addColorStop(1, '#D8B4FF');
                 ctx.fillStyle = barGradient;
-                ctx.fillRect(80, y + 8, (width - 160) * (stat.value / 100), 6);
+                ctx.fillRect(80, y + 10, (width - 160) * (stat.value / 100), 8);
             });
 
-            ctx.fillStyle = '#FFD700'; ctx.font = 'bold 20px sans-serif'; ctx.textAlign = 'center';
-            ctx.fillText('✦ 命运安排的相遇 ✦', width / 2, 890);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; ctx.font = '14px sans-serif';
-            ctx.fillText('纯属娱乐 · 仅供参考', width / 2, 920);
+            // 底部装饰
+            ctx.fillStyle = '#FFD700'; ctx.font = 'bold 21px sans-serif'; ctx.textAlign = 'center';
+            ctx.fillText('✦ 命运安排的相遇 ✦', width / 2, 920);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.55)'; ctx.font = '15px sans-serif';
+            ctx.fillText('纯属娱乐 · 仅供参考', width / 2, 950);
 
             document.getElementById('posterImage').src = posterCanvas.toDataURL('image/png');
         }
@@ -1921,76 +2496,118 @@ ${formData.zodiac1} 的特质与 ${formData.zodiac2} 的特质相互吸引，在
         }
 
         function shareTo(platform) {
-            const shareText = `💕 我和${formData.name2}的缘分契合度达到${resultData.compatibility || 95}%！\n${formData.name1}♡${formData.name2}\n你也来测测吧！`;
-            navigator.clipboard.writeText(shareText).then(() => {
-                alert('分享文案已复制到剪贴板！');
-            }).catch(() => {
-                alert('分享功能已触发');
-            });
+            const shareText = `💕 我和${formData.name2}的缘分契合度达到${resultData.compatibility || 95}%！\n${formData.name1}♡${formData.zodiac1}\n${formData.name2}♡${formData.zodiac2}\n你也来测测吧！`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: '情侣正缘测算',
+                    text: shareText,
+                    url: window.location.href
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(shareText + '\n' + window.location.href).then(() => {
+                    alert('分享内容已复制到剪贴板！');
+                }).catch(() => {
+                    alert('分享功能已准备就绪');
+                });
+            }
         }
 
         function shakeFortune() {
             const stick = document.getElementById('fortuneStick');
             stick.classList.add('shake');
+            
             setTimeout(() => {
                 stick.classList.remove('shake');
                 stick.textContent = '✨';
                 document.getElementById('fortuneResult').classList.remove('hidden');
+                
                 const poems = [
                     '千年修得共枕眠，万年修得同船渡\n红尘深处初相见，魂牵梦萦终不悔',
                     '月老红线系姻缘，前世今生续前缘\n两心相悦情难断，白首相伴到永远',
-                    '银河隔断双星会，牛郎织女盼七夕\n人间自有真情在，千里姻缘一线牵'
+                    '银河隔断双星会，牛郎织女盼七夕\n人间自有真情在，千里姻缘一线牵',
+                    '三生石上刻姻缘，轮回台上定今生\n今朝相识皆因缘，珍惜眼前人百年',
+                    '红绳早系定终身，命中注定两相知\n携手同行共白首，幸福美满乐无忧'
                 ];
+                
+                const types = ['上上签', '上吉签', '中吉签'];
                 document.getElementById('fortunePoem').textContent = poems[Math.floor(Math.random() * poems.length)];
                 document.getElementById('fortuneNumber').textContent = Math.floor(Math.random() * 100) + 1;
-            }, 500);
+                document.querySelector('.fortune-type').textContent = types[Math.floor(Math.random() * types.length)];
+            }, 600);
         }
 
         function showConfetti() {
-            const colors = ['#FFD700', '#FF69B4', '#D8B4FF', '#FFB6C1', '#87CEEB'];
-            for (let i = 0; i < 50; i++) {
+            const colors = ['#FFD700', '#FF69B4', '#D8B4FF', '#FFB6C1', '#87CEEB', '#FFB6C1'];
+            for (let i = 0; i < 60; i++) {
                 setTimeout(() => {
                     const confetti = document.createElement('div');
                     confetti.className = 'confetti';
                     confetti.style.left = Math.random() * 100 + 'vw';
                     confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
                     confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    confetti.style.width = (Math.random() * 8 + 6) + 'px';
+                    confetti.style.height = (Math.random() * 8 + 6) + 'px';
                     document.body.appendChild(confetti);
                     setTimeout(() => confetti.remove(), 5000);
-                }, i * 50);
+                }, i * 40);
             }
         }
 
         function restartTest() {
+            // 重置表单
             document.getElementById('name1').value = '';
             document.getElementById('name2').value = '';
             document.getElementById('birthday1Picker').value = '';
             document.getElementById('birthday2Picker').value = '';
-            formData = { name1: '', name2: '', gender1: 'male', gender2: 'female', birthday1: '', birthday2: '', zodiac1: '', zodiac2: '', knowDuration: '朋友' };
             
+            formData = { 
+                name1: '', name2: '', 
+                gender1: '', gender2: '', 
+                birthday1: '', birthday2: '', 
+                zodiac1: '', zodiac2: '', 
+                knowDuration: '' 
+            };
+            
+            // 重置选项
             document.querySelectorAll('.option-item').forEach(item => item.classList.remove('selected'));
             document.querySelectorAll('.zodiac-card').forEach(card => card.classList.remove('selected'));
+            
+            // 重置显示
             document.getElementById('selectedZodiac1').textContent = '请先填写生日';
             document.getElementById('selectedZodiac2').textContent = '请先填写生日';
+            document.getElementById('zodiacDisplay').classList.add('hidden');
+            
+            // 重置签筒
             document.getElementById('fortuneResult').classList.add('hidden');
             document.getElementById('fortuneStick').textContent = '📜';
             
+            // 重置下拉框
             ['1', '2'].forEach(num => {
                 document.getElementById(`birthYear${num}`).value = '';
                 document.getElementById(`birthMonth${num}`).value = '';
                 document.getElementById(`birthDay${num}`).value = '';
             });
 
+            // 重置进度条
+            document.getElementById('compatibilityBar').style.width = '0%';
+            document.getElementById('personalityBar').style.width = '0%';
+            document.getElementById('communicationBar').style.width = '0%';
+            
+            // 返回首页
+            switchForm(1);
             showPage('page-home');
         }
 
         // ==================== 反馈功能 ====================
         function openFeedback() {
             document.getElementById('feedbackModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeFeedback() {
             document.getElementById('feedbackModal').classList.remove('active');
+            document.body.style.overflow = '';
             document.getElementById('feedbackText').value = '';
         }
 
@@ -2001,12 +2618,25 @@ ${formData.zodiac1} 的特质与 ${formData.zodiac2} 的特质相互吸引，在
                 return;
             }
             
-            // 这里可以发送到服务器
-            console.log('用户反馈:', text);
+            // 保存到本地存储
+            const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+            feedbacks.push({
+                text,
+                time: new Date().toISOString(),
+                page: '姻缘测算'
+            });
+            localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
             
-            alert('感谢您的反馈！🙏');
+            alert('感谢您的反馈！🙏\n我们会认真听取您的意见！');
             closeFeedback();
         }
+
+        // 点击弹窗外部关闭
+        document.getElementById('feedbackModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeFeedback();
+            }
+        });
 
         // ==================== 初始化 ====================
         initDateSelectors();
@@ -2015,10 +2645,18 @@ ${formData.zodiac1} 的特质与 ${formData.zodiac2} 的特质相互吸引，在
 
         function updateTotalCount() {
             const base = 128847;
-            document.getElementById('totalCount').textContent = (base + Math.floor(Math.random() * 100)).toLocaleString();
+            document.getElementById('totalCount').textContent = (base + Math.floor(Math.random() * 500)).toLocaleString();
         }
 
+        // 页面可见性变化时更新计数
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                updateTotalCount();
+            }
+        });
+
         console.log('%c💕 情侣正缘测算', 'font-size: 24px; color: #FF69B4;');
+        console.log('%c✨ 2026 抖音超火', 'font-size: 14px; color: #D8B4FF;');
     </script>
 </body>
 </html>
