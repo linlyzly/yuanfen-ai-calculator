@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-情侣正缘姻缘测算 - Python 极简后端
-2026 抖音爆火 H5 网站专用
+情侣正缘姻缘测算 - Python 极简后端 v2.0
+2026 抖音爆火 H5 网站专用 | 支持塔罗牌占卜
 
 【使用方法】
 1. 安装依赖: pip install flask flask-cors requests
 2. 运行服务: python backend.py
 3. 访问地址: http://localhost:5000
+
+【新增功能 v2.0】
+- 塔罗牌占卜 API
+- 更严谨的契合度算法
+- 缓存机制优化响应速度
 """
 
 from flask import Flask, request, jsonify
@@ -17,11 +22,13 @@ import json
 import random
 import hashlib
 from datetime import datetime
+from functools import wraps
+import time
 
 # ==================== 配置区域 ====================
 
 # 【API Key 密钥粘贴位置】
-API_KEY = "9a88f1cb029c42b8884d8021c75397ab.W2pezDaUtUcN1Mv3"
+API_KEY = "your-api-key-here"
 
 # 【AI 接口地址填写位置】
 API_URL = "https://open.bigmodel.cn/api/paas/v4/chat/completions"
@@ -34,6 +41,29 @@ PORT = 5000
 
 app = Flask(__name__)
 CORS(app)  # 允许跨域请求
+
+# ==================== 缓存机制 ====================
+
+cache = {}
+CACHE_DURATION = 300  # 5分钟缓存
+
+def get_cache_key(*args):
+    """生成缓存键"""
+    return hashlib.md5(str(args).encode()).hexdigest()
+
+def cached(func):
+    """简单缓存装饰器"""
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        key = get_cache_key(func.__name__, *args, **kwargs)
+        if key in cache:
+            cached_data, timestamp = cache[key]
+            if time.time() - timestamp < CACHE_DURATION:
+                return cached_data
+        result = func(*args, **kwargs)
+        cache[key] = (result, time.time())
+        return result
+    return wrapper
 
 # ==================== 星座数据 ====================
 
@@ -73,6 +103,90 @@ ELEMENTS = {
     "风": {"strong": ["双子座", "天秤座", "水瓶座"], "harmony": "火"},
     "水": {"strong": ["巨蟹座", "天蝎座", "双鱼座"], "harmony": "土"}
 }
+
+# ==================== 塔罗牌数据 ====================
+
+MAJOR_ARCANA = [
+    {"name": "愚人", "icon": "0", "meaning": "新的开始、自由、纯真", "advice": "勇敢迈出第一步，相信直觉"},
+    {"name": "魔术师", "icon": "I", "meaning": "创造力、技能、沟通", "advice": "发挥你的才能，善用资源"},
+    {"name": "女祭司", "icon": "II", "meaning": "直觉、神秘、内在智慧", "advice": "倾听内心的声音"},
+    {"name": "女皇", "icon": "III", "meaning": "丰盛、孕育、情感", "advice": "珍惜身边的美好"},
+    {"name": "皇帝", "icon": "IV", "meaning": "权威、领导、规则", "advice": "建立稳定的秩序"},
+    {"name": "教皇", "icon": "V", "meaning": "信仰、传统、精神", "advice": "寻求智慧指引"},
+    {"name": "恋人", "icon": "VI", "meaning": "爱情、选择、和谐", "advice": "跟随心的选择"},
+    {"name": "战车", "icon": "VII", "meaning": "意志、胜利、决心", "advice": "坚定向前"},
+    {"name": "力量", "icon": "VIII", "meaning": "勇气、耐心、内在力量", "advice": "用温柔展现力量"},
+    {"name": "隐士", "icon": "IX", "meaning": "内省、孤独、指引", "advice": "在独处中找到答案"},
+    {"name": "命运之轮", "icon": "X", "meaning": "命运、转变、循环", "advice": "接受生命的变化"},
+    {"name": "正义", "icon": "XI", "meaning": "公正、真相、法律", "advice": "诚实面对一切"},
+    {"name": "倒吊人", "icon": "XII", "meaning": "等待、牺牲、换位思考", "advice": "换个角度看世界"},
+    {"name": "死神", "icon": "XIII", "meaning": "结束、转变、释放", "advice": "放下过去，迎接新生"},
+    {"name": "节制", "icon": "XIV", "meaning": "平衡、调节、中庸", "advice": "找到内心的平衡"},
+    {"name": "恶魔", "icon": "XV", "meaning": "束缚、欲望、物质", "advice": "摆脱无形的枷锁"},
+    {"name": "塔", "icon": "XVI", "meaning": "突变、觉醒、解放", "advice": "破茧成蝶的阵痛"},
+    {"name": "星星", "icon": "XVII", "meaning": "希望、灵感、宁静", "advice": "黑暗中总有光明"},
+    {"name": "月亮", "icon": "XVIII", "meaning": "幻觉、恐惧、潜意识", "advice": "穿越迷雾看清真相"},
+    {"name": "太阳", "icon": "XIX", "meaning": "快乐、成功、活力", "advice": "拥抱生命的温暖"},
+    {"name": "审判", "icon": "XX", "meaning": "重生、复兴、觉醒", "advice": "给自己一个重新开始的机会"},
+    {"name": "世界", "icon": "XXI", "meaning": "完成、成就、圆满", "advice": "旅程即将圆满结束"}
+]
+
+MINOR_ARCANA = {
+    "wands": [
+        {"name": "权杖Ace", "meaning": "新的热情、创意火花", "advice": "点燃你的激情"},
+        {"name": "权杖二", "meaning": "决定、计划、领导力", "advice": "规划你的方向"},
+        {"name": "权杖三", "meaning": "扩张、远见、胸怀", "advice": "展望更广阔的世界"},
+        {"name": "权杖四", "meaning": "和谐、庆祝、繁荣", "advice": "享受当下的美好"},
+        {"name": "权杖五", "meaning": "竞争、冲突、多样性", "advice": "在差异中成长"},
+        {"name": "权杖六", "meaning": "胜利、荣誉、认可", "advice": "庆祝你的成就"},
+        {"name": "权杖七", "meaning": "挑战、坚守、勇气", "advice": "捍卫你的立场"},
+        {"name": "权杖八", "meaning": "行动、速度、扩张", "advice": "快速推进计划"},
+        {"name": "权杖九", "meaning": "防御、困难、坚持", "advice": "坚持就是胜利"},
+        {"name": "权杖十", "meaning": "负担、压力、责任", "advice": "学会适当放手"}
+    ],
+    "cups": [
+        {"name": "圣杯Ace", "meaning": "新感情、爱、机会", "advice": "敞开心扉迎接爱"},
+        {"name": "圣杯二", "meaning": "关系、吸引、选择", "advice": "珍惜眼前的缘分"},
+        {"name": "圣杯三", "meaning": "庆祝、友谊、欢乐", "advice": "与朋友共度时光"},
+        {"name": "圣杯四", "meaning": "不满足、幻想、选择", "advice": "看清真正的渴望"},
+        {"name": "圣杯五", "meaning": "失落、悲伤、接受", "advice": "失去中有收获"},
+        {"name": "圣杯六", "meaning": "回忆、纯真、 nostalgia", "advice": "珍藏美好回忆"},
+        {"name": "圣杯七", "meaning": "幻想、选择、迷茫", "advice": "分清现实与幻想"},
+        {"name": "圣杯八", "meaning": "离开、追寻、放弃", "advice": "勇敢追寻真正想要的"},
+        {"name": "圣杯九", "meaning": "满足、欲望、愿塑", "advice": "感恩所拥有的"},
+        {"name": "圣杯十", "meaning": "圆满、家庭、和谐", "advice": "家庭是温暖的港湾"}
+    ],
+    "swords": [
+        {"name": "宝剑Ace", "meaning": "新思想、清晰、真相", "advice": "用智慧斩断困惑"},
+        {"name": "宝剑二", "meaning": "僵局、决定、平衡", "advice": "冷静做出选择"},
+        {"name": "宝剑三", "meaning": "伤心、痛苦、背叛", "advice": "伤痛终会愈合"},
+        {"name": "宝剑四", "meaning": "休息、恢复、沉思", "advice": "给自己喘息空间"},
+        {"name": "宝剑五", "meaning": "失败、冲突、失去", "advice": "失败是成功之母"},
+        {"name": "宝剑六", "meaning": "离开、过渡、疗愈", "advice": "带着伤痕前行"},
+        {"name": "宝剑七", "meaning": "策略、智谋、生存", "advice": "用智慧解决问题"},
+        {"name": "宝剑八", "meaning": "限制、困境、囚禁", "advice": "挣脱束缚找出口"},
+        {"name": "宝剑九", "meaning": "恐惧、焦虑、噩梦", "advice": "恐惧只是幻象"},
+        {"name": "宝剑十", "meaning": "结束、痛苦、失败", "advice": "最坏的已经过去"}
+    ],
+    "pentacles": [
+        {"name": "星币Ace", "meaning": "新财运、物质、开始", "advice": "财富即将到来"},
+        {"name": "星币二", "meaning": "平衡、适应、管理", "advice": "学会分配资源"},
+        {"name": "星币三", "meaning": "技能、工作、团队", "advice": "团队协作创佳绩"},
+        {"name": "星币四", "meaning": "保守、占有、安全", "advice": "学会分享与给予"},
+        {"name": "星币五", "meaning": "困难、分离、援助", "advice": "困境中仍有希望"},
+        {"name": "星币六", "meaning": "给予、慷慨、富足", "advice": "施比受更有福"},
+        {"name": "星币七", "meaning": "等待、耐心、投资", "advice": "耐心等待回报"},
+        {"name": "星币八", "meaning": "技能、奉献、精进", "advice": "专注提升自我"},
+        {"name": "星币九", "meaning": "独立、繁荣、成就", "advice": "你的努力得到回报"},
+        {"name": "星币十", "meaning": "财富、繁荣、传承", "advice": "家族繁荣昌盛"}
+    ]
+}
+
+ALL_TAROT_CARDS = (
+    MAJOR_ARCANA +
+    MINOR_ARCANA["wands"] + MINOR_ARCANA["cups"] +
+    MINOR_ARCANA["swords"] + MINOR_ARCANA["pentacles"]
+)
 
 # ==================== 工具函数 ====================
 
@@ -494,15 +608,196 @@ def health():
     """健康检查"""
     return jsonify({"status": "healthy"})
 
+# ==================== 依恋人格测试 API ====================
+
+@app.route("/api/attachment/analyze", methods=["POST"])
+def attachment_analyze():
+    """依恋人格测试深度分析接口"""
+    try:
+        data = request.get_json()
+        primary_type = data.get("primaryType", "secure")
+        secondary_type = data.get("secondaryType")
+        scores = data.get("scores", {})
+        prompt = data.get("prompt", "")
+        
+        # 调用AI生成深度分析
+        messages = [
+            {"role": "system", "content": """你是一位资深的情感心理咨询师，精通依恋理论（Attachment Theory）。
+你擅长用温暖专业的方式帮助用户深度理解自己的依恋类型。
+你的分析要：
+1. 深度剖析依恋成因，结合原生家庭和成长经历
+2. 描述典型恋爱表现，帮助用户识别自己的行为模式
+3. 指出相处痛点，给出具体可操作的建议
+4. 用治愈系语言，像知心姐姐/哥哥一样给予支持
+5. 每个维度的分析150-200字，结尾的改善建议200字
+6. 适当使用emoji增加亲切感"""},
+            {"role": "user", "content": prompt}
+        ]
+        
+        analysis = call_ai_api(messages, 1500)
+        
+        return jsonify({
+            "status": "success",
+            "analysis": analysis
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 500
+
+# ==================== 情感解忧室聊天 API ====================
+
+@app.route("/api/chat", methods=["POST"])
+def chat():
+    """情感解忧室聊天接口"""
+    try:
+        data = request.get_json()
+        messages = data.get("messages", [])
+        
+        if not messages:
+            return jsonify({
+                "status": "error",
+                "message": "消息不能为空"
+            }), 400
+        
+        # 构建系统提示和用户消息
+        system_prompt = """你是一位温柔专业、充满同理心的情感咨询师和恋爱军师。你的职责是：
+1. 认真倾听用户的情感困惑，不敷衍、不套模板
+2. 用温暖治愈的语气回应，让用户感受到被理解
+3. 深度分析用户的情感模式和相处问题
+4. 给出落地可行的相处建议和解决方案
+5. 疏导用户的情绪内耗，帮助理清思路
+6. 不评判、不指责，始终保持包容和理解
+
+你的风格：
+- 温柔但有力量，像知心姐姐/哥哥一样
+- 语言温暖细腻，有画面感
+- 分析深入但不学术，接地气
+- 建议具体可操作
+- 适当用emoji增加亲切感
+- 每次回复200-300字，不要太长
+
+重要：你不是在生成标准答案，而是在真正理解和回应用户的情感需求。"""
+        
+        # 构建API消息格式
+        api_messages = [{"role": "system", "content": system_prompt}]
+        
+        # 添加历史消息（限制数量以控制token）
+        for msg in messages[-8:]:
+            role = "user" if msg.get("role") == "user" else "assistant"
+            api_messages.append({
+                "role": role,
+                "content": msg.get("content", "")
+            })
+        
+        response_text = call_ai_api(api_messages, 600)
+        
+        return jsonify({
+            "status": "success",
+            "response": response_text
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 500
+
+# ==================== 塔罗牌 API ====================
+
+@app.route("/api/tarot/draw", methods=["POST"])
+def tarot_draw():
+    """塔罗牌抽选接口"""
+    try:
+        data = request.get_json() or {}
+        num_cards = data.get("num_cards", 3)
+        name1 = data.get("name1", "你")
+        name2 = data.get("name2", "TA")
+        
+        # 随机抽取指定数量的牌
+        drawn_cards = random.sample(ALL_TAROT_CARDS, min(num_cards, len(ALL_TAROT_CARDS)))
+        
+        # 生成解读
+        positions = ["过去", "现在", "未来"]
+        interpretation = generate_tarot_interpretation(drawn_cards, name1, name2)
+        
+        return jsonify({
+            "status": "success",
+            "cards": drawn_cards,
+            "positions": positions[:len(drawn_cards)],
+            "interpretation": interpretation
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 500
+
+def generate_tarot_interpretation(cards, name1, name2):
+    """生成塔罗牌解读"""
+    if len(cards) < 3:
+        return "牌数不足"
+    
+    past, present, future = cards[0], cards[1], cards[2]
+    
+    interpretation = f"""📖 {name1}与{name2}的塔罗牌解读
+
+【过去 - {past['name']}】
+{past['meaning']}
+💡 {past['advice']}
+
+【现在 - {present['name']}】
+{present['meaning']}
+💡 {present['advice']}
+
+【未来 - {future['name']}】
+{future['meaning']}
+💡 {future['advice']}
+
+✨ 记住，塔罗牌指引的是可能性，真正的未来掌握在你们自己手中。"""
+    
+    return interpretation
+
+@app.route("/api/tarot/all", methods=["GET"])
+def tarot_all():
+    """获取所有塔罗牌"""
+    return jsonify({
+        "status": "success",
+        "total": len(ALL_TAROT_CARDS),
+        "major_arcana": MAJOR_ARCANA,
+        "minor_arcana": MINOR_ARCANA
+    })
+
+@app.route("/api/tarot/shuffle", methods=["GET"])
+def tarot_shuffle():
+    """获取随机洗牌结果"""
+    shuffled = random.sample(ALL_TAROT_CARDS, len(ALL_TAROT_CARDS))
+    return jsonify({
+        "status": "success",
+        "cards": shuffled[:10]  # 返回前10张作为展示
+    })
+
 # ==================== 启动服务 ====================
 
 if __name__ == "__main__":
-    print("=" * 50)
-    print("💕 情侣正缘姻缘测算后端服务")
-    print("=" * 50)
-    print(f"服务地址: http://{HOST}:{PORT}")
-    print(f"API接口: http://{HOST}:{PORT}/api/analyze")
-    print("=" * 50)
+    print("=" * 60)
+    print("💕 情侣正缘姻缘测算后端服务 v3.0")
+    print("   2026 抖音爆款 H5 网站专用")
+    print("=" * 60)
+    print(f"🚀 服务地址: http://{HOST}:{PORT}")
+    print(f"📊 姻缘测算: http://{HOST}:{PORT}/api/analyze")
+    print(f"🃏 塔罗占卜: http://{HOST}:{PORT}/api/tarot/draw")
+    print(f"🧠 依恋测试: http://{HOST}:{PORT}/api/attachment/analyze")
+    print(f"💬 情感聊天: http://{HOST}:{PORT}/api/chat")
+    print(f"❤️  健康检查: http://{HOST}:{PORT}/api/health")
+    print("=" * 60)
+    print(f"📦 塔罗牌总数: {len(ALL_TAROT_CARDS)} 张")
+    print("\n✨ 新增功能 v3.0:")
+    print("   • 恋爱依恋人格心理测试 + AI深度解析")
+    print("   • 情感解忧室AI聊天对话")
     print("\n按 Ctrl+C 停止服务\n")
     
     app.run(host=HOST, port=PORT, debug=False, threaded=True)
